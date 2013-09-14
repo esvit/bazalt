@@ -1,0 +1,57 @@
+<div class="content-container" locale-bundle="components/bcUsers/backend">
+
+    <div class="page-header">
+        <h1><a href="#!/users">Користувачі</a> >> {{ user.login }}</h1>
+    </div>
+
+    <div ng-include="'/themes/cherchelafam/views/user/editProfile.html'"></div>
+
+    <!--form novalidate ng-submit="saveUser(user)">
+
+        <div class="form-group">
+            <label class="control-label">Прізвище</label>
+
+            <div class="controls">
+                <input type="text" class="form-control" ng-model="user.secondname"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Ім'я</label>
+
+            <div class="controls">
+                <input type="text" class="form-control" ng-model="user.firstname"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">По батькові</label>
+
+            <div class="controls">
+                <input type="text" class="form-control" ng-model="user.patronymic"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">E-mail</label>
+
+            <div class="controls">
+                <input type="text" class="form-control" ng-model="user.email    "/>
+            </div>
+        </div>
+
+        <div>
+            <div ng-repeat="role in roles">
+                <label>
+                    <input ng-checked="user.roles.indexOf(role.id) != -1" ng-click="toggleRole(role.id)"
+                           value="{{role.id}}" type="checkbox"/>
+                    {{ role.name }}
+                </label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-default" type="submit">Save</button>
+        </div>
+    </form-->
+
+</div>

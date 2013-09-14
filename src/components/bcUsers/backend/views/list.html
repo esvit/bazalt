@@ -1,0 +1,53 @@
+<div class="content-container" locale-bundle="components/bcUsers/backend">
+
+    <div class="page-header">
+        <h1>Користувачі</h1>
+    </div>
+
+    <table ng-table="tableParams" class="table table-hover">
+        <tr ng-repeat="user in users" style="position: relative">
+            <td data-title="'Пользователи'">
+
+                <div ng-hide="user.is_deleted">
+                    <div><strong><a href="#!/users/{{ user.id }}">{{user.login}}</a></strong></div>
+                    <strong ng-if="user.gender == 'male'">Чоловік</strong>
+                    <strong ng-if="user.gender == 'female'">Жінка</strong>
+                    <i>{{user.fullname}}</i>
+                </div>
+                <div ng-show="user.is_deleted">
+                    <div><strong>{{user.login}}</strong></div>
+                    Користувача було видалено.
+                </div>
+            </td>
+            <td data-title="'Контакты'">
+                <div ng-hide="user.is_deleted">
+                    <!--strong>{{user.company}} <small>({{user.citi}})</small></strong><br/-->
+                    <div>
+                        <small>{{user.phone}}</small>
+                    </div>
+                    <small>{{user.email}}</small>
+                </div>
+            </td>
+            <td width="150" data-title="'Активность'" class="fix-center">
+                <div ng-hide="user.is_deleted">
+                    <input bz-switcher="toggleActive(user)" type="checkbox" ng-model="user.is_active"/>
+                </div>
+            </td>
+            <td width="120" data-title="'Действия'" class="fix-center">
+                <div ng-hide="user.is_deleted">
+                    <a href="" ng-click="deleteUser(user)" ng-disabled="user.$deleting"
+                       class="btn btn-danger btn-small">
+                        <span ng-hide="user.$deleting">Видалити</span>
+                        <span ng-show="user.$deleting">Видалення...</span>
+                    </a>
+                </div>
+                <a class="btn btn-link btn-small" ng-disabled="user.$deleting" ng-show="user.is_deleted" href=""
+                   ng-click="restoreUser(user)">
+                    <span ng-hide="user.$deleting">Скасувати</span>
+                    <span ng-show="user.$deleting">Відновлення...</span>
+                </a>
+            </td>
+        </tr>
+    </table>
+
+</div>

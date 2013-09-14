@@ -1,0 +1,68 @@
+<div class="content-container" locale-bundle="components/bcPages/backend">
+
+    <div class="page-header">
+        <div class="row">
+            <div class="col col-lg-3">
+                <h1>{{ 'Pages'|translate }}</h1>
+            </div>
+            <div class="col col-lg-9">
+                <div class="pull-right">
+                    <button ng-click="filter_active = !filter_active" class="btn btn-default">
+                        <span class="icon-filter"></span>
+                    </button>
+                </div>
+                <a ng-href="#!/pages/new/" class="btn btn-primary">{{ 'Add new'|translate }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col col-lg-3">
+            <strong>{{ 'Categories'|translate }} <a ng-if="category_id" ng-click="filterByCategory()" href="">{{ 'Reset' }}</a></strong>
+            <div ng-controller="bcPages.Controllers.CategoryTree"
+                 ng-include="'/src/components/bcPages/backend/views/categories-tree.html'"></div>
+
+        </div>
+        <div class="col col-lg-9" bz-loading-container="loading">
+
+            <table ng-table="tableOptions" show-filter="filter_active"
+                   class="table table-striped table-condensed table-hover">
+                <tr ng-repeat="item in items">
+                    <td width="20" style="text-align: left;" header="'ng-table/headers/checkbox.html'">
+                        <input type="checkbox" ng-model="item.$selected"/>
+                    </td>
+                    <td sortable="title" filter="{ 'title': 'text' }" data-title="'Title' | translate">
+                        <a href="#!/pages/{{item.id}}">{{item.title|language}}</a>
+                    </td>
+                    <td filter="{ 'user_id': 'select' }" sortable="user_id" width="140" data-title="'Author' | translate">
+                        {{item.user.name}}
+                    </td>
+                    <td sortable="created_at" width="140"
+                        data-title="'Date of creation'| translate" class="text-center">
+                        {{item.created_at|date:'yyyy-MM-dd'}}<br/>
+                        {{item.created_at|date:'HH:mm:ss'}}
+                    </td>
+                    <td sortable="publish" width="130" data-title="'Status' | translate">
+                        <input bz-switcher="togglePublished(item)" type="checkbox" ng-model="item.is_published">
+                    </td>
+                    <td filter="{ 'action': 'button' }" width="95" data-title="'Actions' | translate" class="text-center">
+                        <div class="btn-group">
+                            <a target="_blank" ng-disabled="!item.is_published" ng-href="{{item.url}}"
+                               class="btn btn-default"><span class="icon-link"></span></a>
+                            <button data-title="'Deleting...'"
+                                    bz-confirm="remove(item);"
+                                    message="'Are you sure want to delete this page?'"
+                                    class="btn btn-danger">
+                                <span class="icon-trash"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+        <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value=""/>
+    </script>
+</div>

@@ -1,0 +1,50 @@
+<div ng-if="!menu.children.length && !loading.elements">
+    <span class="icon-long-arrow-up"></span>
+    Нажмите эту кнопку чтобы создать первый пункт меню
+</div>
+<div bz-loading-container="loading.elements">
+    <ol class="nav nav-nested editable" tree-view-sortable="menu" tree-view-move="move($item, $before, $index)">
+        <li tree-view="child in menu.children at ol" ng-class="{expanded:child.$expanded}">
+            <div>
+                <a href="javascript:;" ng-click="child.$expanded = !child.$expanded"
+                   ng-switch="child.$expanded">
+                    <span ng-show="child.children.length" ng-switch-when="true">&#x25BC;</span>
+                    <span ng-show="child.children.length" ng-switch-default>&#x25B6;</span>
+                </a>
+
+                <div class="item-content" ng-class="{'expanded':child.$settings}">
+                    <div class="btn btn-default with-btn" ng-class="{'btn-primary':child.is_published}">
+                        <div class="pull-right">
+                            <!-- Publish button -->
+                            <a ng-click="child.is_published = !child.is_published; saveItem(child)">
+                                <span class="icon-eye-open"></span>
+                            </a>
+
+                            <!-- Add child menu item -->
+                            <a ng-click="addChild(child)"><span class="icon-plus"></span></a>
+
+                            <!-- Delete menu item -->
+                            <a href="" bz-confirm="remove(child)" data-title="'Deleting...'" message="'Are you sure want to delete this menu item?'">
+                                <span class="icon-trash"></span>
+                            </a>
+
+                            <!-- Settings -->
+                            <a ng-class="{'active': child.$settings}"
+                               ng-click="child.$settings = !child.$settings; child.focus = child.$settings">
+                                <span class="icon-cog"></span>
+                            </a>
+                        </div>
+                        <span class="title-item-menu">
+                            {{child.title|language}}
+                            <small>{{ child.typeTitle }}</small>
+                        </span>
+                    </div>
+                    <div class="details" ng-if="child.$settings">
+                        <div ng-include="'/src/components/bcMenu/backend/views/menu-settings.html'"></div>
+                    </div>
+                </div>
+            </div>
+            <ol></ol>
+        </li>
+    </ol>
+</div>

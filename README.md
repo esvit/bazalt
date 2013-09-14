@@ -1,8 +1,6 @@
 BAZALT
 ======
 
-![BAZALT](https://github.com/Equalteam/bazalt/wiki/assets/images/bazalt-logo.png)
-
 This is enviroment for create web applications (CMF) the base of which developed content management system (CMS).
 
 Using the framework BAZALT allows you to create websites and web applications for different purposes and levels of complexity.

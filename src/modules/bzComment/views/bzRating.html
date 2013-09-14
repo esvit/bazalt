@@ -1,0 +1,5 @@
+<div class="pull-right b-rating">
+    <a class="like" ng-click="count = count + 1" href=""></a>
+    <span class="rating" ng-class="{ 'liked': count > 0, 'disliked': count < 0 }">{{count}}</span>
+    <a class="dislike" ng-click="count = count - 1" title="" href=""></a>
+</div>

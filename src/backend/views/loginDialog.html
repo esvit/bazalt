@@ -1,0 +1,51 @@
+<div id="loginForm" class="modal fade" class="ng-cloak" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" ng-controller="Backend.Controllers.LoginDialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="icon-user"></span> {{ 'Permission denied'|translate }}</h4>
+            </div>
+            <form role="form" ng-submit="login(loginUser)" novalidate class="form-horizontal" name="loginForm">
+            <div class="modal-body" bz-loading-container="loading">
+                    <div class="form-group" ng-class="{'has-error': loginForm.$dirty && loginForm.nickname.$invalid}">
+                        <label class="col-lg-2 control-label" for="nickname">{{ 'Username'|translate }}</label>
+                        <div class="col-lg-10">
+                                <input type="text" id="nickname" class="form-control" auto-fill-sync required ng-model="loginUser.email" name="nickname" />
+                            <div class="ng-cloak help-block" ng-show="loginForm.$dirty && loginForm.nickname.$invalid">
+                                {{ 'Username can not be blank'|translate }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" for="password">{{ 'Password'|translate }}</label>
+                        <div class="col-lg-10">
+                            <input type="password" id="password" class="form-control" auto-fill-sync required ng-model="loginUser.password" name="password" />
+
+                            <div class="ng-cloak help-block" ng-show="loginForm.$dirty && loginForm.nickname.$invalid">
+                                {{ 'Username can not be blank'|translate }}
+                            </div>
+                        </div>
+                    </div>
+
+                <div ng-cloak ng-show="$user.id">
+                    <h4 class="text-danger">Warning!</h4>
+                    <p>You are signed in as: <strong>{{ '{{' }} $user.login }}</strong>, but you do not have administrative permissions.
+                    <p><button class="btn" ng-click="$user.logout()"><i class="icon-off"></i> Logout</button>
+                        <a class="btn btn-link" href="/">Go away</a>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button ng-disabled="loginForm.$pristine || is_submitting" disabled="disabled" class="btn btn-success">
+                    <span class="ng-cloak" ng-show="!is_submitting">{{ 'Login'|translate }}</span>
+                    <span ng-show="is_submitting">Please wait...</span>
+                </button>
+                <a class="btn btn-default" href="/">
+                    Leave this place
+                </a>
+            </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

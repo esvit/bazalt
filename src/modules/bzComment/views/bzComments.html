@@ -1,0 +1,31 @@
+<div class="comments">
+    <script type="text/ng-template" id="bzComments/comments">
+        <div class="comment" ng-class="'comment-depth-' + comment.depth" ng-repeat="comment in comments">
+            <div class="comment-body">
+                <div class="panel-heading">
+                    <a class="profile-avatar" href="#">
+                        <img src="http://www.gravatar.com/avatar/e2e1d7d9c0c71a5869e007590809d80d?d=http://static.hypercomments.com/data/avatars/0/avatar.jpg" />
+                    </a>
+                    <b>{{comment.user_name}}</b>
+                    <span>» Читатель</span>
+                    <span>10 часов назад</span>
+                    <a href="#" class="comment-spam"><i class="icon-minus-sign"></i></a>
+                    <a href="#" class="user-complain"><i class="icon-search"></i></a>
+                    <div class="pull-right b-rating" bz-rating="article.rating"></div>
+                </div>
+                <div class="panel-body bad">
+                    {{comment.body}}
+                    <a class="comments-reply" href="#">Ответить</a>
+                </div>
+            </div>
+            <hr/>
+            <div class="comment-children" ng-if="comment.children.length">
+                <div ng-init="comments = comment.children" ng-include="'bzComments/comments'"></div>
+            </div>
+        </div>
+    </script>
+    <h4>Коментарии ({{ comments.length }})</h4>
+
+    <div ng-include="'bzComments/comments'"></div>
+    <div class="comments" bz-comment-form="comments"></div>
+</div>

@@ -1,0 +1,118 @@
+<div class="content-container">
+
+    <div class="page-header">
+        <h1>
+            Edit page
+            <a class="btn btn-link" href="#!/pages">{{ 'back to the list' }}</a>
+        </h1>
+    </div>
+
+
+    <form remote-form name="itemEdit" novalidate ng-submit="saveItem(item)">
+    <div class="row">
+        <div class="col col-sm-9" bz-loading-container="loading.page">
+
+                <div class="form-group" ng-class="{'has-error': itemEdit.title.$dirty && itemEdit.title.$invalid}">
+                    <label class="control-label">Заголовок</label>
+
+                    <div class="controls">
+                        <input class="form-control" type="text" name="title" required ng-model="item.title.en"/>
+                        <span ng-show="itemEdit.title.$dirty && itemEdit.title.$error.required" class="help-block">Напишіть заголовок</span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': itemEdit.body.$dirty && itemEdit.body.$invalid}">
+                    <label class="control-label">Текст</label>
+
+                    <div class="controls">
+                        <span ng-show="itemEdit.body.$dirty && itemEdit.body.$error.required" class="help-block">Напишіть текст</span>
+                        <textarea ckeditor name="body" ng-model="item.body.en"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Зображення</label>
+
+                    <div class="controls">
+                        <div bz-uploader="'/api/rest.php/pages/images'" ng-model="item.images"></div>
+                    </div>
+                </div>
+
+
+        </div>
+        <div class="col col-sm-3">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Publish</div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label class="control-label">Status</label>
+
+                        <div class="controls">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" ng-class="{'active': !item.is_published}">
+                                    <input type="radio" ng-model="item.is_published" name="options" id="option1"
+                                           value=""> Draft
+                                </label>
+                                <label class="btn btn-default" ng-class="{'active': item.is_published}">
+                                    <input type="radio" ng-model="item.is_published" name="options" value="1"> Published
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="item.is_allow_comments" /> Разрешить комментирование
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-primary pull-right" type="submit">{{ 'Save' }}</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Category</div>
+                <div class="panel-body" bz-loading-container="loading.categories">
+
+                    <select class="form-control" ng-model="item.category_id">
+                        <option ng-selected="!item.category_id">-</option>
+                        <option value="{{ category.id }}" ng-repeat="category in categories" ng-selected="item.category_id == category.id">
+                            {{ category.prefix }}{{ category.title|language }}
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Tags</div>
+                <div class="panel-body" bz-loading-container="loading.categories">
+
+                    <input type="hidden" ng-model="item.tags" ui-select2="tagsOptions" />
+
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Template</div>
+                <div class="panel-body" bz-loading-container="loading.categories">
+
+                    <select ui-select2="{'minimumResultsForSearch': 10}" ng-model="item.template">
+                        <option value="default.html">По умолчанию</option>
+                        <option value="gallery.html">Галерея</option>
+                        <option value="photo.html">Фото</option>
+                    </select>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </form>
+</div>

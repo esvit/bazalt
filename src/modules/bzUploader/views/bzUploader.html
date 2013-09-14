@@ -1,0 +1,68 @@
+<div ng-file-drop>
+
+    <!-- 2. ng-file-select | ng-file-select="options" -->
+    <input ng-file-select type="file" multiple/>
+
+    <div class="upload-files" ng-if="uploader.queue.length">
+        <h3>Для загрузки выбрано {{ uploader.queue.length }} файла(ов).</h3>
+        <ul class="list-unstyled nav-pills nav">
+            <li class="col-md-2" ng-repeat="item in uploader.queue">
+                <!--div><b>Name:</b--> {{ item.file.name }}<!--/div>
+                <div><b>Size:</b> {{ item.file.size }}</div>
+                <div>
+                    <b>Progress:</b> {{ item.progress }}-->
+                    <div class="progress progress-bar-info">
+                        <div class="progress-bar" ng-style="{ 'width': item.progress + '%' }"></div>
+                    </div>
+                <!--/div>
+                <div><b>Uploaded:</b> {{ item.isUploaded }}</div-->
+
+                <div class="btn-group">
+                    <a class="btn btn-default btn-xs" ng-href="#" ng-click="$event.preventDefault(); item.upload()"
+                       ng-disabled="item.isUploaded">upload</a>
+                    <a class="btn btn-default active btn-xs" ng-href="#" ng-click="$event.preventDefault(); item.remove()">delete</a>
+                </div>
+
+            </li>
+        </ul>
+        <div class="progress-uploaded" ng-show="uploader.queue.length">
+            <div>
+                <b>Total progress:</b> {{ uploader.progress }}
+                <div class="progress progress-striped ">
+                    <div style="float: left" class="progress-bar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <a class="btn btn-primary" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()">upload all</a>
+                <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()">delete all</a>
+            </div><!-- ng-show="uploader.getNotUploadedItems().length"-->
+        </div>
+    </div>
+
+    <div class="uploaded-files" ng-if="files.length">
+        <div ng-repeat="file in files">
+            <div class="one-file">
+                <div class="file-img">
+                    <div class="thumbnail">
+                        <img ng-src="{{ file.thumbnailUrl }}"/>
+                    </div>
+                    <a href="" class="btn btn-danger btn-xs" ng-click="deleteFile(file)">{{ 'Delete'|translate }}</a>
+                </div>
+                <div class="file-description">
+                    <form>
+                        <fieldset>
+                            <label>Название</label>
+                            <input type="text" ng-model="file.title" class="form-control" placeholder="Введите название изображения…">
+                        </fieldset>
+                        <fieldset>
+                            <label>Описание</label>
+                            <textarea ng-model="file.description" class="form-control"></textarea>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

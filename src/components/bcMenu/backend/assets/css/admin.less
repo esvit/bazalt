@@ -1,0 +1,39 @@
+.menu-settings-external {
+    -moz-box-sizing: border-box;
+    background-color: #F5F5F5;
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    box-shadow: 0 1px 13px rgba(0, 0, 0, 0.1) inset;
+    margin: 15px -5px;
+    padding: 15px 14px 5px;
+    position: relative;
+
+    &:before {
+        background-color: #F5F5F5;
+        border: 1px solid #DDDDDD;
+        border-radius: 0 0 0 4px;
+        color: #9DA0A4;
+        content: attr(data-title);
+        font-size: 10px;
+        font-weight: bold;
+        right: -1px;
+        line-height: 2;
+        padding: 0 7px;
+        position: absolute;
+        top: -1px;
+        z-index: 1;
+    }
+}
+
+.nav-list {
+  .btn-delete {
+    margin: 0;
+    //z-index: 1;
+  }
+  margin-bottom: 5px;
+}
+
+.nav.nav-nested {
+  margin-left: -30px;
+  margin-top: -5px;
+}

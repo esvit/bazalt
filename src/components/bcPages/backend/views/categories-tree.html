@@ -1,0 +1,17 @@
+<div>
+    <ol class="nav nav-nested">
+        <li tree-view="child in category.children at ol" ng-class="{expanded:child.$expanded, 'active':child.id == activeCategory.id}">
+            <div>
+                <a href="" ng-click="child.$expanded = !child.$expanded" ng-switch on="child.$expanded">
+                    <span ng-show="child.children.length"  ng-switch-when="true">&#x25BC;</span>
+                    <span ng-show="child.children.length" ng-switch-default>&#x25B6;</span>
+                </a>
+
+                <a class="btn" href="" ng-click="filterByCategory(child)" ng-class="{'btn-default': child.id == category_id}">
+                    {{child.title|language}}
+                </a>
+            </div>
+            <ol class="nav nav-nested"></ol>
+        </li>
+    </ol>
+</div>
