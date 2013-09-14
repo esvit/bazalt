@@ -50,9 +50,9 @@ module.exports = (grunt) ->
                 fileName.replace(/\.js$/, '.map')
 
     htmlmin:
-        frontend:
+        backend:
             files:
-                'build/index.html': 'build/index.html'
+                'build/admin/index.html': 'src/backend/views/index.html'
             options:
                 removeComments: true
                 removeRedundantAttributes: true
@@ -61,22 +61,29 @@ module.exports = (grunt) ->
                 collapseWhitespace: true
 
     replace:
-        frontend:
-            src: 'build/index.html'
+        backend:
+            src: 'build/admin/index.html'
             overwrite: true
             replacements: [{
                 from: /<script>(.|[\r\n])*<\/script>/gm
-                to: "<script><%= grunt.file.read('build/require.js') %> require(['frontend/main']);</script>"
+                to: "<script>require(['backend/main']);</script>"
             }, {
                 from: '<script src="/src/require.js"></script>'
                 to: ''
             }]
 
+    less:
+        backend:
+            src: 'src/backend/assets/css/app.less'
+            dest: 'build/admin/assets/css/app.css'
+
     copy:
-        frontend:
+        backend:
             files: [
-                src: 'index.html'
-                dest: 'build/index.html'
+                expand: true
+                cwd: 'src/backend/assets/'
+                src: '**'
+                dest: 'build/admin/assets/'
             ]
 
     i18nextract:
@@ -94,6 +101,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-htmlmin'
     grunt.loadNpmTasks 'grunt-text-replace'
     grunt.loadNpmTasks 'grunt-contrib-copy'
+    grunt.loadNpmTasks 'grunt-contrib-less'
     grunt.loadNpmTasks 'grunt-contrib-uglify'
     grunt.loadNpmTasks 'grunt-contrib-requirejs'
     grunt.loadNpmTasks 'grunt-angular-translate'
@@ -103,9 +111,10 @@ module.exports = (grunt) ->
         'uglify:frontend'
     ]
     grunt.registerTask 'backend', [
-        'requirejs:backend'
-        'replace:backend'
         'htmlmin:backend'
+        'less:backend'
+        'replace:backend'
+        'requirejs:backend'
         'uglify:backend'
     ]
     grunt.registerTask 'default', [

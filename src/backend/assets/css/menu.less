@@ -1,0 +1,187 @@
+// editable tree
+@leftPadding: 10px;
+
+// tree
+.nav-nested {
+  margin: 4px 0 4px -6px;
+  border: 0 none transparent;
+  padding: 0;
+  background: transparent;
+
+  li {
+    border: 1px solid transparent;
+    list-style: none;
+    margin: 0px;
+
+    & > div {
+      a {
+        text-decoration: none;
+        span {
+          color: #777;
+        }
+        &:hover {
+          span {
+            color: #000;
+          }
+        }
+      }
+      .btn-primary {
+        a {
+          span {
+            color: #fff;
+          }
+        }
+      }
+    }
+    &.active > div > a {
+      color: #fff;
+      background-color: @btn-default-border;
+
+      &:first-child {
+        color: @btn-default-bg;
+        background-color: transparent;
+      }
+    }
+
+    & > ol {
+      margin: 0 0 0 10px;
+      display: none;
+    }
+    &.expanded > ol {
+      display: block;
+    }
+
+    & > div > a {
+      display: table-cell;
+      padding: 2px 6px;
+
+      &:first-child {
+        opacity: .5;
+        text-decoration: none;
+        float: left;
+        width: 20px;
+        color: #999;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.nav-nested.editable {
+  border: 0 none transparent;
+  padding: 0;
+  background: transparent;
+  float: left;
+  margin-left: -@leftPadding;
+
+  ol {
+    margin: 0;
+    padding-left: @leftPadding;
+    border: none;
+  }
+
+  /* temporary turn off expanding
+  & li {
+      display: block !important;
+      & > div > a > span {
+          display: none !important;
+      }
+  }*/
+  li {
+    border: 1px solid transparent;
+    list-style: none;
+    margin: 0px;
+    padding: 4px 0 0 @leftPadding;
+    background: transparent;
+
+    &.nav-placeholder {
+      background-color: #FFFFEE;
+      border: 1px dashed #FFCC00;
+      margin-left: 30px;
+      margin-top: 4px;
+      border-radius: 5px;
+    }
+
+    & > div {
+      display: block;
+      position: relative;
+      display: table;
+
+      & > a {
+        padding: 7px 0px;
+        vertical-align: top;
+
+        &:first-child {
+          text-align: left;
+        }
+      }
+
+      .item-content {
+        min-width: 350px;
+        vertical-align: top;
+        display: table-cell;
+
+        .btn {
+          width: 100%;
+          .title-item-menu {
+            cursor: move;
+            display: block;
+            overflow: hidden;
+            position: relative;
+            text-align: left;
+            width: auto !important;
+          }
+          .btn-icon {
+            background-color: #999;
+            color: @btn-default-color;
+            width: 40px;
+
+            span {
+              color: #ffffff;
+            }
+          }
+        }
+        &.expanded > .btn {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        .details {
+          background: none repeat scroll 0 0 #FFFFFF;
+          border: 1px solid #D6D6D6;
+          border-top: none;
+          border-radius: 0px 0px 3px 3px;
+          margin-top: 0px;
+          padding: 5px;
+          width: 100%;
+        }
+      }
+    }
+  }
+  .toggle {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none transparent;
+    color: #AAAAAA;
+    left: 0;
+    position: absolute;
+    top: 7px;
+    width: 2em;
+  }
+}
+
+.nav-stacked {
+  margin-bottom: 10px;
+  .with-btn {
+    a {
+      &.btn-delete {
+        z-index: 1;
+        span {
+          position: relative;
+        }
+      }
+    }
+  }
+
+}

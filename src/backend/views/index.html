@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bazalt CMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/admin/assets/css/app.css" rel="stylesheet" media="screen">
+
+    <base href="/admin/" />
+
+    <script src="/backend.js"></script>
+</head>
+<body ng-controller="Backend.Controllers.Main">
+
+<div ng-include="'/src/backend/views/loginDialog.html'"></div>
+
+<div class="navbar navbar-default navbar-fixed-top m-header ng-cloak">
+    <a class="pull-left logo" href="/">
+        <span class="navbar-brand">Site</span>
+    </a>
+
+    <div class="settings-user">
+        <ul class="nav navbar-nav pull-right ng-cloak">
+            <li>
+                <a class="btn btn-link" href="#!/settings">
+                    <span class="icon-cog"></span>
+                    Settings
+                </a>
+            </li>
+            <li class="dropdown" ng-show="languages.all.length">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span ng-repeat="language in languages.all"
+                          ng-show="language.id == languages.current">
+                          <span class="ico-flags" ng-class="language.ico"></span>{{language.id}}
+                    </span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-languages">
+                    <li ng-repeat="language in languages.all"
+                        ng-class="{'active':languages.current == language.id}">
+                        <a href="javascript:;" class="clearfix" ng-click="languages.current = language.id">
+                            <small class="pull-right">Ctrl+Alt+{{$index+1}}</small>
+                            <span class="ico-flags" ng-class="language.ico"></span>
+                            {{language.title}}
+                        </a>
+                    </li>
+                    <li class="nav-header">in the near future there will be more languages</li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle bootstrap-toggle" data-toggle="dropdown" href="">
+                    <i class="icon-user"></i> {{user.login}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-click="user.logout()"><i class="icon-off"></i> Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="wrapper">
+    <aside class="sidebar ng-cloak">
+        <div ng-include="'/src/backend/views/menu.html'"></div>
+    </aside>
+
+    <div class="main-container" bz-loading-container="$loading">
+        <div app-view-segment="0"></div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+/* ============================================================
+ * bootstrapSwitch v1.4 by Larentis Mattia @spiritualGuru
+ * http://www.larentis.eu/switch/
+ * ============================================================
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * ============================================================ */
+
+@import "../../../bower_components/bootstrap3/less/variables";
+@import "../../../bower_components/bootstrap3/less/mixins";
+
+@size: 10px;
+@halfsize: @size/2;
+
+.has-switch {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  position: relative;
+  text-align: left;
+  overflow: hidden;
+  line-height: 8px;
+  .user-select(none);
+
+  min-width: 80px;
+  width: 80px;
+
+  &.switch-mini {
+    min-width: 72px;
+  }
+
+  &.switch-small {
+    min-width: 80px;
+  }
+
+  &.switch-large {
+    min-width: 120px;
+  }
+
+  &.deactivate {
+    .opacity(50);
+    cursor: default !important;
+    label, span {
+      cursor: default !important;
+    }
+  }
+  > div {
+    display: inline-block;
+    width: 200%;
+    position: relative;
+    top: 0;
+
+    &.switch-animate {
+      .transition(all 0.5s);
+    }
+    &.switch-off {
+      left: -100%;
+    }
+    &.switch-on {
+      left: 0%;
+    }
+  }
+  input[type=checkbox] {
+    //debug
+    display: none;
+    //position: absolute;
+    //margin-left: 60%;
+    //z-index: 123;
+  }
+
+  span, label {
+    .box-sizing(border-box);
+
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    height: 100%;
+
+    padding-bottom: 4px;
+    padding-top: 4px;
+    font-size: 14px;
+    line-height: 20px;
+
+    &.switch-mini {
+      padding-bottom: 4px;
+      padding-top: 4px;
+      font-size: 10px;
+      line-height: 9px;
+    }
+
+    &.switch-small {
+      padding-bottom: 3px;
+      padding-top: 3px;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    &.switch-large {
+      padding-bottom: 9px;
+      padding-top: 9px;
+      font-size: 16px;
+      line-height: normal;
+    }
+  }
+
+  label {
+    position: relative;
+  	text-align: center;
+    margin: -1px -10px;
+    z-index: 10;
+    width: 20px;
+    //border-left: 1px solid @btn-default-border;
+    //border-right: 1px solid @btn-default-border;
+
+    //.btn-pseudo-states(@btn-default-color, @btn-default-bg, @btn-default-border);
+
+    &:after {
+      .transition(all 0.5s);
+      position: absolute;
+      border-radius: 2px;
+      top: 50%;
+      left: 50%;
+      width: @size;
+      height: @size;
+      margin: -@halfsize 0 0 -@halfsize;
+      display: block;
+      content: " ";
+      background-color: #fff;
+    }
+    i {
+      color: #000;
+      text-shadow: 0 1px 0 #fff;
+      line-height: 18px;
+      pointer-events: none;
+    }
+  }
+
+  .switch-on {
+    background-color: @btn-success-bg;
+    label:after {
+      left: -15px + 10px;
+    }
+  }
+  .switch-off {
+    background-color: @btn-default-bg;
+    label:after {
+      left: 15px + 10px;
+    }
+  }
+
+  span {
+    text-align: center;
+    z-index: 1;
+    width: 50%;
+    color: white;
+    font-weight: bold;
+
+    &.switch-left {
+      padding-right: 15px;
+      .border-left-radius(4px);
+    }
+
+    &.switch-right {
+      padding-left: 15px;
+      //.buttonBackground(@btnBackgroundHighlight, @btnBackground, @grayDark, 0 1px 1px rgba(255,255,255,.75));
+      //.btn-pseudo-states(@btn-danger-color, mix(#FFF, @btn-default-bg, 20), @btn-danger-border);
+    }
+
+    &.switch-primary, &.switch-left {
+      //.buttonBackground(@btnPrimaryBackgroundHighlight, @btnPrimaryBackground);
+      //.btn-pseudo-states(@btn-success-color, @btn-success-bg, @btn-success-border);
+    }
+
+    &.switch-info {
+      //.buttonBackground(@btnInfoBackgroundHighlight, @btnInfoBackground);
+    }
+
+    &.switch-success {
+      //.buttonBackground(@btnSuccessBackgroundHighlight, @btnSuccessBackground);
+    }
+
+    &.switch-warning {
+      //.buttonBackground(@btnWarningBackgroundHighlight, @btnWarningBackground);
+    }
+
+    &.switch-danger {
+      //.buttonBackground(@btnDangerBackgroundHighlight, @btnDangerBackground);
+    }
+
+    &.switch-default {
+      //.buttonBackground(@btnBackgroundHighlight, @btnBackground, @grayDark, 0 1px 1px rgba(255,255,255,.75));
+    }
+  }
+}

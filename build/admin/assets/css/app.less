@@ -1,0 +1,146 @@
+@import "../../../bower_components/bootstrap/less/bootstrap";
+@import "../../../bower_components/font-awesome/less/font-awesome";
+@import "../../../bower_components/ng-table/ng-table.css";
+@import "../../../bower_components/ng-editable-tree/ng-editable-tree.less";
+@import "../../../bower_components/blueimp-file-upload/css/jquery.fileupload-ui.css";
+@import "libs/select2";
+
+@topBarHeight: 50px;
+
+@import "loader";
+@import "sidebar";
+@import "menu";
+@import "tags";
+
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none;
+}
+/*
+::selection {
+  background-color: #f3f3f3;
+  color: #000000;
+}
+::moz-selection {
+  background-color: #f3f3f3;
+  color: #000000;
+}
+
+::webkit-selection {
+  background-color: #f3f3f3;
+  color: #000000;
+}
+*/
+
+/* Base styles */
+html, body, .wrapper, .main-container {
+  height: 100%;
+  min-height: 100%;
+}
+
+.main-container {
+  .make-row();
+  margin: 0 0 0 200px !important;
+  padding-top: @topBarHeight;
+  position: relative;
+}
+
+.content-container {
+  padding: 15px;
+
+  .page-header {
+    margin-top: 0;
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+  }
+}
+
+/*Uploader*/
+.upload-files {
+  ul {
+    margin-bottom: 10px;
+    li {
+      margin-bottom: 10px;
+      width: 150px;
+      .progress {
+        &.progress-bar-info {
+          margin-bottom: 5px;
+          height: 15px;
+        }
+      }
+    }
+  }
+  .progress-uploaded {
+  }
+}
+.uploaded-files {
+  margin-top: 10px;
+  .thumbnail {
+    display: inline-block;
+    width: 100px;
+    margin: 0 0 0px 10px;
+    a {
+      text-align: right;
+    }
+  }
+  a {
+    &.btn {
+      margin-left: 10px;
+    }
+  }
+  .one-file {
+    float: left;
+    margin-bottom: 10px;
+    min-width: 470px;
+    .file-img {
+      float: left;
+      padding-top: 25px;
+      width: 130px;
+    }
+    .file-description {
+      float: left;
+      width: 300px;
+    }
+  }
+}
+
+/*Uploader*/
+
+.btn-group > .btn:hover, .btn-group-vertical > .btn:hover, .btn-group > .btn:focus, .btn-group-vertical > .btn:focus, .btn-group > .btn:active, .btn-group-vertical > .btn:active, .btn-group > .btn.active, .btn-group-vertical > .btn.active {
+  z-index: 0;
+}
+
+.loading-container {
+  //z-index: 999;
+  .loading {
+    &:before, &:after {
+      content: " ";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      min-height: 50px;
+      min-width: 50px;
+    }
+    &:before {
+      background-color: white;
+      opacity: 0.5;
+    }
+    &:after {
+      background-image: url('../img/preloader.gif');
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: 30px;
+      margin-top: -5px;
+    }
+  }
+}
