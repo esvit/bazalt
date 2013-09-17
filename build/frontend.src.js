@@ -31701,74 +31701,741 @@ define('modules/bzComment/directives/bzComments', [
 ], function (app) {
     'use strict';
 
-    app.directive('bzComments', function () {
+    app.controller('bzComments.Controller', function() {
+
+    });
+    app.directive('bzComments', ['bcPages.Factories.Comment', function (CommentsResource) {
         return {
             restrict: 'A',
             replace: true,
             scope: {
-                'comments': '=bzComments'
+                'pageId': '=bzComments'
             },
             templateUrl: '/src/modules/bzComment/views/bzComments.html',
             link: function (scope) {
-                scope.comments = scope.comments || [];
+                scope.comments = [];
+                scope.settings = {
+                    showReply: false
+                };
+                scope.$watch('pageId', function(value) {
+                    if (angular.isDefined(value)) {
+                        scope.loading = true;
+                        CommentsResource.query({page_id: value}, function(comments) {
+                            scope.comments = comments;
+                            scope.loading = false;
+                        });
+                    }
+                });
             }
         };
-    });
+    }]);
+
+});
+/*! ngTable v0.2.1 by Vitalii Savchuk(esvit666@gmail.com) - https://github.com/esvit/ng-table - New BSD License */
+!function(a,b){return"function"==typeof define&&define.amd?(define("ngTable",["jquery","angular"],function(a,c){return b(c)}),void 0):b(a)}(angular||null,function(a){"use strict";a.module("ngTable",[]).directive("ngTable",["$compile","$q","$parse","$http","ngTableParams",function(b,c,d,e,f){return{restrict:"A",priority:1001,scope:!0,controller:["$scope","$timeout",function(b){var c;return b.params=b.params||{page:1,count:10},b.$watch("params.filter",function(a){return b.params.$liveFiltering?(c(a),b.goToPage(1)):void 0},!0),c=function(c){return c=a.extend(b.params,c),b.paramsModel.assign(b.$parent,new f(c)),b.params=a.copy(c)},b.goToPage=function(a){return a>0&&b.params.page!==a&&b.params.count*(a-1)<=b.params.total?c({page:a}):void 0},b.changeCount=function(a){return c({page:1,count:a})},b.doFilter=function(){return c({page:1})},b.sortBy=function(a){var d,e;if(a.sortable)return d=b.params.sorting&&b.params.sorting[a.sortable]&&"desc"===b.params.sorting[a.sortable],e={},e[a.sortable]=d?"asc":"desc",c({sorting:e})}}],compile:function(c){var e,f;return f=0,e=[],a.forEach(c.find("tr").eq(0).find("td"),function(a){var b,c,g,h,i;return b=$(a),b.attr("ignore-cell")&&"true"===b.attr("ignore-cell")?void 0:(i=function(a){return d(b.attr("data-title"))(a)||b.attr("data-title")||" "},b.attr("data-title-text",i()),h=b.attr("header")?d(b.attr("header"))():!1,c=b.attr("filter")?d(b.attr("filter"))():!1,g=!1,c&&c.templateURL&&(g=c.templateURL,delete c.templateURL),e.push({id:f++,title:i,sortable:b.attr("sortable")?b.attr("sortable"):!1,filter:c,filterTemplateURL:g,headerTemplateURL:h,filterData:b.attr("filter-data")?b.attr("filter-data"):null,show:b.attr("ng-show")?function(a){return d(b.attr("ng-show"))(a)}:function(){return!0}}))}),function(c,g,h){var i,j,k,l;return c.columns=e,i=function(a,b,c){var d,e,g,h,i,j;if(d=11,j=[],i=Math.ceil(b/c),i>1){for(j.push({type:"prev",number:Math.max(1,a-1),active:a>1}),j.push({type:"first",number:1,active:a>1}),g=Math.round((d-5)/2),h=Math.max(2,a-g),e=Math.min(i-1,a+2*g-(a-h)),h=Math.max(2,h-(2*g-(e-h))),f=h;e>=f;)f===h&&2!==f||f===e&&f!==i-1?j.push({type:"more"}):j.push({type:"page",number:f,active:a!==f}),f++;j.push({type:"last",number:i,active:a!==i}),j.push({type:"next",number:Math.min(i,a+1),active:i>a})}return j},c.$parent.$watch(h.ngTable,function(b){return a.isUndefined(b)?void 0:(c.paramsModel=d(h.ngTable),c.pages=i(b.page,b.total,b.count),c.params=a.copy(b))},!0),c.parse=function(a){return a(c)},h.showFilter&&c.$parent.$watch(h.showFilter,function(a){return c.show_filter=a}),a.forEach(e,function(b){var e;if(b.filterData){if(e=d(b.filterData)(c,{$column:b}),!a.isObject(e)||!a.isFunction(e.then))throw new Error("Function "+b.filterData+" must be promise");return delete b.filterData,e.then(function(c){return a.isArray(c)||(c=[]),c.unshift({title:"-",id:""}),b.data=c})}}),g.hasClass("ng-table")?void 0:(c.templates={header:h.templateHeader?h.templateHeader:"ng-table/header.html",pagination:h.templatePagination?h.templatePagination:"ng-table/pager.html"},j=b('<thead ng-include="templates.header"></thead>')(c),k=b('<div ng-include="templates.pagination"></div>')(c),g.filter("thead").remove(),l=g.find("tbody"),l[0]?$(l[0]).before(j):g.prepend(j),g.addClass("ng-table"),g.after(k))}}}}]);var b={}.hasOwnProperty,c=[].indexOf||function(a){for(var b=0,c=this.length;c>b;b++)if(b in this&&this[b]===a)return b;return-1};return a.module("ngTable").factory("ngTableParams",function(){var d,e;return d=function(a){return!isNaN(parseFloat(a))&&isFinite(a)},e=function(e){var f,g,h,i,j,k,l,m,n,o;f=["total","counts","$liveFiltering"],this.page=1,this.count=1,this.counts=[10,25,50,100],this.filter={},this.sorting={};for(g in e)if(l=e[g],g.indexOf("[")>=0){for(j=g.split(/\[(.*)\]/),h="",o=j.reverse(),m=0,n=o.length;n>m;m++)i=o[m],""!==i&&(k=l,l={},l[h=i]=d(k)?parseFloat(k):k);"sorting"===h&&(this[h]={}),this[h]=a.extend(this[h]||{},l[h])}else this[g]=d(e[g])?parseFloat(e[g]):e[g];return this.orderBy=function(){var a,c,d,e;d=[],e=this.sorting;for(a in e)b.call(e,a)&&(c=e[a],d.push(("asc"===c?"+":"-")+a));return d},this.url=function(b){var d,e,h,j;b=b||!1,e=b?[]:{};for(g in this)if(this.hasOwnProperty(g)){if(c.call(f,g)>=0)continue;if(d=this[g],i=encodeURIComponent(g),"object"==typeof d)for(j in d)a.isUndefined(d[j])||""===d[j]||(h=i+"["+encodeURIComponent(j)+"]",b?e.push(h+"="+encodeURIComponent(d[j])):e[h]=encodeURIComponent(d[j]));else a.isFunction(d)||a.isUndefined(d)||""===d||(b?e.push(i+"="+encodeURIComponent(d)):e[i]=encodeURIComponent(d))}return e},this}}),a.module("ngTable").run(["$templateCache",function(a){a.put("ng-table/filters/button.html",'<button ng-click="doFilter()" ng-show="filter==\'button\'" class="btn btn-primary btn-block">Filter</button>'),a.put("ng-table/filters/select.html",'<select ng-options="data.id as data.title for data in column.data" ng-model="params.filter[name]" ng-show="filter==\'select\'" class="filter filter-select"></select>'),a.put("ng-table/filters/text.html",'<input type="text" ng-model="params.filter[name]" ng-show="filter==\'text\'" class="input-filter"/>'),a.put("ng-table/header.html",'<tr><th ng-class="{sortable: column.sortable,\'sort-asc\': params.sorting[column.sortable]==\'asc\', \'sort-desc\': params.sorting[column.sortable]==\'desc\'}" ng-click="sortBy(column)" ng-repeat="column in columns" ng-show="column.show(this)" class="header"><div ng-hide="column.headerTemplateURL" ng-bind="parse(column.title)"></div><div ng-show="column.headerTemplateURL" ng-include="column.headerTemplateURL"></div></th></tr><tr ng-show="show_filter" class="ng-table-filters"><th ng-repeat="column in columns" ng-show="column.show(this)" data-title-text="{{column.title}}" class="filter"><form ng-submit="doFilter()"><input type="submit" tabindex="-1" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/><div ng-repeat="(name, filter) in column.filter"><div ng-if="column.filterTemplateURL"><div ng-include="column.filterTemplateURL"></div></div><div ng-if="!column.filterTemplateURL"><div ng-include="\'ng-table/filters/\' + filter + \'.html\'"></div></div></div></form></th></tr>'),a.put("ng-table/pager.html",'<div class="pagination ng-cloak"><ul class="pagination"><li ng-class="{\'disabled\': !page.active}" ng-repeat="page in pages" ng-switch="page.type"><a ng-switch-when="prev" ng-click="goToPage(page.number)" href="">«</a><a ng-switch-when="first" ng-click="goToPage(page.number)" href="">{{page.number}}</a><a ng-switch-when="page" ng-click="goToPage(page.number)" href="">{{page.number}}</a><a ng-switch-when="more" ng-click="goToPage(page.number)" href="">…</a><a ng-switch-when="last" ng-click="goToPage(page.number)" href="">{{page.number}}</a><a ng-switch-when="next" ng-click="goToPage(page.number)" href="">»</a></li></ul><div ng-show="params.counts.length" class="btn-group pull-right"><button ng-repeat="count in params.counts" type="button" ng-class="{\'active\':params.count==count}" ng-click="changeCount(count)" class="btn btn-mini">{{count}}</button></div></div>')}]),a.module("ngTable")});
+/*
+//@ sourceMappingURL=ng-table.map
+*/;
+(function(angular, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define('angular-file-upload', ['angular'], function(angular) {
+            return factory(angular);
+        });
+    } else {
+        return factory(angular);
+    }
+}(angular || null, function(angular) {
+/**
+ * The angular file upload module
+ * @author: nerv
+ * @version: 0.2.5.1, 2012-08-31
+ */
+var app = angular.module('angularFileUpload', []);
+
+/**
+ * The angular file upload module
+ * @author: nerv
+ * @version: 0.2.5.1, 2012-08-31
+ */
+
+// It is attached to an element that catches the event drop file
+app.directive('ngFileDrop', function () {
+    'use strict';
+
+    return {
+        // don't use drag-n-drop files in IE9, because not File API support
+        link: !window.File ? angular.noop : function (scope, element, attributes) {
+            element
+                .bind('drop', function (event) {
+                    var dataTransfer = event.dataTransfer ?
+                        event.dataTransfer :
+                        event.originalEvent.dataTransfer; // jQuery fix;
+
+                    event.preventDefault();
+                    event.stopPropagation();
+                    scope.$broadcast('file:removeoverclass');
+                    scope.$emit('file:add', dataTransfer.files, scope.$eval(attributes.ngFileDrop));
+                })
+                .bind('dragover', function (event) {
+                    var dataTransfer = event.dataTransfer ?
+                        event.dataTransfer :
+                        event.originalEvent.dataTransfer; // jQuery fix;
+
+                    event.preventDefault();
+                    event.stopPropagation();
+                    dataTransfer.dropEffect = 'copy';
+                    scope.$broadcast('file:addoverclass');
+                })
+                .bind('dragleave', function () {
+                    scope.$broadcast('file:removeoverclass');
+                });
+        }
+    };
+})
+/**
+ * The angular file upload module
+ * @author: nerv
+ * @version: 0.2.5.1, 2012-08-31
+ */
+
+// It is attached to an element which will be assigned to a class "ng-file-over" or ng-file-over="className"
+app.directive('ngFileOver', function () {
+    'use strict';
+
+    return {
+        link: function (scope, element, attributes) {
+            scope.$on('file:addoverclass', function () {
+                element.addClass(attributes.ngFileOver || 'ng-file-over');
+            });
+            scope.$on('file:removeoverclass', function () {
+                element.removeClass(attributes.ngFileOver || 'ng-file-over');
+            });
+        }
+    };
+});
+/**
+ * The angular file upload module
+ * @author: nerv
+ * @version: 0.2.5.1, 2012-08-31
+ */
+
+// It is attached to <input type="file"> element like <ng-file-select="options">
+app.directive('ngFileSelect', function () {
+    'use strict';
+
+    return {
+        link: function (scope, element, attributes) {
+            if (!window.File || !window.FormData) {
+                element.removeAttr('multiple');
+            }
+
+            element.bind('change', function () {
+                scope.$emit('file:add', this.files ? this.files : this, scope.$eval(attributes.ngFileSelect));
+            });
+        }
+    };
+});
+/**
+ * The angular file upload module
+ * @author: nerv
+ * @version: 0.2.5.1, 2012-08-31
+ */
+
+app.service('$fileUploader', [ '$compile', '$rootScope', function ($compile, $rootScope) {
+    'use strict';
+
+    function Uploader(params) {
+        angular.extend(this, {
+            scope: $rootScope,
+            url: '/',
+            alias: 'file',
+            queue: [],
+            headers: {},
+            progress: null,
+            autoUpload: false,
+            removeAfterUpload: false,
+            filters: [],
+            isUploading: false,
+            _uploadNext: false,
+            _observer: $rootScope.$new(true)
+        }, params);
+
+        // add the base filter
+        this.filters.unshift(this._filter);
+
+        $rootScope.$on('file:add', function (event, items, options) {
+            this.addToQueue(items, options);
+        }.bind(this));
+
+        this._observer.$on('beforeupload', Item.prototype._beforeupload);
+        this._observer.$on('in:progress', Item.prototype._progress);
+        this._observer.$on('in:success', Item.prototype._success);
+        this._observer.$on('in:error', Item.prototype._error);
+        this._observer.$on('in:complete', Item.prototype._complete);
+
+        this._observer.$on('changedqueue', this._changedQueue.bind(this));
+        this._observer.$on('in:progress', this._progress.bind(this));
+        this._observer.$on('in:complete', this._complete.bind(this));
+    }
+
+    Uploader.prototype = {
+
+        /**
+         * The base filter. If returns "true" an item will be added to the queue
+         * @param {File|Input} item
+         * @returns {boolean}
+         */
+        _filter: function (item) {
+            return angular.isElement(item) ? true : !!item.size;
+        },
+
+        /**
+         * Registers a event handler
+         * @param {String} event
+         * @param {Function} handler
+         */
+        bind: function (event, handler) {
+            this._observer.$on(event, handler.bind(this));
+        },
+
+        /**
+         * Checks a support the html5 uploader
+         * @returns {Boolean}
+         */
+        hasHTML5: function () {
+            return window.File && window.FormData;
+        },
+
+        /**
+         * Adds items to the queue
+         * @param {FileList|File|Input} items
+         * @param {Object} [options]
+         */
+        addToQueue: function (items, options) {
+            var length = this.queue.length;
+
+            angular.forEach('length' in items ? items : [ items ], function (item) {
+                var isValid = !this.filters.length ? true : this.filters.every(function (filter) {
+                    return filter.call(this, item);
+                }, this);
+
+                if (isValid) {
+                    item = new Item(angular.extend({
+                        url: this.url,
+                        alias: this.alias,
+                        headers: angular.extend({}, this.headers),
+                        removeAfterUpload: this.removeAfterUpload,
+                        uploader: this,
+                        file: item
+                    }, options || {}));
+
+                    this.queue.push(item);
+                    this._observer.$emit('afteraddingfile', item);
+                }
+            }, this);
+
+            if (this.queue.length !== length) {
+                this._observer.$emit('afteraddingall', this.queue);
+                this._observer.$emit('changedqueue', this.queue);
+            }
+            this.autoUpload && this.uploadAll();
+        },
+
+        /**
+         * Remove items from the queue. Remove last: index = -1
+         * @param {Item|Number} value
+         */
+        removeFromQueue: function (value) {
+            var index = angular.isObject(value) ? this.getIndexOfItem(value) : value;
+            var item = this.queue.splice(index, 1)[ 0 ];
+            item.file._form && item.file._form.remove();
+            this._observer.$emit('changedqueue', item);
+        },
+
+        /**
+         * Clears the queue
+         */
+        clearQueue: function () {
+            angular.forEach(this.queue, function (item) {
+                item.file._form && item.file._form.remove();
+            }, this);
+            this.queue.length = 0;
+            this._observer.$emit('changedqueue', this.queue);
+        },
+
+        /**
+         * Returns a index of item from the queue
+         * @param item
+         * @returns {Number}
+         */
+        getIndexOfItem: function (item) {
+            return this.queue.indexOf(item);
+        },
+
+        /**
+         * Returns not uploaded items
+         * @returns {Array}
+         */
+        getNotUploadedItems: function () {
+            return this.queue.filter(function (item) {
+                return !item.isUploaded;
+            });
+        },
+
+        /**
+         * Upload a item from the queue
+         * @param {Item|Number} value
+         */
+        uploadItem: function (value) {
+            if (this.isUploading) {
+                return;
+            }
+
+            var index = angular.isObject(value) ? this.getIndexOfItem(value) : value;
+            var item = this.queue[ index ];
+            var transport = item.file._form ? '_iframeTransport' : '_xhrTransport';
+            this.isUploading = true;
+            this[ transport ](item);
+        },
+
+        uploadAll: function () {
+            var item = this.getNotUploadedItems()[ 0 ];
+            this._uploadNext = !!item;
+            this._uploadNext && this.uploadItem(item);
+        },
+
+        /**
+         * Returns the total progress
+         * @param {Number} [value]
+         * @returns {Number}
+         */
+        _getTotalProgress: function (value) {
+            if (this.removeAfterUpload) {
+                return value || 0;
+            }
+
+            var notUploaded = this.getNotUploadedItems().length;
+            var uploaded = notUploaded ? this.queue.length - notUploaded : this.queue.length;
+            var ratio = 100 / this.queue.length;
+            var current = ( value || 0 ) * ratio / 100;
+
+            return Math.round(uploaded * ratio + current);
+        },
+
+        _progress: function (event, item, progress) {
+            var result = this._getTotalProgress(progress);
+            this.progress = result;
+            this._observer.$emit('progressall', result);
+            this.scope.$$phase || this.scope.$apply();
+        },
+
+        _complete: function () {
+            this.isUploading = false;
+            this._uploadNext && this.uploadAll();
+            this._uploadNext || this._observer.$emit('completeall', this.queue);
+            ( this._uploadNext && this.scope.$$phase ) || this.scope.$apply();
+        },
+
+        _changedQueue: function () {
+            this.progress = this._getTotalProgress();
+            this.scope.$$phase || this.scope.$apply();
+        },
+
+        _xhrTransport: function (item) {
+            var xhr = new XMLHttpRequest();
+            var form = new FormData();
+            var that = this;
+
+            form.append(item.alias, item.file);
+
+            xhr.upload.addEventListener('progress', function (event) {
+                var progress = event.lengthComputable ? event.loaded * 100 / event.total : 0;
+                that._observer.$emit('in:progress', item, Math.round(progress));
+            }, false);
+
+            xhr.addEventListener('load', function () {
+                xhr.status === 200 && that._observer.$emit('in:success', xhr, item);
+                xhr.status !== 200 && that._observer.$emit('in:error', xhr, item);
+                that._observer.$emit('in:complete', xhr, item);
+            }, false);
+
+            xhr.addEventListener('error', function () {
+                that._observer.$emit('in:error', xhr, item);
+                that._observer.$emit('in:complete', xhr, item);
+            }, false);
+
+            xhr.addEventListener('abort', function () {
+                that._observer.$emit('in:complete', xhr, item);
+            }, false);
+
+            this._observer.$emit('beforeupload', item);
+
+            xhr.open('POST', item.url, true);
+
+            angular.forEach(item.headers, function (value, name) {
+                xhr.setRequestHeader(name, value);
+            });
+
+            xhr.send(form);
+        },
+
+        _iframeTransport: function (item) {
+            var form = item.file._form;
+            var iframe = form.find('iframe');
+            var input = form.find('input');
+            var that = this;
+
+            input.prop('name', item.alias);
+
+            form.prop({
+                action: item.url,
+                method: 'post',
+                target: iframe.prop('name'),
+                enctype: 'multipart/form-data',
+                encoding: 'multipart/form-data' // old IE
+            });
+
+            iframe.unbind('load').bind('load', function () {
+                var xhr = { response: iframe.contents(), status: 200, dummy: true };
+                that._observer.$emit('in:complete', xhr, item);
+            });
+
+            this._observer.$emit('beforeupload', item);
+
+            form[ 0 ].submit();
+        }
+    };
+
+
+    // item of queue
+    function Item(params) {
+        // fix for old browsers
+        if (angular.isElement(params.file)) {
+            var input = angular.element(params.file);
+            var clone = $compile(input.clone())($rootScope.$new(true));
+            var form = angular.element('<form style="display: none;" />');
+            var iframe = angular.element('<iframe name="iframeTransport' + +new Date() + '">');
+            var value = input.val();
+
+            params.file = {
+                lastModifiedDate: null,
+                size: null,
+                type: 'like/' + value.replace(/^.+\.(?!\.)|.*/, ''),
+                name: value.match(/[^\\]+$/)[ 0 ],
+                _form: form
+            };
+
+            input.after(clone).after(form);
+            form.append(input).append(iframe);
+        }
+
+        angular.extend(this, {
+            progress: null,
+            isUploading: false,
+            isUploaded: false
+        }, params);
+    }
+
+    Item.prototype = {
+        remove: function () {
+            this.uploader.removeFromQueue(this);
+        },
+        upload: function () {
+            this.uploader.uploadItem(this);
+        },
+        _beforeupload: function (event, item) {
+            item.isUploaded = false;
+            item.isUploading = true;
+            item.progress = null;
+        },
+        _progress: function (event, item, progress) {
+            item.progress = progress;
+            item.uploader._observer.$emit('progress', item, progress);
+        },
+        _success: function (event, xhr, item) {
+            item.isUploaded = true;
+            item.isUploading = false;
+            item.uploader._observer.$emit('success', xhr, item);
+        },
+        _error: function (event, xhr, item) {
+            item.isUploading = false;
+            item.uploader._observer.$emit('error', xhr, item);
+        },
+        _complete: function (event, xhr, item) {
+            item.isUploaded = xhr.status === 200;
+            item.uploader._observer.$emit('complete', xhr, item);
+            item.removeAfterUpload && item.remove();
+        }
+    };
+
+    return {
+        create: function (params) {
+            return new Uploader(params);
+        }
+    };
+}])
+    return app;
+}));
+define('modules/bzUploader/app', [
+    'angular', 'angular-file-upload'
+], function(angular) {
+    'use strict';
+
+    return angular.module('bzUploader', ['angularFileUpload']);
+});
+define('modules/bzUploader/directives/bzUploader', [
+    'angular',
+    'modules/bzUploader/app'
+], function (angular, app) {
+    'use strict';
+
+    app.directive('bzUploader', [function() {
+        return {
+            restrict: 'A',
+            scope: {
+                'url': '=bzUploader',
+                'files': '=ngModel'
+            },
+            templateUrl: '/src/modules/bzUploader/views/bzUploader.html',
+            replace: true,
+            require: 'ngModel',
+            controller: ['$scope', '$fileUploader', '$parse', function($scope, $fileUploader, $parse) {
+
+                // create a uploader with options
+                var uploader = $fileUploader.create({
+                    scope: $scope,                          // to automatically update the html. Default: $rootScope
+                    url: $scope.url,
+                    filters: [
+                        function (item) {                    // first user filter
+                            console.log('filter1', item);
+                            return true;
+                        }
+                    ]
+                });
+
+                // ADDING FILTER
+
+                uploader.filters.push(function (item) { // second user filter
+                    console.log('filter2');
+                    return true;
+                });
+
+                // REGISTER HANDLERS
+
+                uploader.bind('afteraddingfile', function (event, item) {
+                    console.log('After adding a file', item);
+                });
+
+                uploader.bind('afteraddingall', function (event, items) {
+                    console.log('After adding all files', items);
+                });
+
+                uploader.bind('changedqueue', function (event, items) {
+                    console.log('Changed queue', items);
+                });
+
+                uploader.bind('beforeupload', function (event, item) {
+                    console.log('Before upload', item);
+                });
+
+                uploader.bind('progress', function (event, item, progress) {
+                    console.log('Progress: ' + progress);
+                });
+
+                uploader.bind('success', function (event, xhr, item) {
+                    var response = $parse(xhr.response)();
+                    $scope.files = $scope.files || [];
+                    $scope.files.push(response);
+
+                    angular.forEach(uploader.queue, function(file, n) {
+                        if (file == item) {
+                            uploader.queue.splice(n, 1);
+                        }
+                    });
+                    //console.log('Success: ', response);
+                });
+
+                uploader.bind('complete', function (event, xhr, item) {
+                    console.log('Complete: ' + xhr.response);
+                    item.progress = 100;
+                });
+
+                uploader.bind('progressall', function (event, progress) {
+                    console.log('Total progress: ' + progress);
+                });
+
+                uploader.bind('completeall', function (event, items) {
+                    console.log('All files are transferred');
+                    uploader.progress = 100;
+                });
+
+                $scope.deleteFile = function(file) {
+                    console.info(file);
+                    angular.forEach($scope.files, function(item, i){
+                        if (item == file) {
+                            $scope.files.splice(i, 1);
+                        }
+                    });
+                };
+                $scope.uploader = uploader;
+            }]
+        };
+    }]);
+
+});
+define('modules/bzUploader/module', [
+    'modules/bzUploader/directives/bzUploader'
+], function() {
+});
+define('components/bcPages/app', [
+    'angular', 'angular-resource', 'angular-route', 'ngTable',
+
+    'modules/bzUploader/module',
+    'modules/bzWidgets/module'
+], function(angular) {
+    'use strict';
+
+    var app = angular.module('Components.bcPages', ['ngResource', 'ngRoute', 'ngTable', 'bzWidgets', 'bzUploader']);
+
+    app.run(['bzMenu.Types', function(menuTypes) {
+
+        menuTypes.push({
+            id: 'bcPages.Menu.Page',
+            title: 'Ссылка на страницу',
+            component: 'Страницы',
+            templateUrl: '/src/components/bcPages/backend/views/menu/page.html'
+        });
+
+        menuTypes.push({
+            id: 'bcPages.Menu.Category',
+            title: 'Ссылка на категорию',
+            component: 'Страницы',
+            templateUrl: '/src/components/bcPages/backend/views/menu/category.html'
+        });
+
+    }]);
+
+    return app;
+});
+define('components/bcPages/factories/Comment', [
+    'components/bcPages/app'
+], function(app) {
+    'use strict';
+
+    app.factory('bcPages.Factories.Comment', ['$resource', function ($resource) {
+        return $resource('/api/rest.php/pages/:page_id/comments', { 'page_id': '@page_id' }, {
+            'hit': { 'method': 'PUT', 'params': { 'action': 'view' } } // increase view counter
+        });
+    }]);
 
 });
 define('modules/bzComment/directives/bzCommentForm', [
-    'modules/bzComment/app'
+    'modules/bzComment/app',
+
+    'components/bcPages/factories/Comment'
 ], function (app) {
 
-    app.directive('bzCommentForm', function() {
+    app.directive('bzCommentForm', ['bcPages.Factories.Comment', function(CommentResource) {
         return {
             restrict: 'A',
             replace: true,
             scope: {
-                'comments': '=bzCommentForm'
+                'comments': '=bzCommentForm',
+                'pageId': '=pageId',
+                'replyId': '=replyId'
             },
             template: '<div>\
-            <form class="add-comment" ng-submit="addComment(comment)">\
+            <form  bz-loading-container="loading" class="add-comment" ng-submit="addComment(comment)">\
                 <div class="name">\
                     <label>Имя</label>\
-                    <input class="form-control" ng-model="comment.name" type="text">\
+                    <input class="form-control" ng-model="comment.nickname" type="text">\
                 </div>\
-                <div class="message" form-control comments">\
+                <div class="message">\
                         <label>Сообщение</label>\
-                        <textarea class="form-control" rows="3" ng-model="comment.comment"></textarea>\
+                        <textarea class="form-control" rows="3" ng-model="comment.body"></textarea>\
                 </div>\
-                <input class="form-control btn btn-primary" type="submit" value="Добавить комментарий">\
+                <input class="form-control btn btn-primary" type="submit" value="Отправить">\
             </form>\
             </div>',
-            link: function(scope, element, attrs) {
-                scope.comments = scope.comments || [];
-
+            link: function(scope) {
                 scope.addComment = function(comment) {
-                    scope.comments.push(comment);
-                    scope.comment = {};
+                    scope.comments = scope.comments || [];
+
+                    comment = new CommentResource(comment);
+                    comment.page_id = scope.pageId;
+                    comment.reply_to = scope.replyId;
+                    scope.loading = true;
+                    comment.$save(function(comment) {
+                        scope.comments.push(comment);
+                        scope.replyId = false;
+                        scope.comment = {};
+                        scope.loading = false;
+                    });
                 }
             }
         };
-    });
+    }]);
+
+});
+define('components/bcPages/factories/CommentRating', [
+    'components/bcPages/app'
+], function(app) {
+    'use strict';
+
+    app.factory('bcPages.Factories.CommentRating', ['$resource', function ($resource) {
+        return $resource('/api/rest.php/pages/:page_id/comments/:comment_id/rating', {
+            'page_id': '@page_id',
+            'comment_id': '@comment_id'
+        }, {
+
+        });
+    }]);
 
 });
 define('modules/bzComment/directives/bzRating', [
-    'modules/bzComment/app'
-], function (app) {
+    'modules/bzComment/app',
 
-    app.directive('bzRating', function() {
+    'angular',
+
+    'components/bcPages/factories/CommentRating'
+], function (app, angular) {
+    'use strict';
+
+    app.directive('bzRating', ['bcPages.Factories.CommentRating', function(CommentRatingResource) {
         return {
             restrict: 'A',
             replace: true,
             scope: {
-                'count': '=bzRating'
+                'count': '=bzRating',
+                'commentId': '=commentId',
+                'pageId': '=pageId'
             },
             templateUrl: '/src/modules/bzComment/views/bzRating.html',
             link: function(scope, element, attrs) {
                 scope.count = scope.count || 0;
+
+                scope.increment = function() {
+                    CommentRatingResource.save({
+                        page_id: scope.pageId,
+                        comment_id: scope.commentId,
+                        rating: 1
+                    }, function(value) {
+                        scope.count = value.rating;
+                    });
+                };
+
+                scope.decrement = function() {
+                    CommentRatingResource.save({
+                        page_id: scope.pageId,
+                        comment_id: scope.commentId,
+                        rating: -1
+                    }, function(value) {
+                        scope.count = value.rating;
+                    });
+                };
             }
         };
-    });
+    }]);
 
 });
 define('modules/bzComment/module', [
@@ -40303,7 +40970,7 @@ define("bootstrap/carousel", function(){});
 
 define('modules/bzCarousel/app', [
     'angular', 'jquery', 'bootstrap/carousel'
-], function(app) {
+], function(angular) {
     'use strict';
 
     return angular.module('bzCarousel', []);
@@ -40311,18 +40978,17 @@ define('modules/bzCarousel/app', [
 define('modules/bzCarousel/directives/bzCarousel', [
     'modules/bzCarousel/app'
 ], function (app) {
+    'use strict';
 
     app.directive('bzCarousel', function () {
         return {
             restrict: 'A',
-            template: '<div class="carousel slide" id="slider">'+
-                    '<div class="carousel-inner">'+
-                    '<div class="item"><img alt="" src="/themes/mixfree/assets/img/poster.jpg"></div>'+
-                    '<div class="item active"><img alt="" src="/themes/mixfree/assets/img/poster.jpg"></div>'+
-                    '<div class="item"><img alt="" src="/themes/mixfree/assets/img/poster.jpg"></div>'+
-                    '</div>'+
-                    '<a data-slide="prev" href="#slider" class="carousel-control left">‹</a>'+
-                    '<a data-slide="next" href="#slider" class="carousel-control right">›</a>'+
+            template: '<div id="slider" class="carousel slide">'+
+                '<div class="carousel-inner">'+
+                '<div ng-repeat="image in images" class="item"><img ng-src="{{ image.thumbnails.preview }}" /></div>'+
+                '</div>'+
+                '<a class="carousel-control left" href="#slider" data-slide="prev">&lsaquo;</a>'+
+                '<a class="carousel-control right" href="#slider" data-slide="next">&rsaquo;</a>'+
                 '</div>',
             replace: true,
             scope: {
@@ -40330,7 +40996,7 @@ define('modules/bzCarousel/directives/bzCarousel', [
             },
             link: function (scope, element, attrs) {
                 scope.$watch('images', function(value) {
-                    $(element).carousel({
+                    $('.carousel').carousel({
                         interval: 3000
                     })
                 });
@@ -40342,592 +41008,6 @@ define('modules/bzCarousel/directives/bzCarousel', [
 define('modules/bzCarousel/module', [
     'modules/bzCarousel/directives/bzCarousel'
 ], function() {
-});
-/*! ngTable v0.2.1 by Vitalii Savchuk(esvit666@gmail.com) - https://github.com/esvit/ng-table - New BSD License */
-!function(a,b){return"function"==typeof define&&define.amd?(define("ngTable",["jquery","angular"],function(a,c){return b(c)}),void 0):b(a)}(angular||null,function(a){"use strict";a.module("ngTable",[]).directive("ngTable",["$compile","$q","$parse","$http","ngTableParams",function(b,c,d,e,f){return{restrict:"A",priority:1001,scope:!0,controller:["$scope","$timeout",function(b){var c;return b.params=b.params||{page:1,count:10},b.$watch("params.filter",function(a){return b.params.$liveFiltering?(c(a),b.goToPage(1)):void 0},!0),c=function(c){return c=a.extend(b.params,c),b.paramsModel.assign(b.$parent,new f(c)),b.params=a.copy(c)},b.goToPage=function(a){return a>0&&b.params.page!==a&&b.params.count*(a-1)<=b.params.total?c({page:a}):void 0},b.changeCount=function(a){return c({page:1,count:a})},b.doFilter=function(){return c({page:1})},b.sortBy=function(a){var d,e;if(a.sortable)return d=b.params.sorting&&b.params.sorting[a.sortable]&&"desc"===b.params.sorting[a.sortable],e={},e[a.sortable]=d?"asc":"desc",c({sorting:e})}}],compile:function(c){var e,f;return f=0,e=[],a.forEach(c.find("tr").eq(0).find("td"),function(a){var b,c,g,h,i;return b=$(a),b.attr("ignore-cell")&&"true"===b.attr("ignore-cell")?void 0:(i=function(a){return d(b.attr("data-title"))(a)||b.attr("data-title")||" "},b.attr("data-title-text",i()),h=b.attr("header")?d(b.attr("header"))():!1,c=b.attr("filter")?d(b.attr("filter"))():!1,g=!1,c&&c.templateURL&&(g=c.templateURL,delete c.templateURL),e.push({id:f++,title:i,sortable:b.attr("sortable")?b.attr("sortable"):!1,filter:c,filterTemplateURL:g,headerTemplateURL:h,filterData:b.attr("filter-data")?b.attr("filter-data"):null,show:b.attr("ng-show")?function(a){return d(b.attr("ng-show"))(a)}:function(){return!0}}))}),function(c,g,h){var i,j,k,l;return c.columns=e,i=function(a,b,c){var d,e,g,h,i,j;if(d=11,j=[],i=Math.ceil(b/c),i>1){for(j.push({type:"prev",number:Math.max(1,a-1),active:a>1}),j.push({type:"first",number:1,active:a>1}),g=Math.round((d-5)/2),h=Math.max(2,a-g),e=Math.min(i-1,a+2*g-(a-h)),h=Math.max(2,h-(2*g-(e-h))),f=h;e>=f;)f===h&&2!==f||f===e&&f!==i-1?j.push({type:"more"}):j.push({type:"page",number:f,active:a!==f}),f++;j.push({type:"last",number:i,active:a!==i}),j.push({type:"next",number:Math.min(i,a+1),active:i>a})}return j},c.$parent.$watch(h.ngTable,function(b){return a.isUndefined(b)?void 0:(c.paramsModel=d(h.ngTable),c.pages=i(b.page,b.total,b.count),c.params=a.copy(b))},!0),c.parse=function(a){return a(c)},h.showFilter&&c.$parent.$watch(h.showFilter,function(a){return c.show_filter=a}),a.forEach(e,function(b){var e;if(b.filterData){if(e=d(b.filterData)(c,{$column:b}),!a.isObject(e)||!a.isFunction(e.then))throw new Error("Function "+b.filterData+" must be promise");return delete b.filterData,e.then(function(c){return a.isArray(c)||(c=[]),c.unshift({title:"-",id:""}),b.data=c})}}),g.hasClass("ng-table")?void 0:(c.templates={header:h.templateHeader?h.templateHeader:"ng-table/header.html",pagination:h.templatePagination?h.templatePagination:"ng-table/pager.html"},j=b('<thead ng-include="templates.header"></thead>')(c),k=b('<div ng-include="templates.pagination"></div>')(c),g.filter("thead").remove(),l=g.find("tbody"),l[0]?$(l[0]).before(j):g.prepend(j),g.addClass("ng-table"),g.after(k))}}}}]);var b={}.hasOwnProperty,c=[].indexOf||function(a){for(var b=0,c=this.length;c>b;b++)if(b in this&&this[b]===a)return b;return-1};return a.module("ngTable").factory("ngTableParams",function(){var d,e;return d=function(a){return!isNaN(parseFloat(a))&&isFinite(a)},e=function(e){var f,g,h,i,j,k,l,m,n,o;f=["total","counts","$liveFiltering"],this.page=1,this.count=1,this.counts=[10,25,50,100],this.filter={},this.sorting={};for(g in e)if(l=e[g],g.indexOf("[")>=0){for(j=g.split(/\[(.*)\]/),h="",o=j.reverse(),m=0,n=o.length;n>m;m++)i=o[m],""!==i&&(k=l,l={},l[h=i]=d(k)?parseFloat(k):k);"sorting"===h&&(this[h]={}),this[h]=a.extend(this[h]||{},l[h])}else this[g]=d(e[g])?parseFloat(e[g]):e[g];return this.orderBy=function(){var a,c,d,e;d=[],e=this.sorting;for(a in e)b.call(e,a)&&(c=e[a],d.push(("asc"===c?"+":"-")+a));return d},this.url=function(b){var d,e,h,j;b=b||!1,e=b?[]:{};for(g in this)if(this.hasOwnProperty(g)){if(c.call(f,g)>=0)continue;if(d=this[g],i=encodeURIComponent(g),"object"==typeof d)for(j in d)a.isUndefined(d[j])||""===d[j]||(h=i+"["+encodeURIComponent(j)+"]",b?e.push(h+"="+encodeURIComponent(d[j])):e[h]=encodeURIComponent(d[j]));else a.isFunction(d)||a.isUndefined(d)||""===d||(b?e.push(i+"="+encodeURIComponent(d)):e[i]=encodeURIComponent(d))}return e},this}}),a.module("ngTable").run(["$templateCache",function(a){a.put("ng-table/filters/button.html",'<button ng-click="doFilter()" ng-show="filter==\'button\'" class="btn btn-primary btn-block">Filter</button>'),a.put("ng-table/filters/select.html",'<select ng-options="data.id as data.title for data in column.data" ng-model="params.filter[name]" ng-show="filter==\'select\'" class="filter filter-select"></select>'),a.put("ng-table/filters/text.html",'<input type="text" ng-model="params.filter[name]" ng-show="filter==\'text\'" class="input-filter"/>'),a.put("ng-table/header.html",'<tr><th ng-class="{sortable: column.sortable,\'sort-asc\': params.sorting[column.sortable]==\'asc\', \'sort-desc\': params.sorting[column.sortable]==\'desc\'}" ng-click="sortBy(column)" ng-repeat="column in columns" ng-show="column.show(this)" class="header"><div ng-hide="column.headerTemplateURL" ng-bind="parse(column.title)"></div><div ng-show="column.headerTemplateURL" ng-include="column.headerTemplateURL"></div></th></tr><tr ng-show="show_filter" class="ng-table-filters"><th ng-repeat="column in columns" ng-show="column.show(this)" data-title-text="{{column.title}}" class="filter"><form ng-submit="doFilter()"><input type="submit" tabindex="-1" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/><div ng-repeat="(name, filter) in column.filter"><div ng-if="column.filterTemplateURL"><div ng-include="column.filterTemplateURL"></div></div><div ng-if="!column.filterTemplateURL"><div ng-include="\'ng-table/filters/\' + filter + \'.html\'"></div></div></div></form></th></tr>'),a.put("ng-table/pager.html",'<div class="pagination ng-cloak"><ul class="pagination"><li ng-class="{\'disabled\': !page.active}" ng-repeat="page in pages" ng-switch="page.type"><a ng-switch-when="prev" ng-click="goToPage(page.number)" href="">«</a><a ng-switch-when="first" ng-click="goToPage(page.number)" href="">{{page.number}}</a><a ng-switch-when="page" ng-click="goToPage(page.number)" href="">{{page.number}}</a><a ng-switch-when="more" ng-click="goToPage(page.number)" href="">…</a><a ng-switch-when="last" ng-click="goToPage(page.number)" href="">{{page.number}}</a><a ng-switch-when="next" ng-click="goToPage(page.number)" href="">»</a></li></ul><div ng-show="params.counts.length" class="btn-group pull-right"><button ng-repeat="count in params.counts" type="button" ng-class="{\'active\':params.count==count}" ng-click="changeCount(count)" class="btn btn-mini">{{count}}</button></div></div>')}]),a.module("ngTable")});
-/*
-//@ sourceMappingURL=ng-table.map
-*/;
-(function(angular, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define('angular-file-upload', ['angular'], function(angular) {
-            return factory(angular);
-        });
-    } else {
-        return factory(angular);
-    }
-}(angular || null, function(angular) {
-/**
- * The angular file upload module
- * @author: nerv
- * @version: 0.2.5.1, 2012-08-31
- */
-var app = angular.module('angularFileUpload', []);
-
-/**
- * The angular file upload module
- * @author: nerv
- * @version: 0.2.5.1, 2012-08-31
- */
-
-// It is attached to an element that catches the event drop file
-app.directive('ngFileDrop', function () {
-    'use strict';
-
-    return {
-        // don't use drag-n-drop files in IE9, because not File API support
-        link: !window.File ? angular.noop : function (scope, element, attributes) {
-            element
-                .bind('drop', function (event) {
-                    var dataTransfer = event.dataTransfer ?
-                        event.dataTransfer :
-                        event.originalEvent.dataTransfer; // jQuery fix;
-
-                    event.preventDefault();
-                    event.stopPropagation();
-                    scope.$broadcast('file:removeoverclass');
-                    scope.$emit('file:add', dataTransfer.files, scope.$eval(attributes.ngFileDrop));
-                })
-                .bind('dragover', function (event) {
-                    var dataTransfer = event.dataTransfer ?
-                        event.dataTransfer :
-                        event.originalEvent.dataTransfer; // jQuery fix;
-
-                    event.preventDefault();
-                    event.stopPropagation();
-                    dataTransfer.dropEffect = 'copy';
-                    scope.$broadcast('file:addoverclass');
-                })
-                .bind('dragleave', function () {
-                    scope.$broadcast('file:removeoverclass');
-                });
-        }
-    };
-})
-/**
- * The angular file upload module
- * @author: nerv
- * @version: 0.2.5.1, 2012-08-31
- */
-
-// It is attached to an element which will be assigned to a class "ng-file-over" or ng-file-over="className"
-app.directive('ngFileOver', function () {
-    'use strict';
-
-    return {
-        link: function (scope, element, attributes) {
-            scope.$on('file:addoverclass', function () {
-                element.addClass(attributes.ngFileOver || 'ng-file-over');
-            });
-            scope.$on('file:removeoverclass', function () {
-                element.removeClass(attributes.ngFileOver || 'ng-file-over');
-            });
-        }
-    };
-});
-/**
- * The angular file upload module
- * @author: nerv
- * @version: 0.2.5.1, 2012-08-31
- */
-
-// It is attached to <input type="file"> element like <ng-file-select="options">
-app.directive('ngFileSelect', function () {
-    'use strict';
-
-    return {
-        link: function (scope, element, attributes) {
-            if (!window.File || !window.FormData) {
-                element.removeAttr('multiple');
-            }
-
-            element.bind('change', function () {
-                scope.$emit('file:add', this.files ? this.files : this, scope.$eval(attributes.ngFileSelect));
-            });
-        }
-    };
-});
-/**
- * The angular file upload module
- * @author: nerv
- * @version: 0.2.5.1, 2012-08-31
- */
-
-app.service('$fileUploader', [ '$compile', '$rootScope', function ($compile, $rootScope) {
-    'use strict';
-
-    function Uploader(params) {
-        angular.extend(this, {
-            scope: $rootScope,
-            url: '/',
-            alias: 'file',
-            queue: [],
-            headers: {},
-            progress: null,
-            autoUpload: false,
-            removeAfterUpload: false,
-            filters: [],
-            isUploading: false,
-            _uploadNext: false,
-            _observer: $rootScope.$new(true)
-        }, params);
-
-        // add the base filter
-        this.filters.unshift(this._filter);
-
-        $rootScope.$on('file:add', function (event, items, options) {
-            this.addToQueue(items, options);
-        }.bind(this));
-
-        this._observer.$on('beforeupload', Item.prototype._beforeupload);
-        this._observer.$on('in:progress', Item.prototype._progress);
-        this._observer.$on('in:success', Item.prototype._success);
-        this._observer.$on('in:error', Item.prototype._error);
-        this._observer.$on('in:complete', Item.prototype._complete);
-
-        this._observer.$on('changedqueue', this._changedQueue.bind(this));
-        this._observer.$on('in:progress', this._progress.bind(this));
-        this._observer.$on('in:complete', this._complete.bind(this));
-    }
-
-    Uploader.prototype = {
-
-        /**
-         * The base filter. If returns "true" an item will be added to the queue
-         * @param {File|Input} item
-         * @returns {boolean}
-         */
-        _filter: function (item) {
-            return angular.isElement(item) ? true : !!item.size;
-        },
-
-        /**
-         * Registers a event handler
-         * @param {String} event
-         * @param {Function} handler
-         */
-        bind: function (event, handler) {
-            this._observer.$on(event, handler.bind(this));
-        },
-
-        /**
-         * Checks a support the html5 uploader
-         * @returns {Boolean}
-         */
-        hasHTML5: function () {
-            return window.File && window.FormData;
-        },
-
-        /**
-         * Adds items to the queue
-         * @param {FileList|File|Input} items
-         * @param {Object} [options]
-         */
-        addToQueue: function (items, options) {
-            var length = this.queue.length;
-
-            angular.forEach('length' in items ? items : [ items ], function (item) {
-                var isValid = !this.filters.length ? true : this.filters.every(function (filter) {
-                    return filter.call(this, item);
-                }, this);
-
-                if (isValid) {
-                    item = new Item(angular.extend({
-                        url: this.url,
-                        alias: this.alias,
-                        headers: angular.extend({}, this.headers),
-                        removeAfterUpload: this.removeAfterUpload,
-                        uploader: this,
-                        file: item
-                    }, options || {}));
-
-                    this.queue.push(item);
-                    this._observer.$emit('afteraddingfile', item);
-                }
-            }, this);
-
-            if (this.queue.length !== length) {
-                this._observer.$emit('afteraddingall', this.queue);
-                this._observer.$emit('changedqueue', this.queue);
-            }
-            this.autoUpload && this.uploadAll();
-        },
-
-        /**
-         * Remove items from the queue. Remove last: index = -1
-         * @param {Item|Number} value
-         */
-        removeFromQueue: function (value) {
-            var index = angular.isObject(value) ? this.getIndexOfItem(value) : value;
-            var item = this.queue.splice(index, 1)[ 0 ];
-            item.file._form && item.file._form.remove();
-            this._observer.$emit('changedqueue', item);
-        },
-
-        /**
-         * Clears the queue
-         */
-        clearQueue: function () {
-            angular.forEach(this.queue, function (item) {
-                item.file._form && item.file._form.remove();
-            }, this);
-            this.queue.length = 0;
-            this._observer.$emit('changedqueue', this.queue);
-        },
-
-        /**
-         * Returns a index of item from the queue
-         * @param item
-         * @returns {Number}
-         */
-        getIndexOfItem: function (item) {
-            return this.queue.indexOf(item);
-        },
-
-        /**
-         * Returns not uploaded items
-         * @returns {Array}
-         */
-        getNotUploadedItems: function () {
-            return this.queue.filter(function (item) {
-                return !item.isUploaded;
-            });
-        },
-
-        /**
-         * Upload a item from the queue
-         * @param {Item|Number} value
-         */
-        uploadItem: function (value) {
-            if (this.isUploading) {
-                return;
-            }
-
-            var index = angular.isObject(value) ? this.getIndexOfItem(value) : value;
-            var item = this.queue[ index ];
-            var transport = item.file._form ? '_iframeTransport' : '_xhrTransport';
-            this.isUploading = true;
-            this[ transport ](item);
-        },
-
-        uploadAll: function () {
-            var item = this.getNotUploadedItems()[ 0 ];
-            this._uploadNext = !!item;
-            this._uploadNext && this.uploadItem(item);
-        },
-
-        /**
-         * Returns the total progress
-         * @param {Number} [value]
-         * @returns {Number}
-         */
-        _getTotalProgress: function (value) {
-            if (this.removeAfterUpload) {
-                return value || 0;
-            }
-
-            var notUploaded = this.getNotUploadedItems().length;
-            var uploaded = notUploaded ? this.queue.length - notUploaded : this.queue.length;
-            var ratio = 100 / this.queue.length;
-            var current = ( value || 0 ) * ratio / 100;
-
-            return Math.round(uploaded * ratio + current);
-        },
-
-        _progress: function (event, item, progress) {
-            var result = this._getTotalProgress(progress);
-            this.progress = result;
-            this._observer.$emit('progressall', result);
-            this.scope.$$phase || this.scope.$apply();
-        },
-
-        _complete: function () {
-            this.isUploading = false;
-            this._uploadNext && this.uploadAll();
-            this._uploadNext || this._observer.$emit('completeall', this.queue);
-            ( this._uploadNext && this.scope.$$phase ) || this.scope.$apply();
-        },
-
-        _changedQueue: function () {
-            this.progress = this._getTotalProgress();
-            this.scope.$$phase || this.scope.$apply();
-        },
-
-        _xhrTransport: function (item) {
-            var xhr = new XMLHttpRequest();
-            var form = new FormData();
-            var that = this;
-
-            form.append(item.alias, item.file);
-
-            xhr.upload.addEventListener('progress', function (event) {
-                var progress = event.lengthComputable ? event.loaded * 100 / event.total : 0;
-                that._observer.$emit('in:progress', item, Math.round(progress));
-            }, false);
-
-            xhr.addEventListener('load', function () {
-                xhr.status === 200 && that._observer.$emit('in:success', xhr, item);
-                xhr.status !== 200 && that._observer.$emit('in:error', xhr, item);
-                that._observer.$emit('in:complete', xhr, item);
-            }, false);
-
-            xhr.addEventListener('error', function () {
-                that._observer.$emit('in:error', xhr, item);
-                that._observer.$emit('in:complete', xhr, item);
-            }, false);
-
-            xhr.addEventListener('abort', function () {
-                that._observer.$emit('in:complete', xhr, item);
-            }, false);
-
-            this._observer.$emit('beforeupload', item);
-
-            xhr.open('POST', item.url, true);
-
-            angular.forEach(item.headers, function (value, name) {
-                xhr.setRequestHeader(name, value);
-            });
-
-            xhr.send(form);
-        },
-
-        _iframeTransport: function (item) {
-            var form = item.file._form;
-            var iframe = form.find('iframe');
-            var input = form.find('input');
-            var that = this;
-
-            input.prop('name', item.alias);
-
-            form.prop({
-                action: item.url,
-                method: 'post',
-                target: iframe.prop('name'),
-                enctype: 'multipart/form-data',
-                encoding: 'multipart/form-data' // old IE
-            });
-
-            iframe.unbind('load').bind('load', function () {
-                var xhr = { response: iframe.contents(), status: 200, dummy: true };
-                that._observer.$emit('in:complete', xhr, item);
-            });
-
-            this._observer.$emit('beforeupload', item);
-
-            form[ 0 ].submit();
-        }
-    };
-
-
-    // item of queue
-    function Item(params) {
-        // fix for old browsers
-        if (angular.isElement(params.file)) {
-            var input = angular.element(params.file);
-            var clone = $compile(input.clone())($rootScope.$new(true));
-            var form = angular.element('<form style="display: none;" />');
-            var iframe = angular.element('<iframe name="iframeTransport' + +new Date() + '">');
-            var value = input.val();
-
-            params.file = {
-                lastModifiedDate: null,
-                size: null,
-                type: 'like/' + value.replace(/^.+\.(?!\.)|.*/, ''),
-                name: value.match(/[^\\]+$/)[ 0 ],
-                _form: form
-            };
-
-            input.after(clone).after(form);
-            form.append(input).append(iframe);
-        }
-
-        angular.extend(this, {
-            progress: null,
-            isUploading: false,
-            isUploaded: false
-        }, params);
-    }
-
-    Item.prototype = {
-        remove: function () {
-            this.uploader.removeFromQueue(this);
-        },
-        upload: function () {
-            this.uploader.uploadItem(this);
-        },
-        _beforeupload: function (event, item) {
-            item.isUploaded = false;
-            item.isUploading = true;
-            item.progress = null;
-        },
-        _progress: function (event, item, progress) {
-            item.progress = progress;
-            item.uploader._observer.$emit('progress', item, progress);
-        },
-        _success: function (event, xhr, item) {
-            item.isUploaded = true;
-            item.isUploading = false;
-            item.uploader._observer.$emit('success', xhr, item);
-        },
-        _error: function (event, xhr, item) {
-            item.isUploading = false;
-            item.uploader._observer.$emit('error', xhr, item);
-        },
-        _complete: function (event, xhr, item) {
-            item.isUploaded = xhr.status === 200;
-            item.uploader._observer.$emit('complete', xhr, item);
-            item.removeAfterUpload && item.remove();
-        }
-    };
-
-    return {
-        create: function (params) {
-            return new Uploader(params);
-        }
-    };
-}])
-    return app;
-}));
-define('modules/bzUploader/app', [
-    'angular', 'angular-file-upload'
-], function(angular) {
-    'use strict';
-
-    return angular.module('bzUploader', ['angularFileUpload']);
-});
-define('modules/bzUploader/directives/bzUploader', [
-    'angular',
-    'modules/bzUploader/app'
-], function (angular, app) {
-    'use strict';
-
-    app.directive('bzUploader', [function() {
-        return {
-            restrict: 'A',
-            scope: {
-                'url': '=bzUploader',
-                'files': '=ngModel'
-            },
-            templateUrl: '/src/modules/bzUploader/views/bzUploader.html',
-            replace: true,
-            require: 'ngModel',
-            controller: ['$scope', '$fileUploader', '$parse', function($scope, $fileUploader, $parse) {
-
-                // create a uploader with options
-                var uploader = $fileUploader.create({
-                    scope: $scope,                          // to automatically update the html. Default: $rootScope
-                    url: $scope.url,
-                    filters: [
-                        function (item) {                    // first user filter
-                            console.log('filter1', item);
-                            return true;
-                        }
-                    ]
-                });
-
-                // ADDING FILTER
-
-                uploader.filters.push(function (item) { // second user filter
-                    console.log('filter2');
-                    return true;
-                });
-
-                // REGISTER HANDLERS
-
-                uploader.bind('afteraddingfile', function (event, item) {
-                    console.log('After adding a file', item);
-                });
-
-                uploader.bind('afteraddingall', function (event, items) {
-                    console.log('After adding all files', items);
-                });
-
-                uploader.bind('changedqueue', function (event, items) {
-                    console.log('Changed queue', items);
-                });
-
-                uploader.bind('beforeupload', function (event, item) {
-                    console.log('Before upload', item);
-                });
-
-                uploader.bind('progress', function (event, item, progress) {
-                    console.log('Progress: ' + progress);
-                });
-
-                uploader.bind('success', function (event, xhr, item) {
-                    var response = $parse(xhr.response)();
-                    $scope.files = $scope.files || [];
-                    $scope.files.push(response);
-
-                    angular.forEach(uploader.queue, function(file, n) {
-                        if (file == item) {
-                            uploader.queue.splice(n, 1);
-                        }
-                    });
-                    //console.log('Success: ', response);
-                });
-
-                uploader.bind('complete', function (event, xhr, item) {
-                    console.log('Complete: ' + xhr.response);
-                    item.progress = 100;
-                });
-
-                uploader.bind('progressall', function (event, progress) {
-                    console.log('Total progress: ' + progress);
-                });
-
-                uploader.bind('completeall', function (event, items) {
-                    console.log('All files are transferred');
-                    uploader.progress = 100;
-                });
-
-                $scope.deleteFile = function(file) {
-                    console.info(file);
-                    angular.forEach($scope.files, function(item, i){
-                        if (item == file) {
-                            $scope.files.splice(i, 1);
-                        }
-                    });
-                };
-                $scope.uploader = uploader;
-            }]
-        };
-    }]);
-
-});
-define('modules/bzUploader/module', [
-    'modules/bzUploader/directives/bzUploader'
-], function() {
-});
-define('components/bcPages/app', [
-    'angular', 'angular-resource', 'angular-route', 'ngTable',
-
-    'modules/bzUploader/module',
-    'modules/bzWidgets/module'
-], function(angular) {
-    'use strict';
-
-    var app = angular.module('Components.bcPages', ['ngResource', 'ngRoute', 'ngTable', 'bzWidgets', 'bzUploader']);
-
-    app.run(['bzMenu.Types', function(menuTypes) {
-
-        menuTypes.push({
-            id: 'bcPages.Menu.Page',
-            title: 'Ссылка на страницу',
-            component: 'Страницы',
-            templateUrl: '/src/components/bcPages/backend/views/menu/page.html'
-        });
-
-        menuTypes.push({
-            id: 'bcPages.Menu.Category',
-            title: 'Ссылка на категорию',
-            component: 'Страницы',
-            templateUrl: '/src/components/bcPages/backend/views/menu/category.html'
-        });
-
-    }]);
-
-    return app;
 });
 define('components/bcPages/controllers/Page', [
     'components/bcPages/app'
@@ -45196,90 +45276,155 @@ define('components/bcUsers/app', [
 
     return angular.module('Components.bcUsers', ['ngResource', 'ngRoute', 'ngTable', 'bzWidgets', 'bzAuthorization']);
 });
-define('components/bcUsers/controllers/Lady', [
+define('components/bcUsers/factories/UserResource', [
+    'components/bcUsers/app'
+], function(app) {
+
+    app.factory('bcUsers.Factories.User', ['$resource', '$q', 'baConfig', function ($resource, $q, baConfig) {
+        return $resource(baConfig.apiEndpoint() + '/users/:id', { 'id': '@id' }, {
+            'checkEmail': { method: 'GET', params: { 'action': 'checkEmail' } },
+            'delete': { method: 'DELETE' }
+        });
+    }]);
+
+});
+define('components/bcUsers/controllers/Registration', [
     'components/bcUsers/app'
 ], function (app) {
     'use strict';
 
-    app.factory('ProfilesResource', ['$resource', function ($resource) {
-        return $resource('/api/rest.php/profiles/:id', { 'id': '@id' }, {
-        });
-    }]);
-
-    app.controller('bcUsers.Controllers.Lady',
-        ['$scope', '$location', 'baUserResource', 'ngTableParams', 'ProfilesResource',
-        function ($scope, $location, baUserResource, ngTableParams, ProfilesResource) {
-
-            if (!$scope.user.login) {
-                $location.path('/');
-            }
-
-            var tableParams = {
-                page: 1,
-                count: 10,
-                counts: []
-            };
-
-            $scope.tableParams = new ngTableParams(angular.extend(tableParams, $location.search()));
-            $scope.$watch('tableParams', function (params) {
-                var urlParams = angular.copy(params.url());
-
-                $location.search(urlParams);
-
-                ProfilesResource.get(params.url(), function (result) {
-                    $scope.tableParams.total = result.pager.total;
-                    $scope.users = result.data;
+    app.controller('bcUsers.Controllers.Registration',
+        ['$scope', 'bcUsers.Factories.User',
+            function ($scope, UserResource) {
+                $scope.user = new UserResource({
+                    'email': 'oll.rudenko@gmail.com',
+                    'password': 'awdawd',
+                    'spassword': 'awdawd',
+                    'firstname': 'Olga',
+                    'secondname': 'Rudenko',
+                    'birth_date': '12.05.1988',
+                    'city': 'Vinnitsa'
                 });
-            }, true);
 
+                $scope.saveUser = function(user) {
+                    user.login = user.email;
+                    user.gender = 'unknown';
+                    user.is_active = 1;
+                    user.firstname = 'Olga';
+                    user.secondname = 'Rudenko';
+                    user.birth_date = '12.03.06';
+                    user.city = 'Vinnitsa';
+                    user.$save(function(res){
+                        console.info(res);
+                    }, function(err){
+                        if (err.status == 400) {
+                            $scope.formError = err.data;
+                        }
+                    })
+                }
+
+            }]);
+
+
+});
+define('components/bcUsers/controllers/Login', [
+    'components/bcUsers/app'
+], function (app) {
+    'use strict';
+
+    app.controller('bcUsers.Controllers.Login',
+        ['$scope', 'baAcl',
+            function ($scope, baAcl) {
+                $scope.user = {
+                    'login': 'oll.rudenko@gmail.com',
+                    'password': 'awdawd'
+                };
+
+                $scope.loginUser = function(user) {
+                    $scope.loading = true;
+                    baAcl.login(user, function() {
+                        $scope.loading = false;
+                    });
+                };
+
+            }]);
+
+});
+define('components/bcUsers/controllers/ProfileSettings', [
+    'components/bcUsers/app'
+], function (app) {
+    'use strict';
+
+    app.controller('bcUsers.Controllers.ProfileSettings',
+        ['$scope', 'bcUsers.Factories.User',
+            function ($scope, UserResource) {
+                $scope.user = new UserResource({
+                    'email': 'oll.rudenko@gmail.com',
+                    'password': 'awdawd',
+                    'spassword': 'awdawd',
+                    'firstname': 'Olga',
+                    'secondname': 'Rudenko',
+                    'birth_date': '12.05.1988',
+                    'city': 'Vinnitsa'
+                });
+
+            /*UserResource.get({ 'id': $routeParams.id }, function(user) {
+                $scope.loading = false;
+                if (!user.images) {
+                    user.images = [];
+                }
+                $scope.user = user;
+            });*/
+
+            $scope.saveUser = function(user) {
+                var user = new UserResource(user);
+                $scope.loading = true;
+                user.$save(function(user) {
+                    console.info(user);
+                    /*user.$save(function(res){
+                        console.info(res);
+                    }, function(err){
+                        if (err.status == 400) {
+                            $scope.formError = err.data;
+                        }
+                    })*/
+                    $scope.loading = false;
+                });
+            }
         }]);
-
-
 });
 define('components/bcUsers/module', [
     'components/bcUsers/app',
 
-    'components/bcUsers/controllers/Lady'
+    'components/bcUsers/factories/UserResource',
+
+    'components/bcUsers/controllers/Registration',
+    'components/bcUsers/controllers/Login',
+    'components/bcUsers/controllers/ProfileSettings'
 ], function (app) {
     'use strict';
 
-    app.config(['$routeSegmentProvider', 'bzConfigProvider', 'bzWidgetsProvider',
-        function ($routeSegmentProvider, bzConfigProvider, bzWidgetsProvider) {
-
-            /*bzWidgetsProvider.add({
-                id: 'bcPages.Widgets.Page',
-                title: 'Виджет страница',
-                component: 'Страницы',
-                templateUrl: bzConfigProvider.templateUrl('/views/widgets/pages/page.html'),
-                resolve: {
-                    page: ['$q', 'bcPages.Factories.Page', '$widgetSettings', function ($q, PageResource, $widgetSettings) {
-                        var deferred = $q.defer();
-
-                        PageResource.get({ 'id': $widgetSettings.id }, function (page) {
-                            page.template = bzConfigProvider.templateUrl('/views/pages/default.html');
-                            deferred.resolve(page);
-                        }, function () {
-                            deferred.reject($q.reject({}));
-                        });
-
-                        return deferred.promise;
-                    }]
-                }
-            });*/
+    app.config(['$routeSegmentProvider', 'bzThemeProvider', 'bzWidgetsProvider',
+        function ($routeSegmentProvider, bzThemeProvider, bzWidgetsProvider) {
 
             $routeSegmentProvider
                 .when('/user', 'main.profile')
                 .when('/user/registration', 'main.registration')
-                .when('/user/profiles', 'main.profiles')
-                .when('/user/profile', 'main.profile');
+                .when('/user/login', 'main.login')
+                .when('/user/profile', 'main.profile.view')
+                .when('/user/profile/view', 'main.profile.view')
+                .when('/user/profile/edit', 'main.profile.edit')
+                .when('/user/profile/avatar', 'main.profile.avatar')
+                .when('/user/profile/password', 'main.profile.password')
+                .when('/user/profile/public', 'main.profile.public');
 
             $routeSegmentProvider
                 /*.segment('user', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/layout.html')
+                    templateUrl: bzThemeProvider.templateUrl('/views/layout.html')
                 })*/
                 .within('main')
                 .segment('profile', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
+                    templateUrl: bzThemeProvider.templateUrl('/views/user/profile.html'),
                     controller: function ($scope) {
                         $scope.$watch('user', function(value){
                             console.info(value);
@@ -45289,21 +45434,50 @@ define('components/bcUsers/module', [
                 .up()
                 .within()
                 .segment('registration', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/user/account/registerForm.html'),
-                    //controller: 'bcPages.Controllers.Category'
+                    templateUrl: bzThemeProvider.templateUrl('/views/user/account/registerForm.html'),
+                    controller: 'bcUsers.Controllers.Registration'
+                })
+                .up()
+                .within()
+                .segment('login', {
+                    templateUrl: bzThemeProvider.templateUrl('/views/user/account/loginForm.html'),
+                    controller: 'bcUsers.Controllers.Login'
                 })
                 .up()
                 .within()
                 .segment('profile', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
-                    //controller: 'bcPages.Controllers.Category'
+                    templateUrl: bzThemeProvider.templateUrl('/views/user/profile.html'),
+                    controller: 'bcUsers.Controllers.ProfileSettings'
                 })
+                    .within()
+                    .segment('view', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/view.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    })
                 .up()
-                .within()
-                .segment('profiles', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/user/lady.html'),
-                    controller: 'bcUsers.Controllers.Lady'
-                });
+                    .within()
+                    .segment('edit', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/profile.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    })
+                .up()
+                    .within()
+                    .segment('avatar', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/avatar.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    })
+                .up()
+                    .within()
+                    .segment('password', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/password.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    })
+                .up()
+                    .within()
+                    .segment('public', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/public.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    });
         }]);
 
 });
@@ -45346,8 +45520,27 @@ define('frontend/app', [
 
     return angular.module('app', modules);
 });
+define('frontend/directives/bzScript', [
+    'frontend/app'
+], function(app) {
+    'use strict';
+
+    app.directive('bzScript', ['$parse', function($parse) {
+        return {
+            restrict: 'A',
+            scope: {
+                'script' : '=bzScript'
+            },
+            link: function(scope, element, attrs) {
+                eval(scope.script);
+            }
+        };
+    }]);
+});
 define('frontend/files', [
-    'angular'
+    'angular',
+
+    'frontend/directives/bzScript'
 ], function(angular) {
 });
 define('frontend/routes', [
