@@ -118,7 +118,6 @@ module.exports = (grunt) ->
         'uglify:backend'
     ]
     grunt.registerTask 'default', [
-        'uglify:requirejs'
         'frontend'
         'backend'
     ]

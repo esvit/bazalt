@@ -9,7 +9,7 @@
     "test",
     "tests"
   ],
-  "dependenciesDev": {
+  "devDependencies": {
     "jquery": "~1.10.1",
     "ng-table": "https://github.com/esvit/ng-table.git#master",
     "angular-ui-select2": "~0.0.2",
