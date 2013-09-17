@@ -28,6 +28,10 @@ define('backend/controllers/SidebarMenu', [
             {
                 'text': 'Users',
                 'link': '#!/users'
+            },
+            {
+                'text': 'Files',
+                'link': '#!/files'
             }
         ];
     }]);

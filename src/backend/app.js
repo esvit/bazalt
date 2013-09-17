@@ -1,6 +1,7 @@
 define('backend/app', [
     'angular', 'angular-animate', 'angular-route', 'angular-route-segment',
 
+    //'modules/bzTheme/module',
     'modules/bzLanguage/module',
     'modules/bzMenu/module',
     'modules/bzLoading/module',
@@ -9,6 +10,7 @@ define('backend/app', [
 
     'components/bcPages/backend/module',
     'components/bcMenu/backend/module',
+    'components/bcFiles/backend/module',
     'components/bcUsers/backend/module'
 ], function (angular) {
     'use strict';
@@ -16,6 +18,7 @@ define('backend/app', [
     var modules = ['ngAnimate', 'ngRoute', 'route-segment', 'view-segment'];
 
     // modules
+    //modules.push('bzTheme');
     modules.push('bzLanguage');
     modules.push('bzMenu');
     modules.push('bzLoading');
@@ -26,6 +29,7 @@ define('backend/app', [
     // components
     modules.push('Components.bcPages.Backend');
     modules.push('Components.bcMenu.Backend');
+    modules.push('Components.bcFiles.Backend');
     modules.push('Components.bcUsers.Backend');
 
     return angular.module('app', modules);

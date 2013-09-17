@@ -19,14 +19,15 @@ requirejs.config({
         'angular-ui-select2': '../bower_components/angular-ui-select2/src/select2',
         'ng-ckeditor': '../bower_components/ng-ckeditor/ng-ckeditor.src',
         'ng-editable-tree': '../bower_components/ng-editable-tree/ng-editable-tree',
+        'ngFinder': '../bower_components/ng-finder/ng-finder',
         'ngTable': '../bower_components/ng-table/ng-table',
 
         // @todo temp
-        'bazalt-auth': '../bower_components/bazalt-auth/bazalt-auth',
-        //'bazalt-auth': '../bower_components/bazalt-auth/src/bazalt-auth',
+        //'bazalt-auth': '../bower_components/bazalt-auth/bazalt-auth',
+        'bazalt-auth': '../bower_components/bazalt-auth/src/bazalt-auth',
         'blueimp-canvas-to-blob': '../bower_components/blueimp-canvas-to-blob/js/canvas-to-blob',
         'blueimp-tmpl': '../bower_components/blueimp-tmpl/js/tmpl',
-        'speakingurl': '../bower_components/speakingurl/speakingurl.min',
+        'speakingurl': '../bower_components/speakingurl/lib/index',
 
         // bootstrap
         'bootstrap': '../bower_components/bootstrap/js',
@@ -36,6 +37,22 @@ requirejs.config({
         // etc
         'ckeditor': '../bower_components/ckeditor/ckeditor',
         'select2': '../bower_components/select2/select2',
+
+        // uploader
+        'jquery.fileupload-angular': '../bower_components/blueimp-file-upload/js/jquery.fileupload-angular',
+        'jquery.fileupload-image': '../bower_components/blueimp-file-upload/js/jquery.fileupload-image',
+        'jquery.fileupload-audio': '../bower_components/blueimp-file-upload/js/jquery.fileupload-audio',
+        'jquery.fileupload-video': '../bower_components/blueimp-file-upload/js/jquery.fileupload-video',
+        'jquery.fileupload-validate': '../bower_components/blueimp-file-upload/js/jquery.fileupload-validate',
+        'jquery.fileupload-process': '../bower_components/blueimp-file-upload/js/jquery.fileupload-process',
+        'canvas-to-blob': '../bower_components/blueimp-canvas-to-blob/js/canvas-to-blob',
+        'load-image': '../bower_components/blueimp-load-image/js/load-image',
+        'load-image-meta': '../bower_components/blueimp-load-image/js/load-image-meta',
+        'load-image-exif': '../bower_components/blueimp-load-image/js/load-image-exif',
+        'load-image-ios': '../bower_components/blueimp-load-image/js/load-image-ios',
+        'load-image-orientation': '../bower_components/blueimp-load-image/js/load-image-orientation',
+        'load-image-exif-map': '../bower_components/blueimp-load-image/js/load-image-exif-map',
+        'jquery.fileupload': '../bower_components/blueimp-file-upload/js/jquery.fileupload',
 
         //jquery-galleria
         'jquery-galleria': '../bower_components/jquery-galleria/src/galleria',
@@ -53,9 +70,12 @@ requirejs.config({
         'angular-file-upload': { deps: ['angular'] },
         'angular-ui-select2': { deps: ['angular', 'select2'] },
 
-        'ng-ckeditor': { deps: ['ckeditor'] },
+
+        'ng-ckeditor': { deps: ['angular', 'ckeditor'] },
         'ng-editable-tree': { deps: ['angular', 'jquery-ui/jquery.ui.draggable', 'jquery-ui/jquery.ui.droppable', 'jquery-ui/jquery.ui.sortable'] },
+        'elfinder': { deps: ['jquery-ui/jquery.ui.draggable', 'jquery-ui/jquery.ui.droppable', 'jquery-ui/jquery.ui.selectable'] },
         'ngTable': { deps: ['jquery', 'angular'] },
+        'ngFinder': { deps: ['jquery', 'angular'] },
         'jquery-galleria': { deps: ['jquery'] },
 
         // Bootstrap
@@ -67,6 +87,7 @@ requirejs.config({
         'jquery-ui/jquery.ui.mouse': { deps: ['jquery-ui/jquery.ui.widget'] },
         'jquery-ui/jquery.ui.draggable': { deps: ['jquery-ui/jquery.ui.mouse'] },
         'jquery-ui/jquery.ui.droppable': { deps: ['jquery-ui/jquery.ui.mouse'] },
+        'jquery-ui/jquery.ui.selectable': { deps: ['jquery-ui/jquery.ui.mouse'] },
         'jquery-ui/jquery.ui.sortable': { deps: ['jquery-ui/jquery.ui.mouse'] }
     },
     priority: [

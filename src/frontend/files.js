@@ -1,4 +1,6 @@
 define('frontend/files', [
-    'angular'
+    'angular',
+
+    'frontend/directives/bzScript'
 ], function(angular) {
 });

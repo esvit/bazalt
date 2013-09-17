@@ -1,43 +1,42 @@
-define('controllers/ProfileSettings', [
-    'app'
-], function(app) {
+define('components/bcUsers/controllers/ProfileSettings', [
+    'components/bcUsers/app'
+], function (app) {
+    'use strict';
 
-    app.controller('ProfileSettings', ['$scope', 'ProfileResource', '$routeParams', '$timeout', '$route',
-        function($scope, ProfileResource, $location, $routeParams, $timeout, $route) {
+    app.controller('bcUsers.Controllers.ProfileSettings',
+        ['$scope', 'bcUsers.Factories.User',
+            function ($scope, UserResource) {
+                $scope.user = new UserResource({
+                    'email': 'oll.rudenko@gmail.com',
+                    'password': 'awdawd',
+                    'spassword': 'awdawd',
+                    'firstname': 'Olga',
+                    'secondname': 'Rudenko',
+                    'birth_date': '12.05.1988',
+                    'city': 'Vinnitsa'
+                });
 
-            $scope.user = {
-                images: []
-            };
-            $scope.loading = true;
-            ProfileResource.get({ 'id': $routeParams.id }, function(user) {
+            /*UserResource.get({ 'id': $routeParams.id }, function(user) {
                 $scope.loading = false;
                 if (!user.images) {
                     user.images = [];
                 }
                 $scope.user = user;
-                /*$timeout(function() {
-                 $('.elastislide-list').elastislide();
-                 $timeout(function() {
-                 $('.thumbnail').fancybox();
-                 }, 100)
-                 }, 100)*/
-            });
-
-            /*$scope.$watch('amount', function(value) {
-                var bill = new LiqPayResource({ amount: value });
-
-                bill.$get(function(data) {
-                    $scope.data = data;
-                });
             });*/
 
-            $scope.saveProfile = function(user) {
-                var profile = new ProfileResource(user);
+            $scope.saveUser = function(user) {
+                var user = new UserResource(user);
                 $scope.loading = true;
-                profile.$save(function(user) {
+                user.$save(function(user) {
+                    console.info(user);
+                    /*user.$save(function(res){
+                        console.info(res);
+                    }, function(err){
+                        if (err.status == 400) {
+                            $scope.formError = err.data;
+                        }
+                    })*/
                     $scope.loading = false;
-                    $scope.settings = null;
-                    $route.reload();
                 });
             }
         }]);

@@ -1,47 +1,35 @@
 define('components/bcUsers/module', [
     'components/bcUsers/app',
 
-    'components/bcUsers/controllers/Lady'
+    'components/bcUsers/factories/UserResource',
+
+    'components/bcUsers/controllers/Registration',
+    'components/bcUsers/controllers/Login',
+    'components/bcUsers/controllers/ProfileSettings'
 ], function (app) {
     'use strict';
 
-    app.config(['$routeSegmentProvider', 'bzConfigProvider', 'bzWidgetsProvider',
-        function ($routeSegmentProvider, bzConfigProvider, bzWidgetsProvider) {
-
-            /*bzWidgetsProvider.add({
-                id: 'bcPages.Widgets.Page',
-                title: 'Виджет страница',
-                component: 'Страницы',
-                templateUrl: bzConfigProvider.templateUrl('/views/widgets/pages/page.html'),
-                resolve: {
-                    page: ['$q', 'bcPages.Factories.Page', '$widgetSettings', function ($q, PageResource, $widgetSettings) {
-                        var deferred = $q.defer();
-
-                        PageResource.get({ 'id': $widgetSettings.id }, function (page) {
-                            page.template = bzConfigProvider.templateUrl('/views/pages/default.html');
-                            deferred.resolve(page);
-                        }, function () {
-                            deferred.reject($q.reject({}));
-                        });
-
-                        return deferred.promise;
-                    }]
-                }
-            });*/
+    app.config(['$routeSegmentProvider', 'bzThemeProvider', 'bzWidgetsProvider',
+        function ($routeSegmentProvider, bzThemeProvider, bzWidgetsProvider) {
 
             $routeSegmentProvider
                 .when('/user', 'main.profile')
                 .when('/user/registration', 'main.registration')
-                .when('/user/profiles', 'main.profiles')
-                .when('/user/profile', 'main.profile');
+                .when('/user/login', 'main.login')
+                .when('/user/profile', 'main.profile.view')
+                .when('/user/profile/view', 'main.profile.view')
+                .when('/user/profile/edit', 'main.profile.edit')
+                .when('/user/profile/avatar', 'main.profile.avatar')
+                .when('/user/profile/password', 'main.profile.password')
+                .when('/user/profile/public', 'main.profile.public');
 
             $routeSegmentProvider
                 /*.segment('user', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/layout.html')
+                    templateUrl: bzThemeProvider.templateUrl('/views/layout.html')
                 })*/
                 .within('main')
                 .segment('profile', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
+                    templateUrl: bzThemeProvider.templateUrl('/views/user/profile.html'),
                     controller: function ($scope) {
                         $scope.$watch('user', function(value){
                             console.info(value);
@@ -51,21 +39,50 @@ define('components/bcUsers/module', [
                 .up()
                 .within()
                 .segment('registration', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/user/account/registerForm.html'),
-                    //controller: 'bcPages.Controllers.Category'
+                    templateUrl: bzThemeProvider.templateUrl('/views/user/account/registerForm.html'),
+                    controller: 'bcUsers.Controllers.Registration'
+                })
+                .up()
+                .within()
+                .segment('login', {
+                    templateUrl: bzThemeProvider.templateUrl('/views/user/account/loginForm.html'),
+                    controller: 'bcUsers.Controllers.Login'
                 })
                 .up()
                 .within()
                 .segment('profile', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
-                    //controller: 'bcPages.Controllers.Category'
+                    templateUrl: bzThemeProvider.templateUrl('/views/user/profile.html'),
+                    controller: 'bcUsers.Controllers.ProfileSettings'
                 })
+                    .within()
+                    .segment('view', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/view.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    })
                 .up()
-                .within()
-                .segment('profiles', {
-                    templateUrl: bzConfigProvider.templateUrl('/views/user/lady.html'),
-                    controller: 'bcUsers.Controllers.Lady'
-                });
+                    .within()
+                    .segment('edit', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/profile.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    })
+                .up()
+                    .within()
+                    .segment('avatar', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/avatar.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    })
+                .up()
+                    .within()
+                    .segment('password', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/password.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    })
+                .up()
+                    .within()
+                    .segment('public', {
+                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/public.html'),
+                        controller: 'bcUsers.Controllers.ProfileSettings'
+                    });
         }]);
 
 });

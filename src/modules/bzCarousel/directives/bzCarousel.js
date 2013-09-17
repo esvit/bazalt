@@ -1,18 +1,17 @@
 define('modules/bzCarousel/directives/bzCarousel', [
     'modules/bzCarousel/app'
 ], function (app) {
+    'use strict';
 
     app.directive('bzCarousel', function () {
         return {
             restrict: 'A',
-            template: '<div class="carousel slide" id="slider">'+
-                    '<div class="carousel-inner">'+
-                    '<div class="item"><img alt="" src="/themes/mixfree/assets/img/poster.jpg"></div>'+
-                    '<div class="item active"><img alt="" src="/themes/mixfree/assets/img/poster.jpg"></div>'+
-                    '<div class="item"><img alt="" src="/themes/mixfree/assets/img/poster.jpg"></div>'+
-                    '</div>'+
-                    '<a data-slide="prev" href="#slider" class="carousel-control left">‹</a>'+
-                    '<a data-slide="next" href="#slider" class="carousel-control right">›</a>'+
+            template: '<div id="slider" class="carousel slide">'+
+                '<div class="carousel-inner">'+
+                '<div ng-repeat="image in images" class="item"><img ng-src="{{ image.thumbnails.preview }}" /></div>'+
+                '</div>'+
+                '<a class="carousel-control left" href="#slider" data-slide="prev">&lsaquo;</a>'+
+                '<a class="carousel-control right" href="#slider" data-slide="next">&rsaquo;</a>'+
                 '</div>',
             replace: true,
             scope: {
@@ -20,7 +19,7 @@ define('modules/bzCarousel/directives/bzCarousel', [
             },
             link: function (scope, element, attrs) {
                 scope.$watch('images', function(value) {
-                    $(element).carousel({
+                    $('.carousel').carousel({
                         interval: 3000
                     })
                 });
