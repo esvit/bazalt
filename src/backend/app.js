@@ -1,7 +1,6 @@
 define('backend/app', [
     'angular', 'angular-animate', 'angular-route', 'angular-route-segment',
 
-    //'modules/bzTheme/module',
     'modules/bzLanguage/module',
     'modules/bzMenu/module',
     'modules/bzLoading/module',
@@ -18,7 +17,6 @@ define('backend/app', [
     var modules = ['ngAnimate', 'ngRoute', 'route-segment', 'view-segment'];
 
     // modules
-    //modules.push('bzTheme');
     modules.push('bzLanguage');
     modules.push('bzMenu');
     modules.push('bzLoading');

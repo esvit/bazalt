@@ -9,8 +9,8 @@ define('components/bcUsers/module', [
 ], function (app) {
     'use strict';
 
-    app.config(['$routeSegmentProvider', 'bzThemeProvider', 'bzWidgetsProvider',
-        function ($routeSegmentProvider, bzThemeProvider, bzWidgetsProvider) {
+    app.config(['$routeSegmentProvider', 'bzConfigProvider', 'bzWidgetsProvider',
+        function ($routeSegmentProvider, bzConfigProvider, bzWidgetsProvider) {
 
             $routeSegmentProvider
                 .when('/user', 'main.profile')
@@ -29,7 +29,7 @@ define('components/bcUsers/module', [
                 })*/
                 .within('main')
                 .segment('profile', {
-                    templateUrl: bzThemeProvider.templateUrl('/views/user/profile.html'),
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
                     controller: function ($scope) {
                         $scope.$watch('user', function(value){
                             console.info(value);
@@ -39,48 +39,48 @@ define('components/bcUsers/module', [
                 .up()
                 .within()
                 .segment('registration', {
-                    templateUrl: bzThemeProvider.templateUrl('/views/user/account/registerForm.html'),
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/account/registerForm.html'),
                     controller: 'bcUsers.Controllers.Registration'
                 })
                 .up()
                 .within()
                 .segment('login', {
-                    templateUrl: bzThemeProvider.templateUrl('/views/user/account/loginForm.html'),
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/account/loginForm.html'),
                     controller: 'bcUsers.Controllers.Login'
                 })
                 .up()
                 .within()
                 .segment('profile', {
-                    templateUrl: bzThemeProvider.templateUrl('/views/user/profile.html'),
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
                     controller: 'bcUsers.Controllers.ProfileSettings'
                 })
                     .within()
                     .segment('view', {
-                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/view.html'),
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/view.html'),
                         controller: 'bcUsers.Controllers.ProfileSettings'
                     })
                 .up()
                     .within()
                     .segment('edit', {
-                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/profile.html'),
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/profile.html'),
                         controller: 'bcUsers.Controllers.ProfileSettings'
                     })
                 .up()
                     .within()
                     .segment('avatar', {
-                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/avatar.html'),
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/avatar.html'),
                         controller: 'bcUsers.Controllers.ProfileSettings'
                     })
                 .up()
                     .within()
                     .segment('password', {
-                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/edit/password.html'),
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/password.html'),
                         controller: 'bcUsers.Controllers.ProfileSettings'
                     })
                 .up()
                     .within()
                     .segment('public', {
-                        templateUrl: bzThemeProvider.templateUrl('/views/user/profile/public.html'),
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/public.html'),
                         controller: 'bcUsers.Controllers.ProfileSettings'
                     });
         }]);
