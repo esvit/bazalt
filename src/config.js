@@ -23,7 +23,8 @@ requirejs.config({
         'ngFinder': '../bower_components/ng-finder/ng-finder',
 
         // @todo temp
-        'bazalt-auth': '../bower_components/bazalt-auth/bazalt-auth',
+        //'bazalt-auth': '../bower_components/bazalt-auth/bazalt-auth',
+        'bazalt-auth': '/bazalt-auth/src/bazalt-auth',
         //'bazalt-auth': '../bower_components/bazalt-auth/src/bazalt-auth',
         'blueimp-canvas-to-blob': '../bower_components/blueimp-canvas-to-blob/js/canvas-to-blob',
         'blueimp-tmpl': '../bower_components/blueimp-tmpl/js/tmpl',
@@ -41,7 +42,10 @@ requirejs.config({
         //jquery-galleria
         'jquery-galleria': '../bower_components/jquery-galleria/src/galleria',
 
-        'fancybox': '../bower_components/fancybox/source/jquery.fancybox'
+        'fancybox': '../bower_components/fancybox/source/jquery.fancybox',
+
+        // tests
+        'jasmine': '../bower_components/jasmine/lib/jasmine-core'
     },
     shim: {
         'angular': { exports: 'angular', deps: ['jquery'] },

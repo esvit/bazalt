@@ -13,21 +13,20 @@ define('components/bcUsers/module', [
         function ($routeSegmentProvider, bzConfigProvider, bzWidgetsProvider) {
 
             $routeSegmentProvider
-                .when('/user', 'main.profile')
-                .when('/user/registration', 'main.registration')
-                .when('/user/login', 'main.login')
-                .when('/user/profile', 'main.profile.view')
-                .when('/user/profile/view', 'main.profile.view')
-                .when('/user/profile/edit', 'main.profile.edit')
-                .when('/user/profile/avatar', 'main.profile.avatar')
-                .when('/user/profile/password', 'main.profile.password')
-                .when('/user/profile/public', 'main.profile.public');
+                .when('/user', 'profile')
+                .when('/user/registration', 'registration')
+                .when('/user/login', 'login')
+                .when('/user/profile', 'profile.view')
+                .when('/user/profile/view', 'profile.view')
+                .when('/user/profile/edit', 'profile.edit')
+                .when('/user/profile/avatar', 'profile.avatar')
+                .when('/user/profile/password', 'profile.password')
+                .when('/user/profile/public', 'profile.public');
 
             $routeSegmentProvider
                 /*.segment('user', {
-                    templateUrl: bzThemeProvider.templateUrl('/views/layout.html')
+                    templateUrl: bzConfigProvider.templateUrl('/views/layout.html')
                 })*/
-                .within('main')
                 .segment('profile', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
                     controller: function ($scope) {
@@ -36,20 +35,14 @@ define('components/bcUsers/module', [
                         });
                     }
                 })
-                .up()
-                .within()
                 .segment('registration', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/account/registerForm.html'),
                     controller: 'bcUsers.Controllers.Registration'
                 })
-                .up()
-                .within()
                 .segment('login', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/account/loginForm.html'),
                     controller: 'bcUsers.Controllers.Login'
                 })
-                .up()
-                .within()
                 .segment('profile', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
                     controller: 'bcUsers.Controllers.ProfileSettings'
