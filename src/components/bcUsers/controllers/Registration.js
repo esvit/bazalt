@@ -7,7 +7,7 @@ define('components/bcUsers/controllers/Registration', [
         ['$scope', 'bcUsers.Factories.User',
             function ($scope, UserResource) {
                 $scope.user = new UserResource({
-                    'email': 'oll.rudenko@gmail.com',
+                    'email': 'esvit666@gmail.com',
                     'password': 'awdawd',
                     'spassword': 'awdawd',
                     'firstname': 'Olga',

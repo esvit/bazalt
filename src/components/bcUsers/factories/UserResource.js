@@ -5,7 +5,8 @@ define('components/bcUsers/factories/UserResource', [
     app.factory('bcUsers.Factories.User', ['$resource', '$q', 'baConfig', function ($resource, $q, baConfig) {
         return $resource(baConfig.apiEndpoint() + '/users/:id', { 'id': '@id' }, {
             'checkEmail': { method: 'GET', params: { 'action': 'checkEmail' } },
-            'delete': { method: 'DELETE' }
+            'delete': { method: 'DELETE' },
+            'activate': { method: 'GET', params: { 'action': 'activate' } }
         });
     }]);
 

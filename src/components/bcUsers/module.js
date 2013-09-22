@@ -5,7 +5,8 @@ define('components/bcUsers/module', [
 
     'components/bcUsers/controllers/Registration',
     'components/bcUsers/controllers/Login',
-    'components/bcUsers/controllers/ProfileSettings'
+    'components/bcUsers/controllers/ProfileSettings',
+    'components/bcUsers/controllers/Activation'
 ], function (app) {
     'use strict';
 
@@ -16,6 +17,7 @@ define('components/bcUsers/module', [
                 .when('/user', 'profile')
                 .when('/user/registration', 'registration')
                 .when('/user/login', 'login')
+                .when('/user/activation/:user_id/:key', 'activation')
                 .when('/user/profile', 'profile.view')
                 .when('/user/profile/view', 'profile.view')
                 .when('/user/profile/edit', 'profile.edit')
@@ -42,6 +44,10 @@ define('components/bcUsers/module', [
                 .segment('login', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/account/loginForm.html'),
                     controller: 'bcUsers.Controllers.Login'
+                })
+                .segment('activation', {
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/account/activation.html'),
+                    controller: 'bcUsers.Controllers.Activation'
                 })
                 .segment('profile', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
