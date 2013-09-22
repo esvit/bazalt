@@ -4,6 +4,7 @@ define('components/bcPages/module', [
     'components/bcPages/controllers/Page',
     'components/bcPages/controllers/Category',
     'components/bcPages/controllers/Widget/Category',
+    'components/bcPages/controllers/AddPost',
 
     'components/bcPages/factories/Page',
     'components/bcPages/factories/Category',
@@ -45,7 +46,8 @@ define('components/bcPages/module', [
             $routeSegmentProvider
                 .when('/', 'home')
                 .when('/c-:categoryAlias', 'category')
-                .when('/p-:pageAlias', 'page');
+                .when('/p-:pageAlias', 'page')
+                .when('/user/add-post', 'profile.add-post');
 
             $routeSegmentProvider
                 .segment('home', {
@@ -76,7 +78,12 @@ define('components/bcPages/module', [
                     template: '<div ng-include="page.template()"></div>',
                     dependencies: ['pageAlias'],
                     controller: 'bcPages.Controllers.Page'
-                });
+                })
+                .within('profile')
+                    .segment('add-post', {
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/add-post.html'),
+                        controller: 'bcPages.Controllers.AddPost'
+                    });
 
             /*
              $routeProvider

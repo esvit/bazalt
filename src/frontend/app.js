@@ -31,9 +31,9 @@ define('frontend/app', [
     modules.push('bzCarousel');
 
     // components
-    modules.push('Components.bcPages');
-    modules.push('Components.bcMenu');
     modules.push('Components.bcUsers');
+    modules.push('Components.bcMenu');
+    modules.push('Components.bcPages');
 
     return angular.module('app', modules);
 });
