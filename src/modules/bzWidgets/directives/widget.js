@@ -14,7 +14,7 @@ define('modules/bzWidgets/directives/widget', [
         return {
             scope: true,
             restrict: 'A',
-            template: '<div>{{ widget }}<div ng-include="widget.$settings.template || widget.templateUrl()"></div></div>',
+            template: '<div ng-include="widget.$settings.template || widget.templateUrl()"></div>',
             controller: ['$scope', '$q', '$controller', 'bzWidget', function($scope, $q, $controller, $widget) {
                 $scope.createWidget = function(widget) {
                     var deferred = $q.defer();
