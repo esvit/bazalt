@@ -6,14 +6,14 @@ define('modules/bzComment/directives/bzComments', [
     app.controller('bzComments.Controller', function() {
 
     });
-    app.directive('bzComments', ['bcPages.Factories.Comment', function (CommentsResource) {
+    app.directive('bzComments', ['bcPages.Factories.Comment', 'bzConfig', function (CommentsResource, bzConfig) {
         return {
             restrict: 'A',
             replace: true,
             scope: {
                 'pageId': '=bzComments'
             },
-            templateUrl: '/src/modules/bzComment/views/bzComments.html',
+            templateUrl: bzConfig.templateUrl('/modules/bzComment/views/bzComments.html'),
             link: function (scope) {
                 scope.comments = [];
                 scope.settings = {

@@ -7,7 +7,7 @@ define('modules/bzComment/directives/bzRating', [
 ], function (app, angular) {
     'use strict';
 
-    app.directive('bzRating', ['bcPages.Factories.CommentRating', function(CommentRatingResource) {
+    app.directive('bzRating', ['bcPages.Factories.CommentRating', 'bzConfig', function(CommentRatingResource, bzConfig) {
         return {
             restrict: 'A',
             replace: true,
@@ -16,7 +16,7 @@ define('modules/bzComment/directives/bzRating', [
                 'commentId': '=commentId',
                 'pageId': '=pageId'
             },
-            templateUrl: '/src/modules/bzComment/views/bzRating.html',
+            templateUrl: bzConfig.templateUrl('/modules/bzComment/views/bzRating.html'),
             link: function(scope, element, attrs) {
                 scope.count = scope.count || 0;
 
