@@ -8,7 +8,7 @@ define('frontend/routes', [
             $locationProvider
                 .html5Mode(true)
                 .hashPrefix('!');
-            bzConfigProvider.mine($('body').data('mine'));
+            bzConfigProvider.mine($('body').data('mine')).templatePrefix('');
 
             $routeSegmentProvider.options.autoLoadTemplates = true;
 

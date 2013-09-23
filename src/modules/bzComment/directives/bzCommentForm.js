@@ -14,14 +14,16 @@ define('modules/bzComment/directives/bzCommentForm', [
                 'replyId': '=replyId'
             },
             template: '<div>\
-            <form  bz-loading-container="loading" class="add-comment" ng-submit="addComment(comment)">\
-                <div class="name">\
+            <form bz-loading-container="loading" class="add-comment" ng-submit="addComment(comment)">\
+                <div class="control-group" ng-class="{\'error\': errors.nickname}" class="name">\
                     <label>Имя</label>\
                     <input class="form-control" ng-model="comment.nickname" type="text">\
+                    <div ng-if="errors.nickname.required" class="help-block">Укажите Ваше имя</div>\
                 </div>\
-                <div class="message">\
-                        <label>Сообщение</label>\
-                        <textarea class="form-control" rows="3" ng-model="comment.body"></textarea>\
+                <div class="control-group" ng-class="{\'error\': errors.body}" class="message">\
+                    <label>Сообщение</label>\
+                    <textarea class="form-control" rows="3" ng-model="comment.body"></textarea>\
+                    <div ng-if="errors.body.required" class="help-block">Напишите сообщение</div>\
                 </div>\
                 <input class="form-control btn btn-primary" type="submit" value="Отправить">\
             </form>\
@@ -39,6 +41,12 @@ define('modules/bzComment/directives/bzCommentForm', [
                         scope.replyId = false;
                         scope.comment = {};
                         scope.loading = false;
+                        scope.errors = false;
+                    }, function(res) {
+                        scope.loading = false;
+                        if (res.status == 400) {
+                            scope.errors = res.data;
+                        }
                     });
                 }
             }

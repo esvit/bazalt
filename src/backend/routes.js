@@ -1,13 +1,16 @@
 define('backend/routes', [
+    'angular',
     'backend/app'
-], function (app) {
+], function (angular, app) {
     'use strict';
 
-    app.config(['$routeSegmentProvider', '$locationProvider', '$sceProvider',
-        function ($routeSegmentProvider, $locationProvider, $sceProvider) {
+    app.config(['$routeSegmentProvider', '$locationProvider', '$sceProvider', 'bzConfigProvider',
+        function ($routeSegmentProvider, $locationProvider, $sceProvider, bzConfig) {
             $locationProvider
                 .html5Mode(false)
                 .hashPrefix('!');
+
+            bzConfig.templatePrefix('/bazalt').mine('');
 
             $routeSegmentProvider.options.autoLoadTemplates = true;
 
@@ -22,10 +25,16 @@ define('backend/routes', [
             $sceProvider.enabled(false);
         }]);
 
-    app.run(['$rootScope', function ($rootScope) {
+    app.run(['$rootScope', 'baAcl', '$location', function ($rootScope, baAcl, $location) {
         $rootScope.languages = {
             current: 'en'
         };
+        $rootScope.$on('routeSegmentChange', function(e, next, current) {
+            // check permission for route
+            if (angular.isDefined(next.segment.params.access) && !baAcl.hasPermission(next.segment.params.access)) {
+                $location.path('/login');
+            }
+        });
     }]);
 
 });

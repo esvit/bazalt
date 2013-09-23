@@ -4,14 +4,14 @@ define('modules/bzUploader/directives/bzUploader', [
 ], function (angular, app) {
     'use strict';
 
-    app.directive('bzUploader', [function() {
+    app.directive('bzUploader', ['bzConfig', function(bzConfig) {
         return {
             restrict: 'A',
             scope: {
                 'url': '=bzUploader',
                 'files': '=ngModel'
             },
-            templateUrl: '/src/modules/bzUploader/views/bzUploader.html',
+            templateUrl: bzConfig.templateUrl('/bazalt/src/modules/bzUploader/views/bzUploader.html'),
             replace: true,
             require: 'ngModel',
             controller: ['$scope', '$fileUploader', '$parse', function($scope, $fileUploader, $parse) {

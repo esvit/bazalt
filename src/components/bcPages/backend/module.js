@@ -13,8 +13,8 @@ define('components/bcPages/backend/module', [
 ], function(app) {
     'use strict';
 
-    app.config(['$routeSegmentProvider',
-        function ($routeSegmentProvider) {
+    app.config(['$routeSegmentProvider', 'bzConfigProvider',
+        function ($routeSegmentProvider, bzConfig) {
 
         $routeSegmentProvider
             .when('/pages', 'pages')
@@ -24,21 +24,25 @@ define('components/bcPages/backend/module', [
 
         $routeSegmentProvider
             .segment('pages', {
-                templateUrl: '/src/components/bcPages/backend/views/list.html',
-                controller: 'bcPages.Controllers.Main'
+                templateUrl: bzConfig.templateUrl('/src/components/bcPages/backend/views/list.html'),
+                controller: 'bcPages.Controllers.Main',
+                access: 'pages.can_manage'
             })
             .segment('pagesNew', {
-                templateUrl: '/src/components/bcPages/backend/views/edit.html',
-                controller: 'bcPages.Controllers.PageEdit'
+                templateUrl: bzConfig.templateUrl('/src/components/bcPages/backend/views/edit.html'),
+                controller: 'bcPages.Controllers.PageEdit',
+                access: 'pages.can_manage'
             })
             .segment('pagesEdit', {
-                templateUrl: '/src/components/bcPages/backend/views/edit.html',
+                templateUrl: bzConfig.templateUrl('/src/components/bcPages/backend/views/edit.html'),
                 dependencies: ['id'],
-                controller: 'bcPages.Controllers.PageEdit'
+                controller: 'bcPages.Controllers.PageEdit',
+                access: 'pages.can_manage'
             })
             .segment('pagesCategories', {
-                templateUrl: '/src/components/bcPages/backend/views/categories.html',
-                controller: 'bcPages.Controllers.Categories'
+                templateUrl: bzConfig.templateUrl('/src/components/bcPages/backend/views/categories.html'),
+                controller: 'bcPages.Controllers.Categories',
+                access: 'pages.can_manage'
             });
     }]);
 });

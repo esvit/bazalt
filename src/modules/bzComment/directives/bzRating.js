@@ -21,21 +21,25 @@ define('modules/bzComment/directives/bzRating', [
                 scope.count = scope.count || 0;
 
                 scope.increment = function() {
+                    scope.loading = true;
                     CommentRatingResource.save({
                         page_id: scope.pageId,
                         comment_id: scope.commentId,
                         rating: 1
                     }, function(value) {
+                        scope.loading = false;
                         scope.count = value.rating;
                     });
                 };
 
                 scope.decrement = function() {
+                    scope.loading = true;
                     CommentRatingResource.save({
                         page_id: scope.pageId,
                         comment_id: scope.commentId,
                         rating: -1
                     }, function(value) {
+                        scope.loading = false;
                         scope.count = value.rating;
                     });
                 };

@@ -33,6 +33,7 @@ requirejs.config({
         // bootstrap
         'bootstrap': '../bower_components/bootstrap/js',
         'bootstrap-datepicker': '../bower_components/bootstrap-datepicker/js/bootstrap-datepicker',
+        'bootstrap-datepicker-locale': '../bower_components/bootstrap-datepicker/js/locales',
         'bootstrap-switch': '../bower_components/bootstrap-switch/static/js/bootstrap-switch',
 
         // etc
@@ -66,6 +67,7 @@ requirejs.config({
 
         // Bootstrap
         'bootstrap/modal': { deps: ['bootstrap/transition'] },
+        'bootstrap-datepicker-locale/bootstrap-datepicker.ru': { deps: ['bootstrap-datepicker'] },
 
         // jquery ui for sortable
         'jquery-ui/jquery.ui.core': { deps: ['jquery'] },
@@ -73,6 +75,7 @@ requirejs.config({
         'jquery-ui/jquery.ui.mouse': { deps: ['jquery-ui/jquery.ui.widget'] },
         'jquery-ui/jquery.ui.draggable': { deps: ['jquery-ui/jquery.ui.mouse'] },
         'jquery-ui/jquery.ui.droppable': { deps: ['jquery-ui/jquery.ui.mouse'] },
+        'jquery-ui/jquery.ui.selectable': { deps: ['jquery-ui/jquery.ui.mouse'] },
         'jquery-ui/jquery.ui.sortable': { deps: ['jquery-ui/jquery.ui.mouse'] }
     },
     priority: [

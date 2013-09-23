@@ -1,5 +1,5 @@
 define('modules/bzDatepicker/app', [
-    'angular', 'jquery', 'bootstrap-datepicker'
+    'angular', 'jquery'
 ], function(app) {
     'use strict';
 

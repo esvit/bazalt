@@ -7,15 +7,21 @@ define('modules/bzConfig/providers/bzConfig', [
     app.provider('bzConfig', [function() {
         this.mine = 'http://demo.bazalt-cms.com';
 
+        this.templatePrefix = '';
+
         this.mine = function (mine) {
             this.mine = mine;
+            return this;
+        };
+        this.templatePrefix = function (templatePrefix) {
+            this.templatePrefix = templatePrefix;
             return this;
         };
 
         this.templateUrl = function(templateUrl) {
             var self = this;
             return function() {
-                var url = templateUrl;
+                var url = self.templatePrefix + templateUrl;
                 return url;
             };
         };
@@ -23,6 +29,9 @@ define('modules/bzConfig/providers/bzConfig', [
         this.$get = [function() {
             var self = this;
             return {
+                templatePrefix: function() {
+                    return self.templatePrefix;
+                },
                 templateUrl: function (templateUrl) {
                     return self.templateUrl(templateUrl);
                 },

@@ -21,7 +21,7 @@ define('components/bcPages/module', [
                 component: 'Страницы',
                 templateUrl: bzConfigProvider.templateUrl('/views/widgets/pages/page.html'),
                 resolve: {
-                    page: ['$q', 'bcPages.Factories.Page', 'widget', function ($q, PageResource, widget) {
+                    page: ['$q', 'bcPages.Factories.Page', 'bzWidget', function ($q, PageResource, widget) {
                         var deferred = $q.defer();
 
                         PageResource.get({ 'id': widget.$settings.id }, function (page) {
