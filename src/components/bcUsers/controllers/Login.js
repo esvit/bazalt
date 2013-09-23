@@ -18,6 +18,7 @@ define('components/bcUsers/controllers/Login', [
 
                         $location.path('/user/profile');
                     }, function(res) {
+                        $scope.loading = false;
                         if (res.status == 400) {
                             $scope.errors = res.data;
                         }

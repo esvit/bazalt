@@ -12,8 +12,7 @@ define('components/bcUsers/controllers/ProfileSettings', [
                     'spassword': 'awdawd',
                     'firstname': 'Olga',
                     'secondname': 'Rudenko',
-                    'birth_date': '12.05.1988',
-                    'city': 'Vinnitsa'
+                    'birth_date': '12.05.1988'
                 });
 
             /*UserResource.get({ 'id': $routeParams.id }, function(user) {

@@ -5,13 +5,9 @@ define('modules/bzDatepicker/directives/bzDatepicker', [
     app.directive('bzDatepicker', function () {
         return {
             restrict: 'A',
-            template: '<div></div>' ,
-            replace: true,
-            scope: {
-                'div': '=bzDatepicker'
-            },
+            scope: false,
             link: function (scope, element, attrs) {
-                $('.data-picker', element).click(function(e) {
+                $(element).parent().click(function(e) {
                     e.preventDefault();
                 }).datepicker();
             }

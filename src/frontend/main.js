@@ -8,7 +8,7 @@ define('frontend/main', [
 
     angular.bootstrap(document.documentElement, [app.name]);
 });
-window.startup = setTimeout(function() {
+/*window.startup = setTimeout(function() {
     'use strict';
 
     if (typeof angular != 'undefined') {
@@ -18,3 +18,4 @@ window.startup = setTimeout(function() {
         window.callPhantom({ status: 'done' });
     }
 }, 2000);
+*/

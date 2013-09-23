@@ -12,18 +12,16 @@ define('components/bcUsers/controllers/Registration', [
                     'spassword': 'awdawd',
                     'firstname': 'Olga',
                     'secondname': 'Rudenko',
-                    'birth_date': '12.05.1988',
-                    'city': 'Vinnitsa'
+                    'birth_date': '12.05.1988'
                 });
 
                 $scope.saveUser = function(user) {
                     user.login = user.email;
                     user.gender = 'unknown';
                     user.is_active = 1;
-                    user.firstname = 'Olga';
-                    user.secondname = 'Rudenko';
-                    user.birth_date = '12.03.06';
-                    user.city = 'Vinnitsa';
+                    user.firstname = user.firstname;
+                    user.secondname = user.secondname;
+                    user.birth_date = user.birth_date;
                     user.$save(function(res){
                         console.info(res);
                     }, function(err){

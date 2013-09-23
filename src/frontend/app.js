@@ -10,6 +10,7 @@ define('frontend/app', [
     'modules/bzGalleria/module',
     'modules/bzImg/module',
     'modules/bzCarousel/module',
+    'modules/bzDatepicker/module',
 
     'components/bcPages/module',
     'components/bcMenu/module',
@@ -29,6 +30,7 @@ define('frontend/app', [
     modules.push('bzGalleria');
     modules.push('bzImg');
     modules.push('bzCarousel');
+    modules.push('bzDatepicker');
 
     // components
     modules.push('Components.bcUsers');
