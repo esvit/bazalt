@@ -21,7 +21,6 @@ define('components/bcUsers/module', [
                 .when('/user/profile', 'profile.view')
                 .when('/user/profile/view', 'profile.view')
                 .when('/user/profile/edit', 'profile.edit')
-                .when('/user/profile/avatar', 'profile.avatar')
                 .when('/user/profile/password', 'profile.password')
                 .when('/user/profile/public', 'profile.public');
 
@@ -62,12 +61,6 @@ define('components/bcUsers/module', [
                     .within()
                     .segment('edit', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/profile.html'),
-                        controller: 'bcUsers.Controllers.ProfileSettings'
-                    })
-                .up()
-                    .within()
-                    .segment('avatar', {
-                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/avatar.html'),
                         controller: 'bcUsers.Controllers.ProfileSettings'
                     })
                 .up()

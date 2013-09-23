@@ -21,6 +21,10 @@ define('frontend/routes', [
             $httpProvider.defaults.transformRequest.push(spinnerFunction);
         }])
 
+        .run(['$routeSegment', '$rootScope', function($routeSegment, $rootScope) {
+            $rootScope.$routeSegment = $routeSegment;
+        }])
+
         //register the interceptor as a service, intercepts ALL angular ajax http calls
         .factory('loaderInterceptor', ['$q', '$injector', '$rootScope', function ($q, $injector, $rootScope) {
             return function (promise) {
