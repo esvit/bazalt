@@ -6,6 +6,7 @@ define('components/bcUsers/factories/UserResource', [
         return $resource(baConfig.apiEndpoint() + '/users/:id', { 'id': '@id' }, {
             'checkEmail': { method: 'GET', params: { 'action': 'checkEmail' } },
             'delete': { method: 'DELETE' },
+            'changePassword': { method: 'PUT', params: { 'action': 'changePassword' } },
             'activate': { method: 'GET', params: { 'action': 'activate' } }
         });
     }]);

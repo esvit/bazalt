@@ -8,7 +8,8 @@ define('components/bcPages/module', [
 
     'components/bcPages/factories/Page',
     'components/bcPages/factories/Category',
-    'components/bcPages/factories/Tag'
+    'components/bcPages/factories/Tag',
+    'components/bcPages/factories/PageRating'
 ], function (app) {
     'use strict';
 

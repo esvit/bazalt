@@ -6,7 +6,8 @@ define('components/bcUsers/module', [
     'components/bcUsers/controllers/Registration',
     'components/bcUsers/controllers/Login',
     'components/bcUsers/controllers/ProfileSettings',
-    'components/bcUsers/controllers/Activation'
+    'components/bcUsers/controllers/Activation',
+    'components/bcUsers/controllers/Profile/ChangePassword'
 ], function (app) {
     'use strict';
 
@@ -74,7 +75,7 @@ define('components/bcUsers/module', [
                     .within()
                     .segment('password', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/password.html'),
-                        controller: 'bcUsers.Controllers.ProfileSettings'
+                        controller: 'bcUsers.Controllers.Profile.ChangePassword'
                     })
                 .up()
                     .within()

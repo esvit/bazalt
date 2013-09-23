@@ -7,7 +7,8 @@ define('modules/bzComment/directives/bzRating', [
 ], function (app, angular) {
     'use strict';
 
-    app.directive('bzRating', ['bcPages.Factories.CommentRating', 'bzConfig', function(CommentRatingResource, bzConfig) {
+    app.directive('bzRating', ['bcPages.Factories.CommentRating', 'bcPages.Factories.PageRating', 'bzConfig',
+        function(CommentRatingResource, PageRatingResource, bzConfig) {
         return {
             restrict: 'A',
             replace: true,
@@ -20,13 +21,20 @@ define('modules/bzComment/directives/bzRating', [
             link: function(scope, element, attrs) {
                 scope.count = scope.count || 0;
 
+                var resource = (attrs.commentId) ?
+                                    new CommentRatingResource({
+                                        page_id: scope.pageId,
+                                        comment_id: scope.commentId
+                                    }) :
+                                    new PageRatingResource({
+                                        page_id: scope.pageId
+                                    });
+
                 scope.increment = function() {
                     scope.loading = true;
-                    CommentRatingResource.save({
-                        page_id: scope.pageId,
-                        comment_id: scope.commentId,
-                        rating: 1
-                    }, function(value) {
+                    var res = angular.copy(resource);
+                    res.rating = 1;
+                    res.$save(function(value) {
                         scope.loading = false;
                         scope.count = value.rating;
                     });
@@ -34,11 +42,9 @@ define('modules/bzComment/directives/bzRating', [
 
                 scope.decrement = function() {
                     scope.loading = true;
-                    CommentRatingResource.save({
-                        page_id: scope.pageId,
-                        comment_id: scope.commentId,
-                        rating: -1
-                    }, function(value) {
+                    var res = angular.copy(resource);
+                    res.rating = -1;
+                    res.$save(function(value) {
                         scope.loading = false;
                         scope.count = value.rating;
                     });
