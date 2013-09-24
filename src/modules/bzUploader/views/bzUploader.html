@@ -1,7 +1,7 @@
 <div ng-file-drop>
 
     <!-- 2. ng-file-select | ng-file-select="options" -->
-    <input ng-file-select type="file" multiple/>
+    <input class="btn-file-uploader" ng-file-select type="file" multiple/>
 
     <div class="upload-files" ng-if="uploader.queue.length">
         <h3>Для загрузки выбрано {{ uploader.queue.length }} файла(ов).</h3>
@@ -12,7 +12,7 @@
                 <div>
                     <b>Progress:</b> {{ item.progress }}-->
                     <div class="progress progress-bar-info">
-                        <div class="progress-bar" ng-style="{ 'width': item.progress + '%' }"></div>
+                        <div class="bar" ng-style="{ 'width': item.progress + '%' }"></div>
                     </div>
                 <!--/div>
                 <div><b>Uploaded:</b> {{ item.isUploaded }}</div-->
@@ -28,13 +28,13 @@
         <div class="progress-uploaded" ng-show="uploader.queue.length">
             <div>
                 <b>Total progress:</b> {{ uploader.progress }}
-                <div class="progress progress-striped ">
-                    <div style="float: left" class="progress-bar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                <div class="progress progress-striped active">
+                    <div style="float: left" class="bar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>
             </div>
             <div class="btn-group">
-                <a class="btn btn-primary" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()">upload all</a>
-                <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()">delete all</a>
+                <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()">upload all</a>
+                <a class="btn btn-inverse" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()">delete all</a>
             </div><!-- ng-show="uploader.getNotUploadedItems().length"-->
         </div>
     </div>
