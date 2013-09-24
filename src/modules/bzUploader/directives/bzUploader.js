@@ -38,10 +38,12 @@ define('modules/bzUploader/directives/bzUploader', [
                 // REGISTER HANDLERS
 
                 uploader.bind('afteraddingfile', function (event, item) {
-                    console.log('After adding a file', item);
+                    //item.upload();
+                    //console.log('After adding a file', item);
                 });
 
                 uploader.bind('afteraddingall', function (event, items) {
+                    uploader.uploadAll();
                     console.log('After adding all files', items);
                 });
 

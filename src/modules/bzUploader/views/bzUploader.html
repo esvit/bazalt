@@ -4,37 +4,43 @@
     <input class="btn-file-uploader" ng-file-select type="file" multiple/>
 
     <div class="upload-files" ng-if="uploader.queue.length">
-        <h3>Для загрузки выбрано {{ uploader.queue.length }} файла(ов).</h3>
-        <ul class="list-unstyled nav-pills nav">
+        <!--h4>Для загрузки выбрано {{ uploader.queue.length }} файла(ов).</h4-->
+        <!--ul class="list-unstyled nav-pills nav">
             <li class="col-md-2" ng-repeat="item in uploader.queue">
-                <!--div><b>Name:</b--> {{ item.file.name }}<!--/div>
-                <div><b>Size:</b> {{ item.file.size }}</div>
-                <div>
-                    <b>Progress:</b> {{ item.progress }}-->
-                    <div class="progress progress-bar-info">
+                <div class="one-file-upload">
+                    <img ng-src="http://placehold.it/25x25"/>
+                    <div ng-show="item.isUploaded" style="float: left; margin-right: 10px">{{ item.file.name }}</div>
+                    <div ng-hide="item.isUploaded" class="progress progress-info">
                         <div class="bar" ng-style="{ 'width': item.progress + '%' }"></div>
                     </div>
-                <!--/div>
-                <div><b>Uploaded:</b> {{ item.isUploaded }}</div-->
-
-                <div class="btn-group">
-                    <a class="btn btn-default btn-xs" ng-href="#" ng-click="$event.preventDefault(); item.upload()"
-                       ng-disabled="item.isUploaded">upload</a>
-                    <a class="btn btn-default active btn-xs" ng-href="#" ng-click="$event.preventDefault(); item.remove()">delete</a>
+                    <div style="float:left">
+                        <!--a ng-disabled="item.isUploaded" ng-click="$event.preventDefault(); item.upload()" ng-href="#" href="#"><i class="icon-plus icon"></i></a-->
+                        <!--a ng-click="$event.preventDefault(); item.remove()" ng-href="#" href="#"><i class="icon-trash icon"></i></a>
+                    </div>
+                </div-->
+                <!--{{ item.file.name }}
+                <div class="progress progress-bar-info">
+                    <div class="bar" ng-style="{ 'width': item.progress + '%' }"></div>
                 </div>
 
-            </li>
-        </ul>
+                <div class="btn-group">
+                    <a class="btn btn-default btn-small" ng-href="#" ng-click="$event.preventDefault(); item.upload()"
+                       ng-disabled="item.isUploaded">Загрузить</a>
+                    <a class="btn btn-inverse btn-small" ng-href="#" ng-click="$event.preventDefault(); item.remove()">Удалить</a>
+                </div-->
+
+            <!--/li>
+        </ul-->
         <div class="progress-uploaded" ng-show="uploader.queue.length">
             <div>
-                <b>Total progress:</b> {{ uploader.progress }}
+                <b>Общий прогресс:</b> {{ uploader.progress }}
                 <div class="progress progress-striped active">
                     <div style="float: left" class="bar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>
             </div>
-            <div class="btn-group">
-                <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()">upload all</a>
-                <a class="btn btn-inverse" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()">delete all</a>
+            <!--div class="btn-group">
+                <a class="btn btn-danger" ng-href="#" ng-click="$event.preventDefault(); uploader.uploadAll()">Загрузить все</a>
+                <a class="btn btn-inverse" ng-href="#" ng-click="$event.preventDefault(); uploader.clearQueue()">Удалить все</a>
             </div><!-- ng-show="uploader.getNotUploadedItems().length"-->
         </div>
     </div>
@@ -46,23 +52,30 @@
                     <div class="thumbnail">
                         <img ng-src="{{ file.thumbnailUrl }}"/>
                     </div>
-                    <a href="" class="btn btn-danger btn-xs" ng-click="deleteFile(file)">{{ 'Delete'|translate }}</a>
+                    <!--a class="delete-one-file" href="" ng-click="deleteFile(file)"><i class="icon-trash icon"></i></a-->
+                    <a class="btn btn-small btn-danger" href="" ng-click="deleteFile(file)">{{ 'Delete'|translate }}</a>
                 </div>
                 <div class="file-description">
-                    <form>
-                        <fieldset>
-                            <label>Название</label>
-                            <input type="text" ng-model="file.title" class="form-control" placeholder="Введите название изображения…">
-                        </fieldset>
-                        <fieldset>
-                            <label>Описание</label>
-                            <textarea ng-model="file.description" class="form-control"></textarea>
-                        </fieldset>
+                    <form class="registration">
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <div class="controls">
+                                <input type="text" ng-model="file.title" class="form-control" placeholder="Введите название изображения…">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"></label>
+                            <div class="controls">
+                                <textarea ng-model="file.description"  placeholder="Введите описание изображения…" class="form-control"></textarea>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
+        <div class="clearfix"></div>
+        <a class="btn btn-inverse" ng-href="#" ng-click="deleteFile(files)">Удалить все</a>
     </div>
 
 </div>
