@@ -4,6 +4,7 @@ requirejs.config({
         // jquery
         'jquery': '../bower_components/jquery/jquery',
         'jquery-ui': '../bower_components/jquery-ui/ui',
+        'jquery-waypoints': '../bower_components/',
 
         // angular
         //'angular': '../bower_components/angular/angular',
