@@ -30,6 +30,7 @@
     "angular-file-upload": "https://github.com/esvit/angular-file-upload.git#master",
     "speakingurl": "~0.2.21",
     "jquery-galleria": "~1.2.9",
+    "jquery.sticky": "~1.0.0",
     "fancybox": "~2.1.5",
     "angular-smoothscroll": "*",
     "ng-finder": "*",

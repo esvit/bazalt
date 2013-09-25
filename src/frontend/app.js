@@ -9,6 +9,7 @@ define('frontend/app', [
     'modules/bzComment/module',
     'modules/bzGalleria/module',
     'modules/bzImg/module',
+    'modules/bzSticky/module',
     'modules/bzCarousel/module',
     'modules/bzDatepicker/module',
 
@@ -29,6 +30,7 @@ define('frontend/app', [
     modules.push('bzComment');
     modules.push('bzGalleria');
     modules.push('bzImg');
+    modules.push('bzSticky');
     modules.push('bzCarousel');
     modules.push('bzDatepicker');
 

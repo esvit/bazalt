@@ -4,7 +4,6 @@ requirejs.config({
         // jquery
         'jquery': '../bower_components/jquery/jquery',
         'jquery-ui': '../bower_components/jquery-ui/ui',
-        'jquery-waypoints': '../bower_components/',
 
         // angular
         //'angular': '../bower_components/angular/angular',
@@ -43,6 +42,9 @@ requirejs.config({
 
         //jquery-galleria
         'jquery-galleria': '../bower_components/jquery-galleria/src/galleria',
+
+        //jquery.sticky
+        'jquery-sticky': '../bower_components/jquery.sticky/jquery.sticky',
 
         'fancybox': '../bower_components/fancybox/source/jquery.fancybox',
 
