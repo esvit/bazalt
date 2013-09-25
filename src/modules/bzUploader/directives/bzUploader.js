@@ -91,6 +91,7 @@ define('modules/bzUploader/directives/bzUploader', [
                     angular.forEach($scope.files, function(item, i){
                         if (item == file) {
                             $scope.files.splice(i, 1);
+                            console.info(file);
                         }
                     });
                 };

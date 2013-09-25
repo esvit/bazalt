@@ -1,7 +1,12 @@
 <div ng-file-drop>
 
     <!-- 2. ng-file-select | ng-file-select="options" -->
-    <input class="btn-file-uploader" ng-file-select type="file" multiple/>
+    <!--input class="btn-file-uploader" ng-file-select type="file" multiple /-->
+    <div class="btn-upload">
+        <a href="" class="btn btn-primary">Загрузить файлы</a>
+        <input class="btn-file-uploader" ng-file-select type="file" multiple />
+    </div>
+
 
     <div class="upload-files" ng-if="uploader.queue.length">
         <!--h4>Для загрузки выбрано {{ uploader.queue.length }} файла(ов).</h4-->
@@ -53,20 +58,20 @@
                         <img ng-src="{{ file.thumbnailUrl }}"/>
                     </div>
                     <!--a class="delete-one-file" href="" ng-click="deleteFile(file)"><i class="icon-trash icon"></i></a-->
-                    <a class="btn btn-small btn-danger" href="" ng-click="deleteFile(file)">{{ 'Delete'|translate }}</a>
+                    <a class="btn btn-small btn-danger" href="" ng-click="deleteFile(file)">Удалить</a>
                 </div>
                 <div class="file-description">
                     <form class="registration">
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <input type="text" ng-model="file.title" class="form-control" placeholder="Введите название изображения…">
+                                <input type="text" ng-model="file.title" class="form-control" placeholder="Введите название">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"></label>
                             <div class="controls">
-                                <textarea ng-model="file.description"  placeholder="Введите описание изображения…" class="form-control"></textarea>
+                                <textarea ng-model="file.description"  placeholder="Введите описание" class="form-control"></textarea>
                             </div>
                         </div>
                     </form>
@@ -75,7 +80,7 @@
             </div>
         </div>
         <div class="clearfix"></div>
-        <a class="btn btn-inverse" ng-href="#" ng-click="deleteFile(files)">Удалить все</a>
+        <a class="btn btn-inverse" ng-href="" ng-click="clearQueue(files)">Удалить все</a>
     </div>
 
 </div>
