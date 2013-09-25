@@ -1,7 +1,11 @@
 <div ng-file-drop>
 
     <!-- 2. ng-file-select | ng-file-select="options" -->
-    <input class="btn-file-uploader" ng-file-select type="file" multiple/>
+    <!--input class="btn-file-uploader" ng-file-select type="file" multiple /-->
+    <div class="btn-upload">
+        <a href="" class="btn btn-default">Загрузить изображения</a>
+        <input class="btn-file-uploader" ng-file-select type="file" multiple />
+    </div>
 
 
     <div class="upload-files" ng-if="uploader.queue.length">
