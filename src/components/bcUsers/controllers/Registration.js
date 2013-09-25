@@ -4,8 +4,8 @@ define('components/bcUsers/controllers/Registration', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Registration',
-        ['$scope', 'bcUsers.Factories.User',
-            function ($scope, UserResource) {
+        ['$scope', 'bcUsers.Factories.User', '$q',
+            function ($scope, UserResource, $q) {
                 $scope.user = new UserResource({
                     'email': 'esvit666@gmail.com',
                     'password': 'awdawd',
@@ -29,7 +29,17 @@ define('components/bcUsers/controllers/Registration', [
                             $scope.formError = err.data;
                         }
                     })
-                }
+                };
+
+                $scope.checkEmail = function(email) {
+                    var d = $q.defer();
+                    UserResource.checkEmail({ 'email': email }, function(data) {
+                        d.resolve(data.valid);
+                    }, function(error) {
+                        d.reject(error);
+                    });
+                    return d;
+                };
 
             }]);
 

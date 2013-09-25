@@ -4,7 +4,8 @@ define('components/bcPages/module', [
     'components/bcPages/controllers/Page',
     'components/bcPages/controllers/Category',
     'components/bcPages/controllers/Widget/Category',
-    'components/bcPages/controllers/AddPost',
+    'components/bcPages/controllers/UserPost',
+    'components/bcPages/controllers/UserPosts',
 
     'components/bcPages/factories/Page',
     'components/bcPages/factories/Category',
@@ -48,7 +49,10 @@ define('components/bcPages/module', [
                 .when('/', 'home')
                 .when('/c-:categoryAlias', 'category')
                 .when('/p-:pageAlias', 'page')
-                .when('/user/add-post', 'profile.add-post');
+                .when('/post-:id', 'page')
+                .when('/user/profile/add-post', 'profile.postAdd')
+                .when('/user/profile/edit-post/:id', 'profile.postEdit')
+                .when('/user/profile/posts', 'profile.posts');
 
             $routeSegmentProvider
                 .segment('home', {
@@ -80,56 +84,25 @@ define('components/bcPages/module', [
                     dependencies: ['pageAlias'],
                     controller: 'bcPages.Controllers.Page'
                 })
+                .segment('pageById', {
+                    template: '<div ng-include="page.template()"></div>',
+                    dependencies: ['pageAlias'],
+                    controller: 'bcPages.Controllers.Page'
+                })
                 .within('profile')
-                    .segment('add-post', {
+                    .segment('posts', {
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/posts.html'),
+                        controller: 'bcPages.Controllers.UserPosts'
+                    })
+                    .segment('postAdd', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/add-post.html'),
-                        controller: 'bcPages.Controllers.AddPost'
+                        controller: 'bcPages.Controllers.UserPost'
+                    })
+                    .segment('postEdit', {
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/add-post.html'),
+                        dependencies: ['id'],
+                        controller: 'bcPages.Controllers.UserPost'
                     });
-
-            /*
-             $routeProvider
-             .when('/', {
-             templateUrl: bzConfigProvider.templateUrl('/views/index.html'),
-             controller: function() {}
-             })
-             .when('/page/:pageAlias', {
-             template: '<div ng-include="page.template()"></div>',
-             resolve: {
-             page: ['$q', '$route', 'bcPages.Factories.Page', function ($q, $route, PagesResource) {
-             var deferred = $q.defer();
-
-             PagesResource.get({ 'alias': $route.current.params.pageAlias }, function(page) {
-             page.template = bzConfigProvider.templateUrl('/views/pages/default.html');
-             deferred.resolve(page);
-             }, function() {
-             deferred.reject($q.reject({}));
-             });
-
-             return deferred.promise;
-             }]
-             },
-             controller: 'bcPages.Controllers.Page'
-             })
-             .when('/:categoryAlias', {
-             template: '<div ng-include="category.template()"></div>',
-             resolve: {
-             category: ['$q', '$route', 'bcPages.Factories.Category',
-             function ($q, $route, CategoryResource) {
-             var deferred = $q.defer();
-
-             CategoryResource.get({ 'alias': $route.current.params.categoryAlias }, function(page) {
-             page.template =  bzConfigProvider.templateUrl('/views/pages/category.html');
-             deferred.resolve(page);
-             }, function() {
-             deferred.reject($q.reject({}));
-             });
-
-             return deferred.promise;
-             }]
-             },
-             controller: 'bcPages.Controllers.Category'
-             });
-             */
         }]);
 
 });

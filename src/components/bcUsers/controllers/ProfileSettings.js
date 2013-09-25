@@ -4,8 +4,8 @@ define('components/bcUsers/controllers/ProfileSettings', [
     'use strict';
 
     app.controller('bcUsers.Controllers.ProfileSettings',
-        ['$scope', 'bcUsers.Factories.User', '$rootScope',
-            function ($scope, UserResource, $rootScope) {
+        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$location',
+            function ($scope, UserResource, $rootScope, $location) {
             UserResource.get({ 'id': $rootScope.user.id }, function(user) {
                 $scope.loading = false;
                 if (!user.images) {
@@ -19,6 +19,7 @@ define('components/bcUsers/controllers/ProfileSettings', [
                 $scope.loading = true;
                 user.$save(function(user) {
                     $scope.loading = false;
+                    $location.path('/user/profile');
                 }, function(res) {
                     $scope.loading = false;
                     if (res.status == 400) {

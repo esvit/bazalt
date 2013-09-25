@@ -22,8 +22,7 @@ define('components/bcUsers/module', [
                 .when('/user/profile', 'profile.view')
                 .when('/user/profile/view', 'profile.view')
                 .when('/user/profile/edit', 'profile.edit')
-                .when('/user/profile/password', 'profile.password')
-                .when('/user/profile/public', 'profile.public');
+                .when('/user/profile/password', 'profile.password');
 
             $routeSegmentProvider
                 /*.segment('user', {
@@ -69,12 +68,6 @@ define('components/bcUsers/module', [
                     .segment('password', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/password.html'),
                         controller: 'bcUsers.Controllers.Profile.ChangePassword'
-                    })
-                .up()
-                    .within()
-                    .segment('public', {
-                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/public.html'),
-                        controller: 'bcUsers.Controllers.ProfileSettings'
                     });
         }]);
 
