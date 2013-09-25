@@ -8,7 +8,8 @@ define('components/bcUsers/module', [
     'components/bcUsers/controllers/ProfileSettings',
     'components/bcUsers/controllers/Activation',
     'components/bcUsers/controllers/Profile/ChangePassword',
-    'components/bcUsers/controllers/Profile/Edit'
+    'components/bcUsers/controllers/Profile/Edit',
+    'components/bcUsers/controllers/Profile/View'
 ], function (app) {
     'use strict';
 
@@ -55,7 +56,8 @@ define('components/bcUsers/module', [
                 })
                     .within()
                     .segment('view', {
-                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/view.html')
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/view.html'),
+                        controller: 'bcUsers.Controllers.Profile.View'
                     })
                 .up()
                     .within()
