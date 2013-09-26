@@ -7,7 +7,6 @@ define('modules/bzSticky/directives/bzSticky', [
         return {
             restrict: 'A',
             scope: false,
-            require: 'bzSticky',
             link: function (scope, element, attrs) {
                 scope.$watch('.header', function(value) {
                     console.info('123');

@@ -4,7 +4,7 @@ define('modules/bzComment/directives/bzCommentForm', [
     'components/bcPages/factories/Comment'
 ], function (app) {
 
-    app.directive('bzCommentForm', ['bcPages.Factories.Comment', function(CommentResource) {
+    app.directive('bzCommentForm', ['bcPages.Factories.Comment', '$rootScope', function(CommentResource, $rootScope) {
         return {
             restrict: 'A',
             replace: true,
@@ -15,16 +15,14 @@ define('modules/bzComment/directives/bzCommentForm', [
             },
             template: '<div>\
             <form bz-loading-container="loading" class="add-comment" ng-submit="addComment(comment)">\
-                <div ng-if="user.is_guest" class="control-group" ng-class="{\'error\': errors.nickname}" class="name">\
+                <div class="control-group" ng-class="{\'error\': errors.nickname}" class="name">\
+                    <div class="input-prepend">\
+                        <span class="add-on"><img src="http://placehold.it/30x30"></span>\
+                        <input id="prependedInput" disabled type="text" value="Username">\
+                    </div>\
                     <label>Имя</label>\
                     <input class="form-control" ng-model="comment.nickname" type="text">\
                     <div ng-if="errors.nickname.required" class="help-block">Укажите Ваше имя</div>\
-                </div>\
-                <div ng-if="!user.is_guest" class="control-group" class="name">\
-                    <div class="b-user">\
-                    <a href=""><img src="http://placehold.it/50x50"></a>\
-                    <b>UserName</b>\
-                    </div>\
                 </div>\
                 <div class="control-group" ng-class="{\'error\': errors.body}" class="message">\
                     <label>Сообщение</label>\
@@ -38,8 +36,10 @@ define('modules/bzComment/directives/bzCommentForm', [
                 scope.addComment = function(comment) {
                     scope.comments = scope.comments || [];
 
+                    var user = $rootScope.user || {};
                     comment = new CommentResource(comment);
                     comment.page_id = scope.pageId;
+                    comment.nickname = user.firstname || '';
                     comment.reply_to = scope.replyId;
                     scope.loading = true;
                     comment.$save(function(comment) {
