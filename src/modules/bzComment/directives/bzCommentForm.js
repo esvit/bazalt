@@ -15,10 +15,16 @@ define('modules/bzComment/directives/bzCommentForm', [
             },
             template: '<div>\
             <form bz-loading-container="loading" class="add-comment" ng-submit="addComment(comment)">\
-                <div class="control-group" ng-class="{\'error\': errors.nickname}" class="name">\
+                <div ng-if="user.is_guest" class="control-group" ng-class="{\'error\': errors.nickname}" class="name">\
                     <label>Имя</label>\
                     <input class="form-control" ng-model="comment.nickname" type="text">\
                     <div ng-if="errors.nickname.required" class="help-block">Укажите Ваше имя</div>\
+                </div>\
+                <div ng-if="!user.is_guest" class="control-group" class="name">\
+                    <div class="b-user">\
+                    <a href=""><img src="http://placehold.it/50x50"></a>\
+                    <b>UserName</b>\
+                    </div>\
                 </div>\
                 <div class="control-group" ng-class="{\'error\': errors.body}" class="message">\
                     <label>Сообщение</label>\
