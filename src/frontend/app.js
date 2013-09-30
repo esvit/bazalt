@@ -1,5 +1,6 @@
 define('frontend/app', [
     'angular', 'angular-animate', 'angular-route', 'angular-route-segment', 'angular-smoothscroll',
+    'ngSocial',
 
     'modules/bzAuthorization/module',
     'modules/bzConfig/module',
@@ -19,7 +20,7 @@ define('frontend/app', [
 ], function (angular) {
     'use strict';
 
-    var modules = ['ngAnimate', 'ngRoute', 'route-segment', 'view-segment', 'angularSmoothscroll'];
+    var modules = ['ngAnimate', 'ngRoute', 'route-segment', 'view-segment', 'angularSmoothscroll', 'ngSocial'];
 
     // modules
     modules.push('bzAuthorization');

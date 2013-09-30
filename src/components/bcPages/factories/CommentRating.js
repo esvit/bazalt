@@ -3,8 +3,8 @@ define('components/bcPages/factories/CommentRating', [
 ], function(app) {
     'use strict';
 
-    app.factory('bcPages.Factories.CommentRating', ['$resource', function ($resource) {
-        return $resource('/api/rest.php/pages/:page_id/comments/:comment_id/rating', {
+    app.factory('bcPages.Factories.CommentRating', ['$resource', 'bzConfig', function ($resource, bzConfig) {
+        return $resource(bzConfig.resource('/pages/:page_id/comments/:comment_id/rating'), {
             'page_id': '@page_id',
             'comment_id': '@comment_id'
         }, {

@@ -3,8 +3,8 @@ define('components/bcPages/factories/PageRating', [
 ], function(app) {
     'use strict';
 
-    app.factory('bcPages.Factories.PageRating', ['$resource', function ($resource) {
-        return $resource('/api/rest.php/pages/:page_id/rating', {
+    app.factory('bcPages.Factories.PageRating', ['$resource', 'bzConfig', function ($resource, bzConfig) {
+        return $resource(bzConfig.resource('/pages/:page_id/rating'), {
             'page_id': '@page_id'
         }, {
         });

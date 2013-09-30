@@ -39,7 +39,7 @@ define('modules/bzConfig/providers/bzConfig', [
                     return self.mine;
                 },
                 resource: function (url) {
-                    return self.mine + '/api/rest.php' + url;
+                    return self.mine + '/rest.php' + url;
                 }
             };
         }];
