@@ -21,7 +21,7 @@ requirejs.config({
         'ng-ckeditor': '../bower_components/ng-ckeditor/ng-ckeditor.src',
         'ng-editable-tree': '../bower_components/ng-editable-tree/ng-editable-tree',
         'ngTable': '../bower_components/ng-table/ng-table',
-        'ngFinder': '../bower_components/ng-finder/ng-finder',
+        'ngFinder': '../bower_components/ng-finder/ng-finder.src',
 
         // @todo temp
         //'bazalt-auth': '../bower_components/bazalt-auth/bazalt-auth',
@@ -67,6 +67,7 @@ requirejs.config({
         'ng-ckeditor': { deps: ['ckeditor'] },
         'ng-editable-tree': { deps: ['angular', 'jquery-ui/jquery.ui.draggable', 'jquery-ui/jquery.ui.droppable', 'jquery-ui/jquery.ui.sortable'] },
         'ngTable': { deps: ['jquery', 'angular'] },
+        'ngFinder': { deps: ['elfinder', 'angular'] },
         'jquery-galleria': { deps: ['jquery'] },
         'elfinder': { deps: ['jquery-ui/jquery.ui.draggable', 'jquery-ui/jquery.ui.droppable', 'jquery-ui/jquery.ui.selectable'] },
 

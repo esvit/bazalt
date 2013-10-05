@@ -4,8 +4,8 @@ define('components/bcUsers/controllers/Login', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Login',
-        ['$scope', 'baAcl', '$location',
-            function ($scope, baAcl, $location) {
+        ['$scope', '$location',
+            function ($scope, $location) {
                 $scope.user = {
                     'login': 'oll.rudenko@gmail.com',
                     'password': 'awdawd'

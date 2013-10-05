@@ -1,6 +1,6 @@
 /* jshint browser:true, jquery:true */
 define('backend/main', [
-    'jquery', 'angular', 'backend/app', 'backend/files', 'backend/routes'
+    'backend/app', 'angular', 'backend/app', 'backend/files', 'backend/routes'
 ], function($, angular, app) {
     'use strict';
 

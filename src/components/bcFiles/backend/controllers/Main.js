@@ -4,9 +4,9 @@ define('components/bcFiles/backend/controllers/Main', [
     'use strict';
 
     app.controller('bcFiles.Controllers.Main',
-        ['$scope',
-            function ($scope) {
-
+        ['$scope', 'bzConfig',
+            function ($scope, bzConfig) {
+                $scope.url  = bzConfig.resource('/files').replace('\\:', ':');
             }]);
 
 });

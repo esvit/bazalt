@@ -10,8 +10,8 @@ define('components/bcMenu/backend/module', [
 ], function(app) {
     'use strict';
 
-    app.config(['$routeSegmentProvider',
-        function ($routeSegmentProvider) {
+    app.config(['$routeSegmentProvider', 'bzConfigProvider',
+        function ($routeSegmentProvider, bzConfig) {
 
         $routeSegmentProvider
             .when('/menu', 'menu')
@@ -19,17 +19,12 @@ define('components/bcMenu/backend/module', [
 
         $routeSegmentProvider
             .segment('menu', {
-                templateUrl: '/src/components/bcMenu/backend/views/menu.html',
+                templateUrl: bzConfig.templateUrl('/src/components/bcMenu/backend/views/menu.html'),
                 controller: 'bcMenu.Controllers.Main'
             })
             .within()
             .segment('edit', {
-                templateUrl: '/src/components/bcMenu/backend/views/edit.html',
-                resolve: {
-                    menu: ['$q', 'bcMenu.Factories.Menu', '$routeParams', function ($q, MenuResource, $routeParams) {
-                        return MenuResource.get({ 'id': $routeParams.id }).$promise;
-                    }]
-                },
+                templateUrl: bzConfig.templateUrl('/src/components/bcMenu/backend/views/edit.html'),
                 dependencies: ['id'],
                 controller: 'bcMenu.Controllers.MenuEdit'
             });

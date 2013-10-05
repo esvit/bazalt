@@ -5,6 +5,6 @@ define('backend/files', [
 
     'backend/controllers/Main',
     'backend/controllers/SidebarMenu',
-    'backend/controllers/LoginDialog'
+    'backend/controllers/Login'
 ], function() {
 });

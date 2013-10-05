@@ -5,15 +5,15 @@ define('components/bcFiles/backend/module', [
 ], function(app) {
     'use strict';
 
-    app.config(['$routeSegmentProvider',
-        function ($routeSegmentProvider) {
+    app.config(['$routeSegmentProvider', 'bzConfigProvider',
+        function ($routeSegmentProvider, bzConfig) {
 
         $routeSegmentProvider
             .when('/files', 'files');
 
         $routeSegmentProvider
             .segment('files', {
-                templateUrl: '/src/components/bcFiles/backend/views/main.html',
+                templateUrl: bzConfig.templateUrl('/src/components/bcFiles/backend/views/main.html'),
                 controller: 'bcFiles.Controllers.Main'
             });
     }]);

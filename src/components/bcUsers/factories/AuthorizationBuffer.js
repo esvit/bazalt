@@ -1,9 +1,9 @@
-define('modules/bzAuthorization/factories/bzAuthorizationBuffer', [
-    'modules/bzAuthorization/app'
+define('components/bcUsers/factories/AuthorizationBuffer', [
+    'components/bcUsers/app'
 ], function (app) {
     'use strict';
 
-    app.factory('bzAuthorizationBuffer',  ['$injector', function($injector) {
+    app.factory('bcUsers.Factories.AuthorizationBuffer',  ['$injector', function($injector) {
         /** Holds all the requests, so they can be re-requested in future. */
         var buffer = [];
 

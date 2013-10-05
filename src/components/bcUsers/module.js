@@ -1,5 +1,8 @@
 define('components/bcUsers/module', [
+    'angular',
     'components/bcUsers/app',
+
+    'components/bcUsers/config',
 
     'components/bcUsers/factories/UserResource',
 
@@ -10,11 +13,11 @@ define('components/bcUsers/module', [
     'components/bcUsers/controllers/Profile/ChangePassword',
     'components/bcUsers/controllers/Profile/Edit',
     'components/bcUsers/controllers/Profile/View'
-], function (app) {
+], function (angular, app) {
     'use strict';
 
-    app.config(['$routeSegmentProvider', 'bzConfigProvider', 'bzWidgetsProvider',
-        function ($routeSegmentProvider, bzConfigProvider, bzWidgetsProvider) {
+    app.config(['$routeSegmentProvider', 'bzConfigProvider',
+        function ($routeSegmentProvider, bzConfigProvider) {
 
             $routeSegmentProvider
                 .when('/user', 'profile')
@@ -72,5 +75,4 @@ define('components/bcUsers/module', [
                         controller: 'bcUsers.Controllers.Profile.ChangePassword'
                     });
         }]);
-
 });

@@ -20,13 +20,18 @@ define('components/bcMenu/backend/controllers/MenuEdit', [
                     }
                 });
 
-                if ($scope.$parent.menu) {
+                $scope.$watch('menu', function(menu) {
+                    // if menu undefined or menu is MenuElementsService
+                    if (angular.isUndefined(menu) || angular.isUndefined(menu.getElements)) {
+                        return;
+                    }
+                    menu = angular.extend(new MenuService(), menu);
                     $scope.loading.elements = true;
-                    $scope.$parent.menu.getElements(function (result) {
+                    menu.getElements(function (result) {
                         $scope.loading.elements = false;
                         $scope.$parent.menu = result;
                     }, true);
-                }
+                });
 
                 /**
                  * Create new menu elements

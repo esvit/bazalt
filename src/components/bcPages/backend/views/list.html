@@ -1,4 +1,4 @@
-<div class="content-container" locale-bundle="components/bcPages/backend">
+<div class="content-container"> <!-- locale-bundle="components/bcPages/backend"-->
 
     <div class="page-header">
         <div class="row">
@@ -20,7 +20,7 @@
         <div class="col col-lg-3">
             <strong>{{ 'Categories'|translate }} <a ng-if="category_id" ng-click="filterByCategory()" href="">{{ 'Reset' }}</a></strong>
             <div ng-controller="bcPages.Controllers.CategoryTree"
-                 ng-include="'/src/components/bcPages/backend/views/categories-tree.html'"></div>
+                 ng-include="'/bazalt/src/components/bcPages/backend/views/categories-tree.html'"></div>
 
         </div>
         <div class="col col-lg-9" bz-loading-container="loading">

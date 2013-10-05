@@ -5,41 +5,45 @@ define('modules/bzConfig/providers/bzConfig', [
     'use strict';
 
     app.provider('bzConfig', [function() {
-        this.mine = 'http://demo.bazalt-cms.com';
-
-        this.templatePrefix = '';
+        var options = {
+            mine: 'http://demo.bazalt-cms.com',
+            templatePrefix: ''
+        };
 
         this.mine = function (mine) {
-            this.mine = mine;
+            options.mine = mine;
             return this;
         };
         this.templatePrefix = function (templatePrefix) {
-            this.templatePrefix = templatePrefix;
+            options.templatePrefix = templatePrefix;
             return this;
         };
 
         this.templateUrl = function(templateUrl) {
-            var self = this;
             return function() {
-                var url = self.templatePrefix + templateUrl;
+                var url = options.templatePrefix + templateUrl;
                 return url;
             };
         };
+
+        if (angular.isDefined(window.bazalt)) {
+            options = angular.extend(options, window.bazalt);
+        }
 
         this.$get = [function() {
             var self = this;
             return {
                 templatePrefix: function() {
-                    return self.templatePrefix;
+                    return options.templatePrefix;
                 },
                 templateUrl: function (templateUrl) {
                     return self.templateUrl(templateUrl);
                 },
                 mine: function () {
-                    return self.mine;
+                    return options.mine;
                 },
                 resource: function (url) {
-                    return self.mine + '/rest.php' + url;
+                    return options.mine + '/rest.php' + url;
                 }
             };
         }];

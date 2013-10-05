@@ -6,7 +6,6 @@ define('backend/app', [
     'modules/bzMenu/module',
     'modules/bzLoading/module',
     'modules/bzConfirm/module',
-    'modules/bzAuthorization/module',
 
     'components/bcPages/backend/module',
     'components/bcMenu/backend/module',
@@ -23,7 +22,6 @@ define('backend/app', [
     modules.push('bzMenu');
     modules.push('bzLoading');
     modules.push('bzConfirm');
-    modules.push('bzAuthorization');
     //modules.push('bzWidgets');
 
     // components

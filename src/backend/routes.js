@@ -10,28 +10,33 @@ define('backend/routes', [
                 .html5Mode(false)
                 .hashPrefix('!');
 
-            bzConfig.templatePrefix('/bazalt').mine('');
+            bzConfig.templatePrefix('/bazalt');
 
             $routeSegmentProvider.options.autoLoadTemplates = true;
 
             $routeSegmentProvider
-                .when('/', 'main');
+                .when('/', 'main')
+                .when('/login', 'login');
 
             $routeSegmentProvider
                 .segment('main', {
-                    templateUrl: '/src/backend/views/dashboard.html'
+                    templateUrl: '/views/dashboard.html'
+                })
+                .segment('login', {
+                    templateUrl: '/views/login.html',
+                    controller: 'Backend.Controllers.Login'
                 });
 
             $sceProvider.enabled(false);
         }]);
 
-    app.run(['$rootScope', 'baAcl', '$location', function ($rootScope, baAcl, $location) {
+    app.run(['$rootScope', '$location', '$user', function ($rootScope, $location, $user) {
         $rootScope.languages = {
             current: 'en'
         };
-        $rootScope.$on('routeSegmentChange', function(e, next, current) {
-            // check permission for route
-            if (angular.isDefined(next.segment.params.access) && !baAcl.hasPermission(next.segment.params.access)) {
+        $rootScope.$on('$routeChangeStart', function (e, next, current) {
+            // check user login for route
+            if ((!$user || $user.is_guest) && next.segment !== 'login') {
                 $location.path('/login');
             }
         });

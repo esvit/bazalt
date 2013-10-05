@@ -2,7 +2,6 @@ define('frontend/app', [
     'angular', 'angular-animate', 'angular-route', 'angular-route-segment', 'angular-smoothscroll',
     'ngSocial',
 
-    'modules/bzAuthorization/module',
     'modules/bzConfig/module',
     'modules/bzLanguage/module',
     'modules/bzWidgets/module',
@@ -23,7 +22,6 @@ define('frontend/app', [
     var modules = ['ngAnimate', 'ngRoute', 'route-segment', 'view-segment', 'angularSmoothscroll', 'ngSocial'];
 
     // modules
-    modules.push('bzAuthorization');
     modules.push('bzConfig');
     modules.push('bzLanguage');
     modules.push('bzWidgets');

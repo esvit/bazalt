@@ -11,15 +11,15 @@ define('modules/bzUploader/directives/bzUploader', [
                 'url': '=bzUploader',
                 'files': '=ngModel'
             },
-            templateUrl: bzConfig.templateUrl('/bazalt/src/modules/bzUploader/views/bzUploader.html'),
+            templateUrl: bzConfig.templateUrl('/src/modules/bzUploader/views/bzUploader.html'),
             replace: true,
             require: 'ngModel',
-            controller: ['$scope', '$fileUploader', '$parse', function($scope, $fileUploader, $parse) {
+            controller: ['$scope', '$fileUploader', '$parse', 'bzConfig', function($scope, $fileUploader, $parse, bzConfig) {
 
                 // create a uploader with options
                 var uploader = $fileUploader.create({
                     scope: $scope,                          // to automatically update the html. Default: $rootScope
-                    url: $scope.url,
+                    url: bzConfig.resource($scope.url).replace('\\:', ':'),
                     filters: [
                         function (item) {                    // first user filter
                             //console.log('filter1', item);

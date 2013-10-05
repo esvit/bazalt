@@ -16,6 +16,14 @@ define('components/bcMenu/backend/controllers/Main', [
                     $scope.loading.menus = false;
                 });
 
+                if ($routeSegment.$routeParams.id) {
+                    $scope.loading.elements = true;
+                    MenuService.get({ 'id': $routeSegment.$routeParams.id }, function(menu) {
+                        $scope.menu = menu;
+                        $scope.loading.elements = false;
+                    });
+                }
+
                 /**
                  * Create new menu
                  */
