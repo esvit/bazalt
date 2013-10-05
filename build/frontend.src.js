@@ -32241,7 +32241,7 @@ angular
                         { name: 'paragraph', items: [ 'BulletedList', 'NumberedList', 'Blockquote' ] },
                         { name: 'editing', items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
                         { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-                        { name: 'tools', items: [ 'SpellChecker', 'Maximize', 'Youtube' ] },
+                        { name: 'tools', items: [ 'SpellChecker', 'Maximize' ] },
                         '/',
                         { name: 'styles', items: [ 'Format', 'FontSize', 'TextColor', 'PasteText', 'PasteFromWord', 'RemoveFormat' ] },
                         { name: 'insert', items: [ 'Image', 'Table', 'SpecialChar' ] },
@@ -32253,9 +32253,8 @@ angular
                     disableNativeSpellChecker: false,
                     uiColor: '#FAFAFA',
                     height: '400px',
-                    width: '100%',
-                    language: 'ru',
-                    extraPlugins: "youtube" //"backup,onchange"
+                    width: '100%'//,
+                    //extraPlugins: "youtube,aspell" //"backup,onchange"
                 };
                 CKEDITOR.config.spellerPagesServerScript = '/examples/spellcheck/handler.php';
                 options = angular.extend(options, scope[attrs.ckeditor]);
@@ -32633,14 +32632,8 @@ app.directive('ngFileSelect', function () {
                 element.removeAttr('multiple');
             }
 
-            var currElement = element;
-            element.bind('change', function onChange() {
+            element.bind('change', function () {
                 scope.$emit('file:add', this.files ? this.files : this, scope.$eval(attributes.ngFileSelect));
-
-                var clone = currElement.clone();
-                currElement.replaceWith(clone);
-                clone.bind('change', onChange);
-                currElement = clone;
             });
         }
     };
@@ -32666,17 +32659,15 @@ app.service('$fileUploader', [ '$compile', '$rootScope', function ($compile, $ro
             removeAfterUpload: false,
             filters: [],
             isUploading: false,
-            _uploadNext: false
+            _uploadNext: false,
+            _observer: $rootScope.$new(true)
         }, params);
-
-        this._observer = this.scope.$new(true)
 
         // add the base filter
         this.filters.unshift(this._filter);
 
-        this.scope.$on('file:add', function (event, items, options) {
+        $rootScope.$on('file:add', function (event, items, options) {
             this.addToQueue(items, options);
-            event.stopPropagation();
         }.bind(this));
 
         this._observer.$on('beforeupload', Item.prototype._beforeupload);
@@ -41628,7 +41619,7 @@ define('modules/bzImg/module', [
             for (var i = 0; i < sticked.length; i++) {
                 var s = sticked[i],
                     elementTop = s.stickyWrapper.offset().top,
-                    etse = elementTop - s.topSpacing - extra + 60;
+                    etse = elementTop - s.topSpacing - extra;
                 if (scrollTop <= etse) {
                     if (s.currentTop !== null) {
                         s.stickyElement
@@ -43649,7 +43640,7 @@ define('components/bcPages/module', [
                 })
                 .segment('pageById', {
                     template: '<div ng-include="page.template()"></div>',
-                    dependencies: ['pageAlias'],
+                    dependencies: ['id'],
                     controller: 'bcPages.Controllers.Page'
                 })
                 .within('profile')

@@ -86,7 +86,7 @@ define('components/bcPages/module', [
                 })
                 .segment('pageById', {
                     template: '<div ng-include="page.template()"></div>',
-                    dependencies: ['pageAlias'],
+                    dependencies: ['id'],
                     controller: 'bcPages.Controllers.Page'
                 })
                 .within('profile')
