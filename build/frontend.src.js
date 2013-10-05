@@ -43603,7 +43603,7 @@ define('components/bcPages/module', [
                 .when('/', 'home')
                 .when('/c-:categoryAlias', 'category')
                 .when('/p-:pageAlias', 'page')
-                .when('/post-:id', 'page')
+                .when('/post-:id', 'pageById')
                 .when('/user/profile/add-post', 'profile.postAdd')
                 .when('/user/profile/edit-post/:id', 'profile.postEdit')
                 .when('/user/profile/posts', 'profile.posts');
