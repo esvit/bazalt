@@ -1,5 +1,5 @@
 define('modules/bzImg/app', [
-    'angular', '../.', 'fancybox'
+    'angular', 'fancybox'
 ], function(app) {
     'use strict';
 

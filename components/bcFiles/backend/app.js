@@ -1,5 +1,5 @@
 define('components/bcFiles/backend/app', [
-    'angular', '../../.', 'ngFinder',
+    'angular', 'ngFinder',
 
     'components/bcFiles/app'
 ], function(angular) {

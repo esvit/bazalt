@@ -1,5 +1,5 @@
 define('modules/bzCarousel/app', [
-    'angular', '../.', 'bootstrap/carousel'
+    'angular', 'bootstrap/carousel'
 ], function(angular) {
     'use strict';
 

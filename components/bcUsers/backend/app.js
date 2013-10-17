@@ -1,5 +1,5 @@
 define('components/bcUsers/backend/app', [
-    'angular', '../../.',
+    'angular', 'ng-editable-tree',
 
     'components/bcUsers/app'
 ], function(angular) {

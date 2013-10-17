@@ -1,5 +1,5 @@
 define('modules/bzGalleria/app', [
-    'angular', '../.'
+    'angular'
 ], function(angular) {
     'use strict';
 

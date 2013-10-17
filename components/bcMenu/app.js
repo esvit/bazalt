@@ -1,5 +1,5 @@
 define('components/bcMenu/app', [
-    'angular', 'angular-resource', 'ngTable', '../.',
+    'angular', 'angular-resource', 'ngTable', 'ng-editable-tree',
 
     'modules/bzConfig/module',
     'modules/bzMenu/module',

@@ -1,5 +1,5 @@
 define('modules/bzDatepicker/app', [
-    'angular', '../.'
+    'angular'
 ], function(app) {
     'use strict';
 

@@ -1,5 +1,5 @@
 define('modules/bzUploader/app', [
-    'angular', '../.'
+    'angular', 'angular-file-upload'
 ], function(angular) {
     'use strict';
 

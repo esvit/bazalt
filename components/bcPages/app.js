@@ -1,5 +1,5 @@
 define('components/bcPages/app', [
-    'angular', 'angular-resource', 'angular-route', '../.', 'ngTable',
+    'angular', 'angular-resource', 'angular-route', 'ng-ckeditor', 'ngTable',
 
     'modules/bzUploader/module',
     'modules/bzWidgets/module'

@@ -1,5 +1,5 @@
 define('components/bcSites/backend/app', [
-    'angular', '../../.',
+    'angular', 'angular-ui-select2',
 
     'components/bcSites/app',
 

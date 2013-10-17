@@ -1,5 +1,5 @@
 define('modules/bzSticky/app', [
-    'angular', '../.', 'jquery-sticky'
+    'angular', jquery-sticky'
 ], function(app) {
     'use strict';
 

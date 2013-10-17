@@ -1,5 +1,5 @@
 define('components/bcPages/backend/app', [
-    'angular', '../../.', 'ng-ckeditor', 'angular-ui-select2',
+    'angular', 'ng-editable-tree', 'ng-ckeditor', 'angular-ui-select2',
 
     'components/bcPages/app'
 ], function(angular) {
