@@ -1,6 +1,9 @@
 define('components/bcUsers/backend/controllers/UserEdit', [
-    'components/bcUsers/backend/app'
-], function (app) {
+    'angular',
+    'components/bcUsers/backend/app',
+
+    'components/bcUsers/factories/RoleResource'
+], function (angular, app) {
     'use strict';
 
     app.factory('ProfileResource', ['$resource', function ($resource) {
@@ -8,14 +11,21 @@ define('components/bcUsers/backend/controllers/UserEdit', [
         });
     }]);
     app.controller('bcUsers.Controllers.UserEdit',
-        ['$scope', '$location', 'baUserResource', 'baRoleResource', '$routeParams', 'ProfileResource',
+        ['$scope', '$location', 'bcUsers.Factories.User', 'bcUsers.Factories.Role', '$routeParams', 'ProfileResource',
         function ($scope, $location, baUserResource, baRoleResource, $routeParams, ProfileResource) {
 
             baUserResource.get({ 'id': $routeParams.id }, function (user) {
                 $scope.user = user;
+
+                baRoleResource.query({ 'id': user.id }, function (roles) {
+                    $scope.user.roles = [];
+                    angular.forEach(roles, function(item) {
+                        $scope.user.roles.push(item.id);
+                    })
+                });
             });
-            baRoleResource.get(function (roles) {
-                $scope.roles = roles.data;
+            baRoleResource.query(function (roles) {
+                $scope.roles = roles;
             });
 
             $scope.toggleRole = function (roleId) {

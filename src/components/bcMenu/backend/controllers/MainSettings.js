@@ -35,7 +35,6 @@ define('components/bcMenu/backend/controllers/MainSettings', [
                 };
 
                 $scope.changeMenuType = function(item) {
-                    console.info(item);
                     for (var i = 0; i < menuTypes.length; i++) {
                         if (item.menuType == menuTypes[i].id) {
                             $scope.currentType = menuTypes[i];

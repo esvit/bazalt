@@ -36,9 +36,6 @@ define('components/bcUsers/module', [
                 .segment('profile', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
                     controller: function ($scope) {
-                        $scope.$watch('user', function(value){
-                            console.info(value);
-                        });
                     }
                 })
                 .segment('registration', {

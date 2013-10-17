@@ -6,8 +6,8 @@ define('components/bcPages/backend/controllers/Main', [
     'use strict';
 
     app.controller('bcPages.Controllers.Main',
-        ['$scope', '$routeSegment', 'bcPages.Factories.Page', 'ngTableParams',
-            function ($scope, $routeSegment, PageResource, ngTableParams) {
+        ['$scope', '$routeSegment', 'bcPages.Factories.Page', 'ngTableParams', '$filter', '$q', 'bcUsers.Factories.User',
+            function ($scope, $routeSegment, PageResource, ngTableParams, $filter, $q, UserResource) {
                 $scope.$routeSegment = $routeSegment;
 
                 $scope.tableOptions = new ngTableParams({
@@ -15,30 +15,59 @@ define('components/bcPages/backend/controllers/Main', [
                     total: 0,           // length of data
                     count: 10,          // count per page
                     sorting: {
-                        name: 'asc'     // initial sorting
+                        created_at: 'desc'     // initial sorting
+                    }
+                }, {
+                    groupBy: function(item) {
+                        return $filter('date')(item.created_at, 'yyyy-MM-dd');
+                    },
+                    getData: function($defer, params) {
+                        $scope.loading = true;
+
+                        var param = params.url();
+                        param.admin = true;
+                        // ajax request to api
+                        PageResource.get(param, function(data) {
+                            $scope.loading = false;
+                            // set new data
+                            $defer.resolve($scope.items = data.data);
+
+                            // update table params
+                            params.total(data.total);
+                        });
                     }
                 });
 
                 $scope.filterByCategory = function(category) {
                     $scope.category_id = (category) ? category.id : null;
-                    $scope.tableOptions.category_id = $scope.category_id;
+                    $scope.tableOptions.parameters({'category_id': $scope.category_id});
                 };
 
-                $scope.$watch('tableOptions', function(params) {
+                $scope.togglePublished = function(item) {
                     $scope.loading = true;
-
-                    var param = params.url();
-                    param.admin = true;
-                    // ajax request to api
-                    PageResource.get(param, function(data) {
+                    item.is_published = item.is_published;
+                    var updatedObj = new PageResource(item);
+                    updatedObj.$save(function() {
                         $scope.loading = false;
-                        // set new data
-                        $scope.items = data.data;
-
-                        // update table params
-                        $scope.tableOptions.total = data.total;
                     });
-                }, true);
+                };
+
+                $scope.users = function($column) {
+                    var defer = $q.defer();
+
+                    UserResource.get({'fields': 'id,fullname'}, function(res) {
+                        var data = [];
+                        angular.forEach(res.data, function(item) {
+                            data.push({
+                                id: item.id,
+                                title: item.fullname
+                            });
+                        });
+                        defer.resolve(data);
+                    })
+
+                    return defer;
+                };
 
                 $scope.remove = function(item) {
                     $scope.loading = true;

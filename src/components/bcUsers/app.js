@@ -9,8 +9,7 @@ define('components/bcUsers/app', [
 
     app.run(['$rootScope', '$location', function ($rootScope, $location) {
         $rootScope.$on('routeSegmentChange', function (e, next, current) {
-            // check permission for route
-            console.info(next.segment.params);
+            // @todo check permission for route
             /*if (angular.isDefined(next.segment.params.access) && !baAcl.hasPermission(next.segment.params.access)) {
              $location.path('/login');
              }*/

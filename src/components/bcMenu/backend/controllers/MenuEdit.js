@@ -13,10 +13,16 @@ define('components/bcMenu/backend/controllers/MenuEdit', [
                     elements: false
                 };
 
+                $scope.setCurrentMenu = function(menu) {
+                    $scope.$parent.menu = menu;
+                    $scope.$parent.widgetCode = '<div bz-widget="\'bcMenu.Widgets.Menu\'" data-settings="{ \'id\': ' +
+                                                menu.id + ' }"></div>';
+                };
+
                 var menuId = $routeParams.id;
                 angular.forEach($scope.menus, function (item) {
                     if (item.id == menuId) {
-                        $scope.$parent.menu = item;
+                        $scope.setCurrentMenu(item);
                     }
                 });
 
@@ -29,7 +35,7 @@ define('components/bcMenu/backend/controllers/MenuEdit', [
                     $scope.loading.elements = true;
                     menu.getElements(function (result) {
                         $scope.loading.elements = false;
-                        $scope.$parent.menu = result;
+                        $scope.setCurrentMenu(result);
                     }, true);
                 });
 
@@ -73,7 +79,7 @@ define('components/bcMenu/backend/controllers/MenuEdit', [
                     MenuElementsService.delete({ 'id': child.id }, function () {
                         $scope.loading.elements = false;
                         if (!child.depth) {
-                            $scope.$parent.menu = null;
+                            $scope.setCurrentMenu(null);
                             $scope.loading.menus = false;
                             angular.forEach($scope.menus, function (item, key) {
                                 if (item.id == child.id) {

@@ -1,0 +1,123 @@
+<div class="content-container">
+
+    <div class="page-header">
+        <h1>
+            Edit site
+            <a class="btn btn-link" href="#!/sites">{{ 'back to the list' }}</a>
+        </h1>
+    </div>
+
+    <!--h4>Список. Добавление, удаление, сортировка</h4>
+    <button class="btn" ng-click="add('before')">Добавить в начало</button> <button class="btn" ng-click="add('after')">Добавить в конец</button><br/><br/>
+    <ul class="unstyled" ui-sortable="{stop: sort, items: '.sortable'}" ng-model="items">
+        <li class="list-item sortable" ng-repeat="item in items">
+            <div class="list-item-drag">::</div>
+            <input type="text" ng-model="item.name" ng-blur="save($index)" />
+            <div class="list-item-delete"><button type="button" class="close" ng-click="del($index)">&times;</button></div>
+        </li>
+    </ul-->
+
+    <form remote-form name="itemEdit" novalidate ng-submit="saveItem(item)">
+    <div class="row">
+        <div class="col col-sm-9" bz-loading-container="loading.site">
+
+                <div class="form-group" ng-class="{'has-error': itemEdit.domain.$dirty && itemEdit.domain.$invalid}">
+                    <label class="control-label">Domain</label>
+
+                    <div class="controls">
+                        <input class="form-control" type="text" name="domain" required ng-model="item.domain"/>
+                        <span ng-show="itemEdit.domain.$dirty && itemEdit.domain.$error.required" class="help-block">Напишіть заголовок</span>
+                    </div>
+                </div>
+
+                <div bz-loading-container="loading.repository" class="form-group" ng-class="{'has-error': itemEdit.repository.$dirty && itemEdit.repository.$invalid}">
+                    <label class="control-label">Repository</label>
+
+                    <div class="controls" ng-if="item.id">
+                        <div class="input-group">
+                            <input class="form-control" type="text" name="repository" ng-disabled="repository.repository" required ng-model="repositoryUrl"/>
+                            <span class="input-group-btn" ng-if="repository.repository">
+                                <button class="btn btn-success" type="button" ng-click="updateRepository(repository)">
+                                    <span class="icon-refresh"></span>
+                                </button>
+                            </span>
+                            <span class="input-group-btn" ng-if="!repository">
+                                <button class="btn btn-success" type="button" ng-click="createRepository(repositoryUrl)">
+                                    Create
+                                </button>
+                            </span>
+                        </div>
+                        <span ng-show="itemEdit.repository.$dirty && itemEdit.repository.$error.required" class="help-block">Напишіть заголовок</span>
+                    </div>
+
+                    <div ng-if="!item.id" class="alert alert-warning">
+                        This options enabled when you create site
+                    </div>
+
+                    <div ng-if="repository.commits">
+                        <p><br/>Last commits:</p>
+                        <table class="table">
+                            <tr>
+                                <th>Date</th>
+                                <th>Message</th>
+                                <th>Commiter</th>
+                            </tr>
+                            <tr ng-repeat="commit in repository.commits">
+                                <td>{{ commit.date.date }}</td>
+                                <td>{{ commit.message }}</td>
+                                <td>{{ commit.commiter.name }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+
+
+        </div>
+        <div class="col col-sm-3">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Publish</div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label class="control-label">Status</label>
+
+                        <div class="controls">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default" ng-class="{'active': !item.is_active}">
+                                    <input type="radio" ng-model="item.is_active" name="options" id="option1"
+                                           value=""> Draft
+                                </label>
+                                <label class="btn btn-default" ng-class="{'active': item.is_active}">
+                                    <input type="radio" ng-model="item.is_active" name="options" value="1"> Published
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="item.is_multilingual" /> Multilanguage site
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="checkbox">
+                            <input type="checkbox" ng-model="item.is_allow_indexing" /> Allow indexing
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-primary pull-right" type="submit">{{ 'Save' }}</button>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    </form>
+</div>

@@ -1,7 +1,5 @@
 define('modules/bzMenu/directives/bzMenu', [
-    'modules/bzMenu/app',
-
-    'modules/bzMenu/directives/bzMenuDropdown'
+    'modules/bzMenu/app'
 ], function(app) {
     'use strict';
 
@@ -19,7 +17,10 @@ define('modules/bzMenu/directives/bzMenu', [
             },
             template: '<ul class="nav">' +
                 '<li ng-repeat="item in menus" ng-class="{\'dropdown-list\': item.items.length}">' +
-                '<a bz-menu-dropdown ng-class="{\'dropdown-toggle\': item.items.length}" ng-href="{{item.link}}" data-toggle="dropdown-list">{{item.text}}</a>' +
+                '<a ng-class="{\'dropdown-toggle\': item.items.length}" ng-href="{{item.link}}" data-toggle="dropdown-list">' +
+                '<span ng-class="\'icon-\' + item.icon"></span>' +
+                '{{item.text}}' +
+                '</a>' +
                 '<ul class="dropdown-menu" ng-if="item.items.length">' +
                 '<li ng-repeat="subitem in item.items">' +
                 '<a ng-href="{{subitem.link}}">{{ subitem.text }}</a>' +

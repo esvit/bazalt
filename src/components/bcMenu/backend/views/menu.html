@@ -7,9 +7,21 @@
         </div>
         <div class="col col-lg-9">
             <div class="btn-toolbar" ng-if="$routeSegment.$routeParams.id">
-                <button class="btn-primary btn btn-small" ng-click="addChild(menu)"><i class="icon-plus"></i>
+                <button class="btn-success btn btn-sm" ng-click="addChild(menu)"><i class="icon-plus"></i>
                     Add new element
                 </button>
+
+                <div class="dropdown dropdown-hover" style="display: inline-block">
+                    <button class="btn btn-default btn-sm">
+                        <i class="icon-cog"></i>
+                        Widget code
+                    </button>
+                    <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        Code:
+
+                        <textarea ng-model="widgetCode" class="form-control"></textarea>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

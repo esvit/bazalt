@@ -3,7 +3,7 @@ define('components/bcUsers/backend/controllers/Main', [
 ], function (app) {
     'use strict';
 
-    app.controller('bcUsers.Controllers.Main', ['$scope', '$location', 'baUserResource', 'ngTableParams',
+    app.controller('bcUsers.Controllers.Main', ['$scope', '$location', 'bcUsers.Factories.User', 'ngTableParams',
         function ($scope, $location, baUserResource, ngTableParams) {
 
             var tableParams = {
@@ -26,7 +26,10 @@ define('components/bcUsers/backend/controllers/Main', [
 
             $scope.toggleActive = function (user) {
                 var u = new baUserResource(user);
-                u.$save();
+                $scope.loading = true;
+                u.$save(function() {
+                    $scope.loading = false;
+                });
             };
 
             $scope.deleteUser = function (user) {

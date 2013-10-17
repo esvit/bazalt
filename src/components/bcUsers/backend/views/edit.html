@@ -4,9 +4,7 @@
         <h1><a href="#!/users">Користувачі</a> >> {{ user.login }}</h1>
     </div>
 
-    <div ng-include="'/themes/cherchelafam/views/user/editProfile.html'"></div>
-
-    <!--form novalidate ng-submit="saveUser(user)">
+    <form novalidate ng-submit="saveUser(user)">
 
         <div class="form-group">
             <label class="control-label">Прізвище</label>
@@ -45,13 +43,13 @@
                 <label>
                     <input ng-checked="user.roles.indexOf(role.id) != -1" ng-click="toggleRole(role.id)"
                            value="{{role.id}}" type="checkbox"/>
-                    {{ role.name }}
+                    {{ role.title }}
                 </label>
             </div>
         </div>
         <div class="form-actions">
-            <button class="btn btn-default" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit">Save</button>
         </div>
-    </form-->
+    </form>
 
 </div>

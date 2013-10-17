@@ -13,7 +13,7 @@
                 </a>
 
                 <div class="item-content" ng-class="{'expanded':child.$settings}">
-                    <div class="btn btn-default with-btn" ng-class="{'btn-primary':child.is_published}">
+                    <div class="btn with-btn" ng-class="{'btn-primary':child.is_published, 'btn-default':!child.is_published}">
                         <div class="pull-right">
                             <!-- Publish button -->
                             <a ng-click="child.is_published = !child.is_published; saveItem(child)">

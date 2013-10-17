@@ -7,22 +7,34 @@ define('components/bcUsers/providers/$user', [
 ], function(angular, app) {
 
     app.provider('$user', [function () {
-        var $user = null;
-
-        this.$get = ['bcUsers.Factories.User', 'bcUsers.Factories.Session', '$cookieStore', '$rootScope',
-            function(UserResource, SessionResource, $cookieStore, $rootScope) {
-                var setUser = function(user) {
-                    user.login = function (success, error) {
-                        return SessionResource.login(user, function(res) {
+        this.$get = ['bcUsers.Factories.User', 'bcUsers.Factories.Session', '$cookieStore', '$rootScope', '$route',
+            function(UserResource, SessionResource, $cookieStore, $rootScope, $routeSegment) {
+                var $user = {
+                    data: {
+                        is_guest: true
+                    },
+                    login: function (data, success, error) {
+                        return SessionResource.login(data, function(res) {
                             success = success || angular.noop;
                             setUser(angular.extend(new UserResource(), res));
                             success(res);
                         }, error);
-                    };
-                    user.has = function (permission) {
-                        return $.inArray(permission, this.permissions) >= 0;
-                    };
-                    $rootScope.$user = $user = user;
+                    },
+                    has: function (permission) {
+                        return $.inArray(permission, $user.data.permissions) >= 0;
+                    },
+                    logout: function (success, error) {
+                        return SessionResource.logout({}, function(res) {
+                            success = success || angular.noop;
+                            setUser(angular.extend(new UserResource(), res));
+                            $routeSegment.reload();
+                            success(res);
+                        }, error);
+                    }
+                };
+
+                var setUser = function(user) {
+                    $user.data = user;
                     $cookieStore.put('baAuthUser', user);
                 };
 
@@ -36,6 +48,7 @@ define('components/bcUsers/providers/$user', [
             if (!$user) {
                 setUser(new UserResource());
             }
+            $rootScope.$user = $user;
             return $user;
         }];
     }]);
