@@ -20,7 +20,7 @@ define('components/bcPages/controllers/Widget/Category', [
                 $scope.loading = true;
 
                 var param = widget.$settings;
-                //param.truncate = 500;
+                param.truncate = 500;
                 PagesResource.get(param, function(data) {
                     $scope.loading = false;
 

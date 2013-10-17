@@ -6,7 +6,7 @@ define('modules/bzConfig/providers/bzConfig', [
 
     app.provider('bzConfig', [function() {
         var options = {
-            mine: 'http://demo.bazalt-cms.com',
+            mine: '/api',
             templatePrefix: ''
         };
 
