@@ -6,7 +6,7 @@ requirejs.config({
         'jquery-ui': '../bower_components/jquery-ui/ui',
 
         // angular
-        //'angular': '../bower_components/angular/angular',
+        'angular': '../bower_components/angular/angular',
         'angular-resource': '../bower_components/angular-resource/angular-resource',
         'angular-route': '../bower_components/angular-route/angular-route',
         'angular-animate': '../bower_components/angular-animate/angular-animate',
