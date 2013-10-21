@@ -4,15 +4,15 @@ define('components/bcUsers/controllers/Profile/ChangePassword', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Profile.ChangePassword',
-        ['$scope', '$rootScope', '$location', 'bcUsers.Factories.User', '$routeSegment',
-            function ($scope, $rootScope, $location, UserResource, $routeSegment) {
+        ['$scope', '$rootScope', '$location', 'bcUsers.Factories.User', '$routeSegment', '$user',
+            function ($scope, $rootScope, $location, UserResource, $routeSegment, $user) {
 
                 $scope.changed = false;
                 $scope.profile = {};
                 $scope.changePassword = function(profile) {
                     $scope.loading = true;
                     UserResource.changePassword({
-                        'id': $rootScope.user.id,
+                        'id': $user.data.id,
                         'old_password': profile.old_password,
                         'new_password': profile.new_password
                     }, function(user) {
