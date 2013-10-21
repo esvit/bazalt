@@ -30,7 +30,8 @@ define('components/bcUsers/module', [
                 .when('/user/profile/view', 'profile.view')
                 .when('/user/profile/edit', 'profile.edit')
                 .when('/user/profile/password', 'profile.password')
-                .when('/user/profile/messages', 'profile.messages')
+                .when('/user/profile/messages', 'profile.messages.inbox')
+                .when('/user/profile/messages/outbox', 'profile.messages.outbox')
                 .when('/user/profile/messages/:id', 'profile.message')
                 .when('/user/:user_id/profile', 'profile.view');
 
@@ -79,16 +80,24 @@ define('components/bcUsers/module', [
                     })
                 .up()
                     .within()
-                    .segment('messages', {
-                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/messages.html'),
-                        controller: 'bcUsers.Controllers.Profile.Messages'
-                    })
-                .up()
-                    .within()
                     .segment('message', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/message.html'),
                         controller: 'bcUsers.Controllers.Profile.Message',
                         dependencies: ['id']
-                    });
+                    })
+                .up()
+                .within()
+                .segment('messages', {
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/profile/messages.html')
+                })
+                        .within()
+                        .segment('inbox', {
+                            controller: 'bcUsers.Controllers.Profile.Messages'
+                        })
+                        .up()
+                        .within()
+                        .segment('outbox', {
+                            controller: 'bcUsers.Controllers.Profile.Messages'
+                        })
         }]);
 });

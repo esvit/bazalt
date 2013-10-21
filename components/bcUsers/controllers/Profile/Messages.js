@@ -6,9 +6,8 @@ define('components/bcUsers/controllers/Profile/Messages', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Profile.Messages',
-        ['$scope', 'ngTableParams', '$location', 'bcUsers.Factories.Message', '$user',
-            function ($scope, ngTableParams, $location, MessageResource, $user) {
-
+        ['$scope', 'ngTableParams', '$location', 'bcUsers.Factories.Message', '$user', '$routeSegment',
+            function ($scope, ngTableParams, $location, MessageResource, $user, $routeSegment) {
 
                 $scope.tableParams = new ngTableParams({
                     page: 1,            // show first page
@@ -18,6 +17,7 @@ define('components/bcUsers/controllers/Profile/Messages', [
                     getData: function($defer, params) {
                         var data = params.url();
                         data.userId = $user.data.id;
+                        data.outbox = $routeSegment.contains('outbox');
                         MessageResource.get(data, function(res) {
                             $defer.resolve(res.data);
                         });
