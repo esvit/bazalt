@@ -9,6 +9,7 @@ define('components/bcUsers/controllers/Profile/Messages', [
         ['$scope', 'ngTableParams', '$location', 'bcUsers.Factories.Message', '$user', '$routeSegment',
             function ($scope, ngTableParams, $location, MessageResource, $user, $routeSegment) {
 
+                $scope.isOutbox = $routeSegment.contains('outbox');
                 $scope.tableParams = new ngTableParams({
                     page: 1,            // show first page
                     count: 10           // count per page
@@ -17,7 +18,7 @@ define('components/bcUsers/controllers/Profile/Messages', [
                     getData: function($defer, params) {
                         var data = params.url();
                         data.userId = $user.data.id;
-                        data.outbox = $routeSegment.contains('outbox');
+                        data.outbox = $scope.isOutbox;
                         MessageResource.get(data, function(res) {
                             $defer.resolve(res.data);
                         });
