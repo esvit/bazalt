@@ -1,11 +1,13 @@
 define('components/bcUsers/controllers/ProfileSettings', [
+    'angular',
+
     'components/bcUsers/app'
-], function (app) {
+], function (angular, app) {
     'use strict';
 
     app.controller('bcUsers.Controllers.ProfileSettings',
-        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse',
-            function ($scope, UserResource, $rootScope, $fileUploader, $parse) {
+        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse', '$user',
+            function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user) {
 
                 var uploader = null;
 
@@ -27,7 +29,7 @@ define('components/bcUsers/controllers/ProfileSettings', [
                     }
                 });
 
-                UserResource.get({ 'id': $rootScope.user.id }, function(user) {
+                UserResource.get({ 'id': $user.data.id }, function(user) {
                     $scope.loading = false;
                     if (!user.images) {
                         user.images = [];

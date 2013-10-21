@@ -17,6 +17,7 @@ define('components/bcUsers/providers/$user', [
                         return SessionResource.login(data, function(res) {
                             success = success || angular.noop;
                             setUser(angular.extend(new UserResource(), res));
+                            $routeSegment.reload();
                             success(res);
                         }, error);
                     },

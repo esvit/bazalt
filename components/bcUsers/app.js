@@ -7,7 +7,8 @@ define('components/bcUsers/app', [
 
     var app = angular.module('Components.bcUsers', ['ngResource', 'ngRoute', 'ngCookies', 'ngTable', 'bzWidgets']);
 
-    app.run(['$rootScope', '$location', function ($rootScope, $location) {
+    app.run(['$rootScope', '$location', '$user', function ($rootScope, $location, $user) {
+        $rootScope.$user = $user;
         $rootScope.$on('routeSegmentChange', function (e, next, current) {
             // @todo check permission for route
             /*if (angular.isDefined(next.segment.params.access) && !baAcl.hasPermission(next.segment.params.access)) {

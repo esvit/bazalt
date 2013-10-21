@@ -12,6 +12,8 @@ define('components/bcUsers/module', [
     'components/bcUsers/controllers/Activation',
     'components/bcUsers/controllers/Profile/ChangePassword',
     'components/bcUsers/controllers/Profile/Edit',
+    'components/bcUsers/controllers/Profile/Messages',
+    'components/bcUsers/controllers/Profile/Message',
     'components/bcUsers/controllers/Profile/View'
 ], function (angular, app) {
     'use strict';
@@ -23,11 +25,14 @@ define('components/bcUsers/module', [
                 .when('/user', 'profile')
                 .when('/user/registration', 'registration')
                 .when('/user/login', 'login')
-                .when('/user/activation/:user_id/:key', 'activation')
+                .when('/user/activate/:user_id/:key', 'activation')
                 .when('/user/profile', 'profile.view')
                 .when('/user/profile/view', 'profile.view')
                 .when('/user/profile/edit', 'profile.edit')
-                .when('/user/profile/password', 'profile.password');
+                .when('/user/profile/password', 'profile.password')
+                .when('/user/profile/messages', 'profile.messages')
+                .when('/user/profile/messages/:id', 'profile.message')
+                .when('/user/:user_id/profile', 'profile.view');
 
             $routeSegmentProvider
                 /*.segment('user', {
@@ -54,10 +59,11 @@ define('components/bcUsers/module', [
                     templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
                     controller: 'bcUsers.Controllers.ProfileSettings'
                 })
-                    .within()
+                .within()
                     .segment('view', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/view.html'),
-                        controller: 'bcUsers.Controllers.Profile.View'
+                        controller: 'bcUsers.Controllers.Profile.View',
+                        dependencies: ['user_id']
                     })
                 .up()
                     .within()
@@ -70,6 +76,19 @@ define('components/bcUsers/module', [
                     .segment('password', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/password.html'),
                         controller: 'bcUsers.Controllers.Profile.ChangePassword'
+                    })
+                .up()
+                    .within()
+                    .segment('messages', {
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/messages.html'),
+                        controller: 'bcUsers.Controllers.Profile.Messages'
+                    })
+                .up()
+                    .within()
+                    .segment('message', {
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/message.html'),
+                        controller: 'bcUsers.Controllers.Profile.Message',
+                        dependencies: ['id']
                     });
         }]);
 });

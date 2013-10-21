@@ -4,8 +4,8 @@ define('components/bcUsers/controllers/Login', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Login',
-        ['$scope', '$location',
-            function ($scope, $location) {
+        ['$scope', '$location', '$user',
+            function ($scope, $location, $user) {
                 $scope.user = {
                     'login': 'oll.rudenko@gmail.com',
                     'password': 'awdawd'
@@ -13,7 +13,7 @@ define('components/bcUsers/controllers/Login', [
 
                 $scope.loginUser = function(user) {
                     $scope.loading = true;
-                    baAcl.login(user, function() {
+                    $user.login(user, function() {
                         $scope.loading = false;
 
                         $location.path('/user/profile');
