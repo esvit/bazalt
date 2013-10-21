@@ -14,7 +14,6 @@ define('components/bcUsers/controllers/Profile/Message', [
                     $scope.loading = false;
                     $scope.message = data;
                 });
-
                 $scope.sendMessage = function(message) {
                     message.user_id = $user.data.id;
                     message.to_id = $scope.message.from_id;
