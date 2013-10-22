@@ -10,6 +10,7 @@ define('components/bcUsers/module', [
     'components/bcUsers/controllers/Login',
     'components/bcUsers/controllers/ProfileSettings',
     'components/bcUsers/controllers/Activation',
+    'components/bcUsers/controllers/RecoveryPassword',
     'components/bcUsers/controllers/Profile/ChangePassword',
     'components/bcUsers/controllers/Profile/Edit',
     'components/bcUsers/controllers/Profile/Messages',
@@ -26,6 +27,8 @@ define('components/bcUsers/module', [
                 .when('/user/registration', 'registration')
                 .when('/user/login', 'login')
                 .when('/user/activate/:user_id/:key', 'activation')
+                .when('/user/activationSent', 'activationSent')
+                .when('/user/recovery', 'recovery')
                 .when('/user/profile', 'profile.view')
                 .when('/user/profile/view', 'profile.view')
                 .when('/user/profile/edit', 'profile.edit')
@@ -56,6 +59,14 @@ define('components/bcUsers/module', [
                 .segment('activation', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/account/activation.html'),
                     controller: 'bcUsers.Controllers.Activation'
+                })
+                .segment('activationSent', {
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/account/registerSuccessMessage.html'),
+                    //controller: 'bcUsers.Controllers.Activation'
+                })
+                .segment('recovery', {
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/account/recoveryPassword.html'),
+                    controller: 'bcUsers.Controllers.RecoveryPassword'
                 })
                 .segment('profile', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),

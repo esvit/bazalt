@@ -4,8 +4,8 @@ define('components/bcUsers/controllers/Registration', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Registration',
-        ['$scope', 'bcUsers.Factories.User', '$q',
-            function ($scope, UserResource, $q) {
+        ['$scope', 'bcUsers.Factories.User', '$q', '$location',
+            function ($scope, UserResource, $q, $location) {
                 $scope.user = {};
                 $scope.registerUser = function () {
                     var user = new UserResource($scope.user);
@@ -14,7 +14,10 @@ define('components/bcUsers/controllers/Registration', [
                         $scope.loading = false;
                         $location.path('/user/activationSent');
                     }, function(res) {
-                        if (res.status == 400) $scope.register.invalidForm(res.data);
+                        $scope.loading = false;
+                        if (res.status == 400) {
+                            $scope.errors = res.data;
+                        }
                     });
                 };
                 $scope.checkEmail = function(email) {

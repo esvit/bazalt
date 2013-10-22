@@ -4,17 +4,12 @@ define('components/bcUsers/controllers/Profile/Gifts', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Profile.Gifts',
-        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$routeSegment', '$user',
-            function ($scope, UserResource, $rootScope, $routeSegment, $user) {
-
-                var userId = $routeSegment.$routeParams.user_id || $user.data.id;
-console.info(userId);
-                UserResource.get({ 'id': userId}, function(user) {
+        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$routeSegment', '$user', 'bcUsers.Factories.Gift',
+            function ($scope, UserResource, $rootScope, $routeSegment, $user, GiftResource) {
+                $scope.loading = true;
+                GiftResource.get(function(res) {
                     $scope.loading = false;
-                    if (!user.images) {
-                        user.images = [];
-                    }
-                    $scope.user = user;
+                    $scope.gifts = res.data;
                 });
             }]);
 });
