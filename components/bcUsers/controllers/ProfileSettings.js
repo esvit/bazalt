@@ -37,4 +37,9 @@ define('components/bcUsers/controllers/ProfileSettings', [
                     $scope.user = user;
                 });
         }]);
+
+    $( ".user-avatar .b-gifts" ).click(function() {
+        $('#giftsModal').modal();
+    });
+
 });

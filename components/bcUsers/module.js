@@ -29,6 +29,7 @@ define('components/bcUsers/module', [
                 .when('/user/profile', 'profile.view')
                 .when('/user/profile/view', 'profile.view')
                 .when('/user/profile/edit', 'profile.edit')
+                .when('/user/profile/gifts', 'profile.gifts')
                 .when('/user/profile/password', 'profile.password')
                 .when('/user/profile/messages', 'profile.messages.inbox')
                 .when('/user/profile/messages/outbox', 'profile.messages.outbox')
@@ -64,6 +65,13 @@ define('components/bcUsers/module', [
                     .segment('view', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/view.html'),
                         controller: 'bcUsers.Controllers.Profile.View',
+                        dependencies: ['user_id']
+                    })
+                .up()
+                .within()
+                    .segment('gifts', {
+                        templateUrl: bzConfigProvider.templateUrl('/views/user/profile/gifts.html'),
+                        controller: 'bcUsers.Controllers.Profile.gifts',
                         dependencies: ['user_id']
                     })
                 .up()
