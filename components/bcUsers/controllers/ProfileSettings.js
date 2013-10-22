@@ -11,7 +11,7 @@ define('components/bcUsers/controllers/ProfileSettings', [
 
                 var uploader = null;
 
-                $scope.$watch('user.id', function(userId) {
+                $scope.$watch('user.id', function (userId) {
                     if (angular.isDefined(userId) && uploader == null) {
                         uploader = $fileUploader.create({
                             scope: $scope,                          // to automatically update the html. Default: $rootScope
@@ -29,22 +29,20 @@ define('components/bcUsers/controllers/ProfileSettings', [
                     }
                 });
 
-                UserResource.get({ 'id': $user.data.id }, function(user) {
+                UserResource.get({ 'id': $user.data.id }, function (user) {
                     $scope.loading = false;
                     if (!user.images) {
                         user.images = [];
                     }
                     $scope.user = user;
                 });
-        }]);
 
-    $( ".user-avatar .b-gifts" ).click(function() {
-        $('#giftsModal').modal();
-        return false;
-    });
-    $('.gifts-type a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    });
+                $scope.sendGift = function () {
+                    $('#giftsModal').modal();
+                };
+                $scope.payGift = function () {
+                    $('#payModal').modal();
+                };
+            }]);
 
 });
