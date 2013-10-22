@@ -1,5 +1,5 @@
 define('components/bcUsers/app', [
-    'angular', 'angular-resource', 'angular-cookies', 'angular-route-segment', 'ngTable', 'bootstrap/modal',
+    'angular', 'angular-resource', 'angular-cookies', 'angular-route-segment', 'ngTable', 'bootstrap/modal', 'bootstrap/tab',
 
     'modules/bzWidgets/module'
 ], function (angular) {

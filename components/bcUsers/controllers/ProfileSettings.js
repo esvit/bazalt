@@ -40,6 +40,11 @@ define('components/bcUsers/controllers/ProfileSettings', [
 
     $( ".user-avatar .b-gifts" ).click(function() {
         $('#giftsModal').modal();
+        return false;
+    });
+    $('.gifts-type a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
     });
 
 });
