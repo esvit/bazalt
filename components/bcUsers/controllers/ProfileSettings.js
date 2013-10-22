@@ -9,7 +9,8 @@ define('components/bcUsers/controllers/ProfileSettings', [
         ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse', '$user', '$routeSegment',
             function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user, $routeSegment) {
 
-                var uploader = null;
+                var uploader = null,
+                    userId = $routeSegment.$routeParams.user_id || $user.data.id;
                 $scope.isOwnProfile = angular.isUndefined($routeSegment.$routeParams.user_id) || $routeSegment.$routeParams.user_id == $user.data.id;
 
                 $scope.$watch('user.id', function (userId) {
@@ -30,7 +31,8 @@ define('components/bcUsers/controllers/ProfileSettings', [
                     }
                 });
 
-                UserResource.get({ 'id': $user.data.id }, function (user) {
+                UserResource.get({ 'id': userId }, function (user) {
+                    $scope.user = user;
                     $scope.loading = false;
                     if (!user.images) {
                         user.images = [];

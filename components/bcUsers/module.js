@@ -30,15 +30,14 @@ define('components/bcUsers/module', [
                 .when('/user/activate/:user_id/:key', 'activation')
                 .when('/user/activationSent', 'activationSent')
                 .when('/user/recovery', 'recovery')
-                .when('/user/profile', 'profile.view')
-                .when('/user/profile/view', 'profile.view')
-                .when('/user/profile/edit', 'profile.edit')
-                .when('/user/profile/gifts', 'profile.gifts')
-                .when('/user/profile/password', 'profile.password')
-                .when('/user/profile/messages', 'profile.messages.inbox')
-                .when('/user/profile/messages/outbox', 'profile.messages.outbox')
-                .when('/user/profile/messages/:id', 'profile.message')
-                .when('/user/:user_id/profile', 'profile.view');
+                .when('/user/:user_id/profile', 'profile.view')
+                .when('/user/:user_id/view', 'profile.view')
+                .when('/user/:user_id/edit', 'profile.edit')
+                .when('/user/:user_id/gifts', 'profile.gifts')
+                .when('/user/:user_id/password', 'profile.password')
+                .when('/user/:user_id/messages', 'profile.messages.inbox')
+                .when('/user/:user_id/messages/outbox', 'profile.messages.outbox')
+                .when('/user/:user_id/messages/:id', 'profile.message');
 
             $routeSegmentProvider
                 /*.segment('user', {
