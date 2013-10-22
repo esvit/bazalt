@@ -8,7 +8,7 @@ define('components/bcUsers/controllers/Profile/View', [
             function ($scope, UserResource, $rootScope, $routeSegment, $user) {
 
                 var userId = $routeSegment.$routeParams.user_id || $user.data.id;
-console.info(userId);
+
                 UserResource.get({ 'id': userId}, function(user) {
                     $scope.loading = false;
                     if (!user.images) {

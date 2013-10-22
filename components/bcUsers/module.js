@@ -12,6 +12,7 @@ define('components/bcUsers/module', [
     'components/bcUsers/controllers/Activation',
     'components/bcUsers/controllers/RecoveryPassword',
     'components/bcUsers/controllers/Profile/ChangePassword',
+    'components/bcUsers/controllers/Profile/Gifts',
     'components/bcUsers/controllers/Profile/Edit',
     'components/bcUsers/controllers/Profile/Messages',
     'components/bcUsers/controllers/Profile/Message',
@@ -82,7 +83,7 @@ define('components/bcUsers/module', [
                 .within()
                     .segment('gifts', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/gifts.html'),
-                        controller: 'bcUsers.Controllers.Profile.gifts',
+                        controller: 'bcUsers.Controllers.Profile.Gifts',
                         dependencies: ['user_id']
                     })
                 .up()

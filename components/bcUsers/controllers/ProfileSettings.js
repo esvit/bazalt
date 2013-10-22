@@ -6,10 +6,11 @@ define('components/bcUsers/controllers/ProfileSettings', [
     'use strict';
 
     app.controller('bcUsers.Controllers.ProfileSettings',
-        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse', '$user',
-            function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user) {
+        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse', '$user', '$routeSegment',
+            function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user, $routeSegment) {
 
                 var uploader = null;
+                $scope.isOwnProfile = angular.isUndefined($routeSegment.$routeParams.user_id) || $routeSegment.$routeParams.user_id == $user.data.id;
 
                 $scope.$watch('user.id', function (userId) {
                     if (angular.isDefined(userId) && uploader == null) {

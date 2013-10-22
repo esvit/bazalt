@@ -1,5 +1,7 @@
 define('components/bcUsers/controllers/Profile/Gifts', [
-    'components/bcUsers/app'
+    'components/bcUsers/app',
+
+    'components/bcUsers/factories/GiftResource'
 ], function (app) {
     'use strict';
 
