@@ -7,7 +7,8 @@ define('components/bcUsers/controllers/Profile/ModalGifts', [
 
     app.controller('bcUsers.Controllers.Profile.ModalGifts',
         ['$scope', 'bcUsers.Factories.User', '$rootScope', '$routeSegment', '$user', 'bcUsers.Factories.Gift',
-            function ($scope, UserResource, $rootScope, $routeSegment, $user, GiftResource) {
+            'bcPayments.Factories.Transaction',
+            function ($scope, UserResource, $rootScope, $routeSegment, $user, GiftResource, TransactionResource) {
                 $scope.loading = true;
                 GiftResource.get(function(res) {
                     $scope.loading = false;
@@ -26,8 +27,18 @@ define('components/bcUsers/controllers/Profile/ModalGifts', [
                     }, function(res) {
                         $scope.loading = false;
                         if (res.status == 402) {
-
+                            $scope.needPay = true;
+                            $scope.needToPay = res.data;
                         }
+                    });
+                };
+
+                $scope.doPay = function(amount) {
+                    $scope.paymentLoading = true;
+                    TransactionResource.get({'amount': amount}, function(data) {
+                        angular.element(data.form).submit();
+                    }, function() {
+                        $scope.paymentLoading = false;
                     });
                 };
             }]);
