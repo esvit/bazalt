@@ -37,7 +37,6 @@ define('components/bcUsers/controllers/ProfileSettings', [
                     if (!user.images) {
                         user.images = [];
                     }
-                    $scope.user = user;
                 });
 
                 $scope.sendGift = function () {

@@ -10,12 +10,14 @@ define('components/bcUsers/module', [
     'components/bcUsers/controllers/Login',
     'components/bcUsers/controllers/ProfileSettings',
     'components/bcUsers/controllers/Activation',
+    'components/bcUsers/controllers/Users',
     'components/bcUsers/controllers/RecoveryPassword',
     'components/bcUsers/controllers/Profile/ChangePassword',
     'components/bcUsers/controllers/Profile/Gifts',
     'components/bcUsers/controllers/Profile/Edit',
     'components/bcUsers/controllers/Profile/Messages',
     'components/bcUsers/controllers/Profile/Message',
+    'components/bcUsers/controllers/Profile/ModalGifts',
     'components/bcUsers/controllers/Profile/View'
 ], function (angular, app) {
     'use strict';
@@ -30,6 +32,7 @@ define('components/bcUsers/module', [
                 .when('/user/activate/:user_id/:key', 'activation')
                 .when('/user/activationSent', 'activationSent')
                 .when('/user/recovery', 'recovery')
+                .when('/users/', 'users')
                 .when('/user/:user_id/profile', 'profile.view')
                 .when('/user/:user_id/view', 'profile.view')
                 .when('/user/:user_id/edit', 'profile.edit')
@@ -47,6 +50,10 @@ define('components/bcUsers/module', [
                     templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
                     controller: function ($scope) {
                     }
+                })
+                .segment('users', {
+                    templateUrl: bzConfigProvider.templateUrl('/views/user/users.html'),
+                    controller: 'bcUsers.Controllers.Users'
                 })
                 .segment('registration', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/account/registerForm.html'),
