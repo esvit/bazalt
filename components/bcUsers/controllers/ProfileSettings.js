@@ -6,8 +6,8 @@ define('components/bcUsers/controllers/ProfileSettings', [
     'use strict';
 
     app.controller('bcUsers.Controllers.ProfileSettings',
-        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse', '$user', '$routeSegment',
-            function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user, $routeSegment) {
+                ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse', '$user', '$routeSegment',
+                    function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user, $routeSegment) {
 
                 var uploader = null,
                     userId = $routeSegment.$routeParams.user_id || $user.data.id;
