@@ -3,6 +3,7 @@ define('modules/bzSlider/directives/bzSlider', [
 ], function (app) {
     'use strict';
 
+
     app.directive('bzSlider', ['$timeout', '$parse', function ($timeout, $parse) {
         return {
             restrict: 'A',
