@@ -17,11 +17,11 @@ define('components/bcUsers/backend/module', [
 
         $routeSegmentProvider
             .segment('users', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcUsers/backend/views/list.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcUsers/backend/views/list.html'),
                 controller: 'bcUsers.Controllers.Main'
             })
             .segment('usersEdit', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcUsers/backend/views/edit.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcUsers/backend/views/edit.html'),
                 dependencies: ['id'],
                 controller: 'bcUsers.Controllers.UserEdit'
             });

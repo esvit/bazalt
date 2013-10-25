@@ -14,14 +14,14 @@ define('components/bcPages/app', [
             id: 'bcPages.Menu.Page',
             title: 'Ссылка на страницу',
             component: 'Страницы',
-            templateUrl: '/bazalt/src/components/bcPages/backend/views/menu/page.html'
+            templateUrl: '/bazalt/components/bcPages/backend/views/menu/page.html'
         });
 
         menuTypes.push({
             id: 'bcPages.Menu.Category',
             title: 'Ссылка на категорию',
             component: 'Страницы',
-            templateUrl: '/bazalt/src/components/bcPages/backend/views/menu/category.html'
+            templateUrl: '/bazalt/components/bcPages/backend/views/menu/category.html'
         });
 
     }]);

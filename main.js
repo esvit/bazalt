@@ -1,5 +1,5 @@
 requirejs.config({
-    baseUrl: '/src',
+    baseUrl: '/',
     paths: {
         // jquery
         'jquery': '../bower_components/jquery/jquery',
@@ -12,6 +12,7 @@ requirejs.config({
         'angular-animate': '../bower_components/angular-animate/angular-animate',
         'angular-cookies': '../bower_components/angular-cookies/angular-cookies',
         'ngSocial': '../bower_components/angular-social/angular-social.src',
+        'bzCommentArea': '../bower_components/angular-comment-area/angular-comment-area.src',
         'angular-route-segment': '../bower_components/angular-route-segment/build/angular-route-segment',
         'angular-file-upload': '../bower_components/angular-file-upload/angular-file-upload',
         'angular-smoothscroll': '../bower_components/angular-smoothscroll/dist/scripts/481c90be.scripts',
@@ -64,9 +65,10 @@ requirejs.config({
         'angular-file-upload': { deps: ['angular'] },
         'angular-ui-select2': { deps: ['angular', 'select2'] },
 
-        'ng-ckeditor': { deps: ['ckeditor'] },
+        'ng-ckeditor': { deps: ['angular', 'ckeditor'] },
         'ng-editable-tree': { deps: ['angular', 'jquery-ui/jquery.ui.draggable', 'jquery-ui/jquery.ui.droppable', 'jquery-ui/jquery.ui.sortable'] },
         'ngTable': { deps: ['jquery', 'angular'] },
+        'bzCommentArea': { deps: ['jquery', 'angular'] },
         'ngFinder': { deps: ['elfinder', 'angular'] },
         'jquery-galleria': { deps: ['jquery'] },
         'elfinder': { deps: ['jquery-ui/jquery.ui.draggable', 'jquery-ui/jquery.ui.droppable', 'jquery-ui/jquery.ui.selectable'] },

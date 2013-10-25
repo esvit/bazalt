@@ -19,12 +19,12 @@ define('components/bcMenu/backend/module', [
 
         $routeSegmentProvider
             .segment('menu', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcMenu/backend/views/menu.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcMenu/backend/views/menu.html'),
                 controller: 'bcMenu.Controllers.Main'
             })
             .within()
             .segment('edit', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcMenu/backend/views/edit.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcMenu/backend/views/edit.html'),
                 dependencies: ['id'],
                 controller: 'bcMenu.Controllers.MenuEdit'
             });

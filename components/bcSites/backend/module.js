@@ -18,17 +18,17 @@ define('components/bcSites/backend/module', [
 
         $routeSegmentProvider
             .segment('sites', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcSites/backend/views/list.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcSites/backend/views/list.html'),
                 controller: 'bcSites.Controllers.Main',
                 //access: 'sites.can_manage'
             })
             .segment('sitesNew', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcSites/backend/views/edit.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcSites/backend/views/edit.html'),
                 controller: 'bcSites.Controllers.SiteEdit',
                 //access: 'sites.can_manage'
             })
             .segment('sitesEdit', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcSites/backend/views/edit.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcSites/backend/views/edit.html'),
                 dependencies: ['id'],
                 controller: 'bcSites.Controllers.SiteEdit',
                 //access: 'sites.can_manage'

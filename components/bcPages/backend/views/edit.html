@@ -8,30 +8,30 @@
     </div>
 
 
-    <form remote-form name="itemEdit" novalidate ng-submit="saveItem(item)">
+    <form name="itemEdit" novalidate ng-submit="saveItem(item)">
     <div class="row">
         <div class="col col-sm-9" bz-loading-container="loading.page">
 
                 <div class="form-group" ng-class="{'has-error': itemEdit.title.$dirty && itemEdit.title.$invalid}">
-                    <label class="control-label">Заголовок</label>
+                    <label class="control-label">Title</label>
 
                     <div class="controls">
-                        <input class="form-control" type="text" name="title" required ng-model="item.title.en"/>
+                        <input class="form-control" type="text" name="title" required ng-model="item.title[languages.current]"/>
                         <span ng-show="itemEdit.title.$dirty && itemEdit.title.$error.required" class="help-block">Напишіть заголовок</span>
                     </div>
                 </div>
 
                 <div class="form-group" ng-class="{'has-error': itemEdit.body.$dirty && itemEdit.body.$invalid}">
-                    <label class="control-label">Текст</label>
+                    <label class="control-label">Text</label>
 
                     <div class="controls">
                         <span ng-show="itemEdit.body.$dirty && itemEdit.body.$error.required" class="help-block">Напишіть текст</span>
-                        <textarea ckeditor name="body" ng-model="item.body.en"></textarea>
+                        <textarea ckeditor name="body" ng-model="item.body[languages.current]"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">Зображення</label>
+                    <label class="control-label">Images</label>
 
                     <div class="controls">
                         <div bz-uploader="'/pages/images'" ng-model="item.images"></div>

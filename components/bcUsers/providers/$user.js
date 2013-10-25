@@ -7,9 +7,10 @@ define('components/bcUsers/providers/$user', [
 ], function(angular, app) {
 
     app.provider('$user', [function () {
-        this.$get = ['bcUsers.Factories.User', 'bcUsers.Factories.Session', '$cookieStore', '$rootScope', '$route',
-            function(UserResource, SessionResource, $cookieStore, $rootScope, $routeSegment) {
-                var $user = {
+        this.$get = ['bcUsers.Factories.User', 'bcUsers.Factories.Session', '$cookieStore', '$rootScope', '$route', '$q',
+            function(UserResource, SessionResource, $cookieStore, $rootScope, $routeSegment, $q) {
+                var defer = $q.defer(),
+                $user = {
                     data: {
                         is_guest: true
                     },
@@ -30,11 +31,17 @@ define('components/bcUsers/providers/$user', [
                             $routeSegment.reload();
                             success(res);
                         }, error);
+                    },
+                    onLoad: function(func) {
+                        defer.promise.then(func);
                     }
                 };
 
                 var setUser = function(user) {
                     $user.data = user;
+                    if (user.id) {
+                        $rootScope.$broadcast('$user:loginSuccess');
+                    }
                     $cookieStore.put('baAuthUser', user);
                 };
 
@@ -44,6 +51,7 @@ define('components/bcUsers/providers/$user', [
             }
             SessionResource.get(function (user) {
                 setUser(angular.extend(new UserResource(), user));
+                defer.resolve($user);
             });
             if (!$user) {
                 setUser(new UserResource());

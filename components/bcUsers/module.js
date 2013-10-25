@@ -20,6 +20,7 @@ define('components/bcUsers/module', [
         function ($routeSegmentProvider, bzConfigProvider) {
 
             $routeSegmentProvider
+
                 .when('/user', 'profile')
                 .when('/user/registration', 'registration')
                 .when('/user/login', 'login')
