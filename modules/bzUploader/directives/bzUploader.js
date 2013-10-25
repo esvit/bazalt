@@ -11,7 +11,7 @@ define('modules/bzUploader/directives/bzUploader', [
                 'url': '=bzUploader',
                 'files': '=ngModel'
             },
-            templateUrl: bzConfig.templateUrl('/modules/bzUploader/views/bzUploader.html'),
+            templateUrl: bzConfig.templateUrl('/bazalt/modules/bzUploader/views/bzUploader.html'),
             replace: true,
             require: 'ngModel',
             controller: ['$scope', '$fileUploader', '$parse', 'bzConfig', function($scope, $fileUploader, $parse, bzConfig) {

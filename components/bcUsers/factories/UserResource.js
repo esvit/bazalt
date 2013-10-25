@@ -10,7 +10,8 @@ define('components/bcUsers/factories/UserResource', [
             'checkEmail': { method: 'GET', params: { 'action': 'checkEmail' } },
             'delete': { method: 'DELETE' },
             'changePassword': { method: 'PUT', params: { 'action': 'changePassword' } },
-            'activate': { method: 'GET', params: { 'action': 'activate' } }
+            'activate': { method: 'PUT', params: { 'action': 'activate', 'key': '@key' } },
+            'register': { method: 'POST' }
         });
         return UserResource;
     }]);

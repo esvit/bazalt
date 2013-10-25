@@ -4,27 +4,22 @@ define('components/bcUsers/controllers/Registration', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Registration',
-        ['$scope', 'bcUsers.Factories.User', '$q',
-            function ($scope, UserResource, $q) {
-                $scope.user = new UserResource({
-                });
-
-                $scope.saveUser = function(user) {
-                    user.login = user.email;
-                    user.gender = 'unknown';
-                    user.is_active = 1;
-                    user.firstname = user.firstname;
-                    user.secondname = user.secondname;
-                    user.birth_date = user.birth_date;
-                    user.$save(function(res){
-                        console.info(res);
-                    }, function(err){
-                        if (err.status == 400) {
-                            $scope.formError = err.data;
+        ['$scope', 'bcUsers.Factories.User', '$q', '$location',
+            function ($scope, UserResource, $q, $location) {
+                $scope.user = {};
+                $scope.registerUser = function () {
+                    var user = new UserResource($scope.user);
+                    $scope.loading = true;
+                    user.$register(function(res) {
+                        $scope.loading = false;
+                        $location.path('/user/activationSent');
+                    }, function(res) {
+                        $scope.loading = false;
+                        if (res.status == 400) {
+                            $scope.errors = res.data;
                         }
-                    })
+                    });
                 };
-
                 $scope.checkEmail = function(email) {
                     var d = $q.defer();
                     UserResource.checkEmail({ 'email': email }, function(data) {
@@ -32,9 +27,17 @@ define('components/bcUsers/controllers/Registration', [
                     }, function(error) {
                         d.reject(error);
                     });
-                    return d;
+                    return d.promise;
                 };
-
+                $scope.resendActivation = function () {
+                    $http.post('/account/resendActivation', $scope.form)
+                        .success(function(data) {
+                            $location.path('/activationResent');
+                        })
+                        .error(function(data, status, headers, config) {
+                            $scope.error = data.error.message;
+                        });
+                };
             }]);
 
 

@@ -36,6 +36,6 @@
     "angular-social": "*"
   },
   "dependencies": {
-    "angular-comment-area": "*"
+    "bootstrap-datepicker": "~1.2.0"
   }
 }

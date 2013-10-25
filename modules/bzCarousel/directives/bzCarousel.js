@@ -10,10 +10,10 @@ define('modules/bzCarousel/directives/bzCarousel', [
                 '<div class="carousel-inner">'+
                 '<div ng-repeat="image in images" class="item"><img ng-src="{{ image.thumbnails.preview }}" /></div>'+
                 '</div>'+
-                '<a class="carousel-control left" href="#slider" data-slide="prev">&lsaquo;</a>'+
-                '<a class="carousel-control right" href="#slider" data-slide="next">&rsaquo;</a>'+
+                '<a class="carousel-control left" href="" data-slide="prev">&lsaquo;</a>'+
+                '<a class="carousel-control right" href="" data-slide="next">&rsaquo;</a>'+
                 '</div>',
-            replace: true,
+            replace: false,
             scope: {
                 'images': '=bzCarousel'
             },

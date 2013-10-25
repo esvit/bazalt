@@ -4,10 +4,10 @@ define('components/bcUsers/controllers/Profile/Edit', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Profile.Edit',
-        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$location',
-            function ($scope, UserResource, $rootScope, $location) {
+        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$location', '$user',
+            function ($scope, UserResource, $rootScope, $location, $user) {
 
-                UserResource.get({ 'id': $rootScope.user.id }, function(user) {
+                UserResource.get({ 'id': $user.data.id }, function(user) {
                     $scope.loading = false;
                     if (!user.images) {
                         user.images = [];

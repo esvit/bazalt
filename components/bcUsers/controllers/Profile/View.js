@@ -4,10 +4,12 @@ define('components/bcUsers/controllers/Profile/View', [
     'use strict';
 
     app.controller('bcUsers.Controllers.Profile.View',
-        ['$scope', 'bcUsers.Factories.User', '$rootScope',
-            function ($scope, UserResource, $rootScope) {
+        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$routeSegment', '$user',
+            function ($scope, UserResource, $rootScope, $routeSegment, $user) {
 
-                UserResource.get({ 'id': $rootScope.user.id }, function(user) {
+                var userId = $routeSegment.$routeParams.user_id || $user.data.id;
+
+                UserResource.get({ 'id': userId}, function(user) {
                     $scope.loading = false;
                     if (!user.images) {
                         user.images = [];

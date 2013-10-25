@@ -1,15 +1,19 @@
 define('components/bcUsers/controllers/ProfileSettings', [
+    'angular',
+
     'components/bcUsers/app'
-], function (app) {
+], function (angular, app) {
     'use strict';
 
     app.controller('bcUsers.Controllers.ProfileSettings',
-        ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse',
-            function ($scope, UserResource, $rootScope, $fileUploader, $parse) {
+                ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse', '$user', '$routeSegment',
+                    function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user, $routeSegment) {
 
-                var uploader = null;
+                var uploader = null,
+                    userId = $routeSegment.$routeParams.user_id || $user.data.id;
+                $scope.isOwnProfile = angular.isUndefined($routeSegment.$routeParams.user_id) || $routeSegment.$routeParams.user_id == $user.data.id;
 
-                $scope.$watch('user.id', function(userId) {
+                $scope.$watch('user.id', function (userId) {
                     if (angular.isDefined(userId) && uploader == null) {
                         uploader = $fileUploader.create({
                             scope: $scope,                          // to automatically update the html. Default: $rootScope
@@ -27,12 +31,23 @@ define('components/bcUsers/controllers/ProfileSettings', [
                     }
                 });
 
-                UserResource.get({ 'id': $rootScope.user.id }, function(user) {
+                UserResource.get({ 'id': userId }, function (user) {
+                    $scope.user = user;
                     $scope.loading = false;
                     if (!user.images) {
                         user.images = [];
                     }
-                    $scope.user = user;
                 });
-        }]);
+
+                $scope.sendGift = function () {
+                    $('#giftsModal').modal();
+                };
+                $scope.payGift = function () {
+                    $('#payModal').modal();
+                };
+                $scope.sendMessage = function () {
+                    $('#sendMessage').modal();
+                };
+            }]);
+
 });

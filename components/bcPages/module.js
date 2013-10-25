@@ -52,7 +52,7 @@ define('components/bcPages/module', [
                 .when('/post-:id', 'pageById')
                 .when('/user/profile/add-post', 'profile.postAdd')
                 .when('/user/profile/edit-post/:id', 'profile.postEdit')
-                .when('/user/profile/posts', 'profile.posts');
+                .when('/user/:user_id/posts', 'profile.posts');
 
             $routeSegmentProvider
                 .segment('home', {

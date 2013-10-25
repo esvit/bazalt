@@ -27,5 +27,4 @@ define('modules/bzDatepicker/directives/bzDatepicker', [
             }
         };
     });
-
 });
