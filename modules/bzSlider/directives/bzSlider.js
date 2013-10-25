@@ -1,15 +1,15 @@
-define('modules/bzBanners/directives/bzBanners', [
-    'modules/bzBanners/app'
+define('modules/bzSlider/directives/bzSlider', [
+    'modules/bzSlider/app'
 ], function (app) {
     'use strict';
 
-    app.directive('bzBanners', ['$timeout', '$parse', function ($timeout, $parse) {
+    app.directive('bzSlider', ['$timeout', '$parse', function ($timeout, $parse) {
         return {
             restrict: 'A',
             replace: false,
             scope: true,
             link: function(scope, element, attrs) {
-                attrs.$observe('bzBanners', function(index) {
+                attrs.$observe('bzSlider', function(index) {
                     scope.index = $parse(index)(scope);
                 });
                 scope.$watch(attrs.total, function(value) {

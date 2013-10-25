@@ -8,7 +8,9 @@ define('modules/bzImg/directives/bzImg', [
             restrict: 'A',
             template: '<ul class="images thumbnails">' +
                 '<li ng-repeat="image in images">'+
-                '<a class="thumbnail" ng-href="{{ image.url }}" rel="gallery"><img ng-src="{{ image.thumbnails.preview }}" /></a>'+
+                '<a class="thumbnail" ng-href="{{ image.url }}" title="{{ image.title }}" rel="gallery">' +
+                '<img ng-src="{{ image.thumbnails.preview }}" />' +
+                '</a>'+
                 '</li>' +
                 '</ul>',
             replace: true,
@@ -22,7 +24,13 @@ define('modules/bzImg/directives/bzImg', [
 
                         $(this).trigger('click.fb-start');
                         return false;
-                    }).fancybox();
+                    }).fancybox({
+                            helpers:  {
+                                title : {
+                                    type : 'inside'
+                                }
+                            }
+                        });
                 });
             }
         };
