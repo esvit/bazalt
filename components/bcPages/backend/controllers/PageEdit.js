@@ -23,7 +23,12 @@ define('components/bcPages/backend/controllers/PageEdit', [
                         $scope.item = page;
                     });
                 } else {
-                    $scope.item = new PageResource({ images: [], tags: [] });
+                    $scope.item = new PageResource({
+                        title: {},
+                        body: {},
+                        images: [],
+                        tags: []
+                    });
                 }
 
                 $scope.loading.categories = true;

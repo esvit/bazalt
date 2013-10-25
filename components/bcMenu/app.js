@@ -22,7 +22,7 @@ define('components/bcMenu/app', [
             id: 'bcMenu.Menu.Link',
             title: 'Ссылка',
             component: 'Меню',
-            templateUrl: '/src/components/bcMenu/backend/views/menu/link.html'
+            templateUrl: '/components/bcMenu/backend/views/menu/link.html'
         });
 
     }]);

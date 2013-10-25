@@ -18,7 +18,7 @@ define('components/bcFiles/app', [
             id: 'bcFiles.Menu.Link',
             title: 'Ссылка',
             component: 'Меню',
-            templateUrl: '/src/components/bcMenu/backend/views/menu/link.html'
+            templateUrl: '/components/bcMenu/backend/views/menu/link.html'
         });
 
     }]);*/

@@ -28,7 +28,7 @@ define('components/bcUsers/config', [
                     if (response.status === 403 && !response.config.ignoreAuthModule) {
                         var deferred = $q.defer();
                         httpBuffer.append(response.config, deferred);
-                        $rootScope.$broadcast('bzAuthorization:$loginRequired');
+                        $rootScope.$broadcast('$user:loginRequired');
                         return deferred.promise;
                     }
                     // otherwise, default behaviour

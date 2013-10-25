@@ -24,23 +24,23 @@ define('components/bcPages/backend/module', [
 
         $routeSegmentProvider
             .segment('pages', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcPages/backend/views/list.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcPages/backend/views/list.html'),
                 controller: 'bcPages.Controllers.Main',
                 access: 'pages.can_manage'
             })
             .segment('pagesNew', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcPages/backend/views/edit.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcPages/backend/views/edit.html'),
                 controller: 'bcPages.Controllers.PageEdit',
                 access: 'pages.can_manage'
             })
             .segment('pagesEdit', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcPages/backend/views/edit.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcPages/backend/views/edit.html'),
                 dependencies: ['id'],
                 controller: 'bcPages.Controllers.PageEdit',
                 access: 'pages.can_manage'
             })
             .segment('pagesCategories', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcPages/backend/views/categories.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcPages/backend/views/categories.html'),
                 controller: 'bcPages.Controllers.Categories',
                 access: 'pages.can_manage'
             });

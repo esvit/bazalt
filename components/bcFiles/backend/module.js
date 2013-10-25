@@ -13,7 +13,7 @@ define('components/bcFiles/backend/module', [
 
         $routeSegmentProvider
             .segment('files', {
-                templateUrl: bzConfig.templateUrl('/src/components/bcFiles/backend/views/main.html'),
+                templateUrl: bzConfig.templateUrl('/components/bcFiles/backend/views/main.html'),
                 controller: 'bcFiles.Controllers.Main'
             });
     }]);

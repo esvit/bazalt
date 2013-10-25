@@ -1,4 +1,6 @@
 define('modules/bzLanguage/module', [
+    'angular',
+
     'modules/bzLanguage/app',
 
     'modules/bzLanguage/providers/$translate',
@@ -7,7 +9,7 @@ define('modules/bzLanguage/module', [
     'modules/bzLanguage/directives/localeBundle',
 
     'modules/bzLanguage/filters/language'
-], function(app) {
+], function(angular, app) {
     'use strict';
 
     app.provider('bzLanguage', [function() {
@@ -21,7 +23,10 @@ define('modules/bzLanguage/module', [
         this.$get = function() {
             var self = this;
             return {
-                language: function () {
+                language: function (alias) {
+                    if (angular.isDefined(alias)) {
+                        self.$language = alias;
+                    }
                     return self.$language;
                 }
             };
@@ -30,10 +35,10 @@ define('modules/bzLanguage/module', [
 
     app.config(['$translateBundleProvider', function ($translateBundleProvider) {
         // URL pattern to fetch locale bundles.  Placeholders: {{bundle}}
-        $translateBundleProvider.bundleUrl('/src/{{bundle}}/locale/{{bundle}}.json');
+        $translateBundleProvider.bundleUrl('/{{bundle}}/locale/{{bundle}}.json');
 
         // URL pattern to fetch locale bundles.  Placeholders: {{bundle}} and {{locale}}
-        $translateBundleProvider.bundleLocaleUrl('/src/{{bundle}}/locale/{{locale}}.json');
+        $translateBundleProvider.bundleLocaleUrl('/{{bundle}}/locale/{{locale}}.json');
     }]);
 
     app.filter('translate', ['$rootScope', function($rootScope) {
