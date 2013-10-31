@@ -13,7 +13,7 @@ define('modules/bzLanguage/module', [
     'use strict';
 
     app.provider('bzLanguage', [function() {
-        this.$language = 'en';
+        this.$language = 'en_GB';
 
         this.language = function (alias) {
             this.$language = alias;
@@ -33,12 +33,15 @@ define('modules/bzLanguage/module', [
         };
     }]);
 
+    app.run(['$rootScope', 'bzLanguage', function($rootScope, bzLanguage) {
+        $rootScope.$language = bzLanguage;
+    }]);
     app.config(['$translateBundleProvider', function ($translateBundleProvider) {
         // URL pattern to fetch locale bundles.  Placeholders: {{bundle}}
-        $translateBundleProvider.bundleUrl('/{{bundle}}/locale/{{bundle}}.json');
+        $translateBundleProvider.bundleUrl('/locale/{{bundle}}.json');
 
         // URL pattern to fetch locale bundles.  Placeholders: {{bundle}} and {{locale}}
-        $translateBundleProvider.bundleLocaleUrl('/{{bundle}}/locale/{{locale}}.json');
+        $translateBundleProvider.bundleLocaleUrl('/locale/{{bundle}}-{{locale}}.json');
     }]);
 
     app.filter('translate', ['$rootScope', function($rootScope) {

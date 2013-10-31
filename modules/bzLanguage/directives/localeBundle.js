@@ -3,23 +3,30 @@ define('modules/bzLanguage/directives/localeBundle', [
 ], function(app) {
     'use strict';
 
-    app.directive('localeBundle', ['$translateBundle', '$rootScope', function (localeBundleFactory, $rootScope) {
+    app.directive('localeBundle', ['$translateBundle', '$rootScope', 'bzLanguage', function (localeBundleFactory, $rootScope, bzLanguage) {
         return {
             link: function (scope, element, attrs) {
                 var bundle = attrs.localeBundle;
                 if (!bundle) {
                     return;
                 }
-                localeBundleFactory(bundle, 'ru_RU').then(function(result) {
+                localeBundleFactory(bundle, bzLanguage.language()).then(function(result) {
                     $rootScope.$localeBundle = result.data;
                 });
-                /*scope.$watch(bundleDetails.prefix + '.locale', function (locale) {
-                    if (!locale || locale.trim().length === 0) {
-                        localeBundleFactory(bundleDetails.bundle).addToScope(scope, bundleDetails.prefix);
-                    } else {
-                        localeBundleFactory(bundleDetails.bundle, locale).addToScope(scope, bundleDetails.prefix);
+                scope.$watch('$language.language()', function (locale) {
+                    if (angular.isUndefined(locale)) {
+                        return;
                     }
-                });*/
+                    if (!locale || locale.trim().length === 0) {
+                        localeBundleFactory('theme').then(function(result) {
+                            $rootScope.$localeBundle = result.data;
+                        });//.addToScope(scope, 'theme');
+                    } else {
+                        localeBundleFactory('theme', locale).then(function(result) {
+                            $rootScope.$localeBundle = result.data;
+                        });//.addToScope(scope, 'theme');
+                    }
+                });
             }
 
         };
