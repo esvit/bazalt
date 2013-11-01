@@ -1,5 +1,6 @@
 BAZALT
 ======
+[![Build Status](https://travis-ci.org/esvit/bazalt.png?branch=master)](https://travis-ci.org/esvit/bazalt)
 
 This is enviroment for create web applications (CMF) the base of which developed content management system (CMS).
 

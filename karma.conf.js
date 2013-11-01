@@ -25,11 +25,11 @@ module.exports = function (config) {
             'src/**/*.js': 'coverage'
         },
 
-       // reporters: ['progress', 'coverage'],
+        reporters: ['progress', 'coverage'],
 
         autoWatch: true,
-        //browsers: ['PhantomJS'],
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
+        //browsers: ['Chrome'],
         coverageReporter: {
             type: 'lcov',
             dir: 'out/coverage'
