@@ -36,6 +36,7 @@
     "angular-social": "*"
   },
   "dependencies": {
-    "bootstrap-datepicker": "~1.2.0"
+    "bootstrap-datepicker": "~1.2.0",
+    "jquery-galleria": "~1.2.9"
   }
 }
