@@ -11,33 +11,16 @@ module.exports = (grunt) ->
                 preserveLicenseComments: false
                 useStrict: true
                 wrap: true
-                mainConfigFile: 'src/config.js'
-                name: 'frontend/main'
+                mainConfigFile: 'src/bazalt-cms.js'
+                name: 'bazalt-cms'
                 #include: ['bazalt-auth']
-                #exclude: ['jquery','angular','angular-resource','angular-cookies']
-                out: 'build/frontend.src.js'
-
-        backend:
-            options:
-                baseUrl: 'src'
-                optimize: 'none'
-                preserveLicenseComments: false
-                useStrict: true
-                wrap: true
-                mainConfigFile: 'src/config.js'
-                name: 'backend/main'
-                #include: ['bazalt-auth']
-                #exclude: ['jquery','angular','angular-resource','angular-cookies']
-                out: 'build/backend.src.js'
+                #exclude: ['angular', 'angular-resource', 'angular-route', 'angular-cookies']
+                out: 'bazalt-cms.src.js'
 
     uglify:
         frontend:
-            src: ['bower_components/requirejs/require.js', 'build/frontend.src.js']
-            dest: 'build/frontend.js'
-
-        backend:
-            src: ['bower_components/requirejs/require.js', 'build/backend.src.js']
-            dest: 'build/backend.js'
+            src: ['bower_components/requirejs/require.js', 'bazalt-cms.src.js']
+            dest: 'bazalt-cms.js'
 
         options:
             compress: true
@@ -106,18 +89,7 @@ module.exports = (grunt) ->
     grunt.loadNpmTasks 'grunt-contrib-requirejs'
     grunt.loadNpmTasks 'grunt-angular-translate'
 
-    grunt.registerTask 'frontend', [
-        'requirejs:frontend'
-        'uglify:frontend'
-    ]
-    grunt.registerTask 'backend', [
-        'htmlmin:backend'
-        'less:backend'
-        'replace:backend'
-        'requirejs:backend'
-        'uglify:backend'
-    ]
     grunt.registerTask 'default', [
-        'frontend'
-        'backend'
+        'requirejs'
+        'uglify'
     ]

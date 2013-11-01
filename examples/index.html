@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <base href="/examples/" />
+
+    <script>
+    bazalt = {
+        api: 'http://hellv.in/api/rest.php',
+        languages: ['uk', 'en']
+    }
+    </script>
+    <script src="../bower_components/requirejs/require.js" data-main="js/main"></script>
+</head>
+<body>
+
+    <a href="#!/post-1" target="_self">Ru</a>
+    <a href="#!/en/post-1" target="_self">En</a>
+
+    <a href="" ng-click="$language.id('uk')" target="_self">Ru</a>
+    <a href="" ng-click="$language.id('en')" target="_self">En</a>
+
+    {{ 10000|currency }}
+
+    <div app-view-segment="0">
+
+    </div>
+
+</body>
+</html>

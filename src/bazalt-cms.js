@@ -1,5 +1,4 @@
 requirejs.config({
-    baseUrl: '/',
     paths: {
         // jquery
         'jquery': '../bower_components/jquery/jquery',
@@ -54,13 +53,13 @@ requirejs.config({
         'jasmine': '../bower_components/jasmine/lib/jasmine-core'
     },
     shim: {
-        'angular': { exports: 'angular', deps: ['jquery'] },
+        'angular': { exports: 'angular' },//, deps: ['jquery'] },
         'angular-resource': { deps: ['angular'] },
         'angular-route': { deps: ['angular'] },
         'angular-animate': { deps: ['angular'] },
         'angular-cookies': { deps: ['angular'] },
         'ngSocial': { deps: ['angular'] },
-        'angular-route-segment': { deps: ['angular'] },
+        'angular-route-segment': { deps: ['angular', 'angular-route'] },
         'angular-smoothscroll': { deps: ['angular'] },
         'angular-file-upload': { deps: ['angular'] },
         'angular-ui-select2': { deps: ['angular', 'select2'] },
@@ -87,7 +86,10 @@ requirejs.config({
         'jquery-ui/jquery.ui.sortable': { deps: ['jquery-ui/jquery.ui.mouse'] }
     },
     priority: [
-        'jquery', 'angular'
+        'angular'
     ],
     urlArgs: 'v=1.1'
+});
+define('bazalt-cms', ['bazalt-cms/run'], function(app) {
+    return app;
 });

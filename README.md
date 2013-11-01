@@ -29,3 +29,12 @@ Technologies (Integrated features)
     - jQuery and AngularJS build-in frontend
 * PHP
     - [API Server](https://github.com/esvit/bazalt-api)
+
+Doc
+---
+
+'bazalt.config' - config.api() - API server
+                        .templatePrefix
+                        .templateUrl
+                        .resource
+
