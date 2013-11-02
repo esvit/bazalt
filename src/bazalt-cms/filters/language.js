@@ -1,11 +1,11 @@
 define('bazalt-cms/filters/language', [
     'bazalt-cms/app',
 
-    'bazalt-cms/providers/language'
+    'bazalt-cms/providers/bzLanguage'
 ], function(app) {
     'use strict';
 
-    app.filter('language', ['bazalt.language', function(bzLanguage) {
+    app.filter('language', ['bzLanguage', function(bzLanguage) {
         return function(value, language) {
             if (typeof value == 'undefined' || value === null) {
                 return value;

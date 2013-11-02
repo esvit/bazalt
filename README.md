@@ -1,6 +1,6 @@
 BAZALT
 ======
-[![Build Status](https://travis-ci.org/esvit/bazalt.png?branch=master)](https://travis-ci.org/esvit/bazalt)
+[![Build Status](https://travis-ci.org/esvit/bazalt.png?branch=master)](https://travis-ci.org/esvit/bazalt) [![Coverage Status](https://coveralls.io/repos/esvit/bazalt/badge.png)](https://coveralls.io/r/esvit/bazalt)
 
 This is enviroment for create web applications (CMF) the base of which developed content management system (CMS).
 

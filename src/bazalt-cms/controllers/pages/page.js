@@ -1,10 +1,10 @@
 define([
-    'bazalt-cms/app', 'bazalt-cms/providers/config'
+    'bazalt-cms/app', 'bazalt-cms/providers/bzConfig'
 ], function(app) {
     'use strict';
 
     app.controller('bazalt.controllers.pages.page',
-        ['$scope', '$routeSegment', 'bazalt.config', 'bazalt.pages.page',
+        ['$scope', '$routeSegment', 'bzConfig', 'bazalt.pages.page',
         function($scope, $routeSegment, bzConfig, PagesResource) {
             $scope.loading = true;
 

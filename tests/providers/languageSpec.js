@@ -1,10 +1,10 @@
 define(['angular', 'angular-mocks', 'bazalt-cms/providers/language'], function (angular) {
 
-    describe('bazalt.language', function () {
+    describe('bzLanguage', function () {
         var provider, config;
 
         beforeEach(module('bazalt-cms', ['$injector', function($injector) {
-            provider = $injector.get('bazalt.languageProvider');
+            provider = $injector.get('bzLanguageProvider');
             config = $injector.get('bazalt.configProvider');
             config.languages(['en', 'uk']);
         }]));
@@ -13,11 +13,11 @@ define(['angular', 'angular-mocks', 'bazalt-cms/providers/language'], function (
             config.languages(['en']);
         });
 
-        it('should be defined', inject(['bazalt.language', function (lang) {
+        it('should be defined', inject(['bzLanguage', function (lang) {
             expect(lang).toBeDefined();
         }]));
 
-        it('option language', inject(['bazalt.language', function (lang) {
+        it('option language', inject(['bzLanguage', function (lang) {
             expect(lang.id()).toEqual('en');
 
             provider.id('uk');
@@ -25,7 +25,7 @@ define(['angular', 'angular-mocks', 'bazalt-cms/providers/language'], function (
             expect(lang.id()).toEqual('uk');
         }]));
 
-        it('change language events', inject(['bazalt.language', '$rootScope', function (lang, $rootScope) {
+        it('change language events', inject(['bzLanguage', '$rootScope', function (lang, $rootScope) {
             $rootScope.$on('$languageChangeStart', function(e, newLang, oldLang) {
                 expect(oldLang).toEqual('en');
                 expect(newLang).toEqual('uk');

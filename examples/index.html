@@ -15,8 +15,11 @@
 </head>
 <body>
 
-    <a href="#!/post-1" target="_self">Ru</a>
-    <a href="#!/en/post-1" target="_self">En</a>
+    {{ $user }}
+
+    <a href="#!/">Home</a>
+    <a href="#!/uk/post-1" bz-lang-ignore target="_self">Ru</a>
+    <a href="#!/en/post-1" bz-lang-ignore target="_self">En</a>
 
     <a href="" ng-click="$language.id('uk')" target="_self">Ru</a>
     <a href="" ng-click="$language.id('en')" target="_self">En</a>
@@ -26,6 +29,15 @@
     <div app-view-segment="0">
 
     </div>
+
+    <form data-ng-controller="test" ng-submit="login(user)">
+        <input type="text" ng-model="user.email"/>
+        <input type="text" ng-model="user.password"/>
+        <input type="submit" value="OK" />
+
+    </form>
+
+<a href="" data-ng-click="$user.$logout()">Log out</a>
 
 </body>
 </html>

@@ -4,11 +4,12 @@ define([
 ], function(angular, app) {
     'use strict';
 
-    app.provider('bazalt.config', [function() {
+    app.provider('bzConfig', [function() {
         var options = {
             api: '',
             templatePrefix: '',
-            languages: ['en']
+            languages: ['en'],
+            checkSessionOnStart: false
         };
 
         this.api = function (api) {
@@ -18,6 +19,11 @@ define([
 
         this.templatePrefix = function (templatePrefix) {
             options.templatePrefix = templatePrefix;
+            return this;
+        };
+
+        this.checkSessionOnStart = function (checkSessionOnStart) {
+            options.checkSessionOnStart = checkSessionOnStart;
             return this;
         };
 
@@ -44,6 +50,9 @@ define([
                 },
                 templateUrl: function (templateUrl) {
                     return self.templateUrl(templateUrl);
+                },
+                checkSessionOnStart: function () {
+                    return options.checkSessionOnStart;
                 },
                 api: function () {
                     return options.api;

@@ -4,7 +4,7 @@ define([
 ], function(angular, app) {
     'use strict';
 
-    app.provider('bazalt.language', ['$localeProvider', function($locale) {
+    app.provider('bzLanguage', ['$localeProvider', function($locale) {
         this.$language = $locale.$get().id.substring(0, 2);
 
         this.id = function (id) {
@@ -12,7 +12,7 @@ define([
             return this;
         };
 
-        this.$get = ['$log', '$rootScope', 'bazalt.config', function($log, $rootScope, config) {
+        this.$get = ['$log', '$rootScope', 'bzConfig', function($log, $rootScope, config) {
             var self = this;
             $log.debug('Language: ' + self.$language);
             return {

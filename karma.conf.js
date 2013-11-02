@@ -28,8 +28,8 @@ module.exports = function (config) {
         reporters: ['progress', 'coverage'],
 
         autoWatch: true,
-        browsers: ['PhantomJS'],
-        //browsers: ['Chrome'],
+        //browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
         coverageReporter: {
             type: 'lcov',
             dir: 'out/coverage'

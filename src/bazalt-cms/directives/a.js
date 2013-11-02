@@ -3,12 +3,12 @@ define([
 ], function(app) {
 
     // @todo write test
-    app.directive('a', ['bazalt.language', '$location', function(bzLanguage, $location) {
+    app.directive('a', ['bzLanguage', '$location', function(bzLanguage, $location) {
         return {
             restrict: 'E',
             compile: function(element, attr) {
                 return function(scope, element, attr) {
-                    if (!attr.href) {
+                    if (!attr.href || angular.isDefined(attr.bzLangIgnore)) {
                         return;
                     }
                     // change link href for current language
