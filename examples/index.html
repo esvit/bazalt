@@ -5,39 +5,71 @@
 
     <base href="/examples/" />
 
+    <style>
+        body {
+            padding-top: 20px;
+        }
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
     <script>
     bazalt = {
         api: 'http://hellv.in/api/rest.php',
         languages: ['uk', 'en']
     }
     </script>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
     <script src="../bower_components/requirejs/require.js" data-main="js/main"></script>
 </head>
 <body>
 
-    {{ $user }}
+    <div class="container">
 
-    <a href="#!/">Home</a>
-    <a href="#!/uk/post-1" bz-lang-ignore target="_self">Ru</a>
-    <a href="#!/en/post-1" bz-lang-ignore target="_self">En</a>
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#!/">Bazalt CMS</a>
+            </div>
 
-    <a href="" ng-click="$language.id('uk')" target="_self">Ru</a>
-    <a href="" ng-click="$language.id('en')" target="_self">En</a>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav pull-right">
+                    <li ng-class="{'active': $language.id() == 'uk'}"><a href="" ng-click="$language.id('uk')">UK</a></li>
+                    <li ng-class="{'active': $language.id() == 'en'}"><a href="" ng-click="$language.id('en')">EN</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="#!/post-1">Access Denied page</a></li>
+                </ul>
+            </div>
+        </nav>
 
-    {{ 10000|currency }}
+        <div class="row">
+            <div class="col col-lg-9" app-view-segment="0">
 
-    <div app-view-segment="0">
+            </div>
 
+            <div class="col col-lg-3 ng-cloak">
+
+                <form ng-if="$user.is_guest" data-ng-controller="test" ng-submit="login(user)" ng-init="user = { 'email': 'admin', 'password': '1' }">
+                    <div class="form-group">
+                        <label for="email">Login / Email:</label>
+                        <input id="email" class="form-control" type="text" ng-model="user.email"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input id="password" class="form-control" type="password" ng-model="user.password"/>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="Login" />
+                    </div>
+                </form>
+                <div ng-if="!   $user.is_guest">
+                    ID: {{ $user.id }}
+                    <a href="" data-ng-click="$user.$logout()">Log out</a>
+                </div>
+
+            </div>
+        </div>
     </div>
-
-    <form data-ng-controller="test" ng-submit="login(user)">
-        <input type="text" ng-model="user.email"/>
-        <input type="text" ng-model="user.password"/>
-        <input type="submit" value="OK" />
-
-    </form>
-
-<a href="" data-ng-click="$user.$logout()">Log out</a>
 
 </body>
 </html>
