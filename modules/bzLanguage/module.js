@@ -28,6 +28,12 @@ define('modules/bzLanguage/module', [
                         self.$language = alias;
                     }
                     return self.$language;
+                },
+                id: function (alias) {
+                    if (angular.isDefined(alias)) {
+                        self.$language = alias;
+                    }
+                    return self.$language.substring(0,2);
                 }
             };
         };

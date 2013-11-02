@@ -78,7 +78,8 @@ define('components/bcUsers/module', [
                 })
                 .segment('profile', {
                     templateUrl: bzConfigProvider.templateUrl('/views/user/profile.html'),
-                    controller: 'bcUsers.Controllers.ProfileSettings'
+                    controller: 'bcUsers.Controllers.ProfileSettings',
+                    dependencies: ['user_id']
                 })
                 .within()
                     .segment('view', {
@@ -97,20 +98,22 @@ define('components/bcUsers/module', [
                     .within()
                     .segment('edit', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/profile.html'),
-                        controller: 'bcUsers.Controllers.Profile.Edit'
+                        controller: 'bcUsers.Controllers.Profile.Edit',
+                        dependencies: ['user_id']
                     })
                 .up()
                     .within()
                     .segment('password', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/edit/password.html'),
-                        controller: 'bcUsers.Controllers.Profile.ChangePassword'
+                        controller: 'bcUsers.Controllers.Profile.ChangePassword',
+                        dependencies: ['user_id']
                     })
                 .up()
                     .within()
                     .segment('message', {
                         templateUrl: bzConfigProvider.templateUrl('/views/user/profile/message.html'),
                         controller: 'bcUsers.Controllers.Profile.Message',
-                        dependencies: ['id']
+                        dependencies: ['user_id','id']
                     })
                 .up()
                 .within()
@@ -119,12 +122,14 @@ define('components/bcUsers/module', [
                 })
                         .within()
                         .segment('inbox', {
-                            controller: 'bcUsers.Controllers.Profile.Messages'
+                            controller: 'bcUsers.Controllers.Profile.Messages',
+                            dependencies: ['user_id']
                         })
                         .up()
                         .within()
                         .segment('outbox', {
-                            controller: 'bcUsers.Controllers.Profile.Messages'
+                            controller: 'bcUsers.Controllers.Profile.Messages',
+                            dependencies: ['user_id']
                         })
         }]);
 });

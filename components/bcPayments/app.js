@@ -1,7 +1,6 @@
 define('components/bcPayments/app', [
     'angular', 'angular-resource', 'angular-route', 'ngTable',
 
-    'modules/bzUploader/module',
     'modules/bzWidgets/module'
 ], function(angular) {
     'use strict';

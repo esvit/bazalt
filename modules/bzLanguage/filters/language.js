@@ -8,11 +8,11 @@ define('modules/bzLanguage/filters/language', [
             if (typeof value == 'undefined' || value === null) {
                 return value;
             }
-            language = language || bzLanguage.language();
+            language = language || bzLanguage.language().substring(0,2);
             if (!value[language] && value.orig) {
-                return value[value.orig] + ' (' + value.orig + ')';
+                return value[value.orig];
             }
-            return value[language];
+            return value[language] || value;
         }
     }]);
 

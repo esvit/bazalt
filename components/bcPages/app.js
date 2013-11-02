@@ -1,12 +1,11 @@
 define('components/bcPages/app', [
     'angular', 'angular-resource', 'angular-route', 'ng-ckeditor', 'ngTable',
 
-    'modules/bzUploader/module',
     'modules/bzWidgets/module'
 ], function(angular) {
     'use strict';
 
-    var app = angular.module('Components.bcPages', ['ngResource', 'ngRoute', 'ngTable', 'bzWidgets', 'bzUploader', 'ngCkeditor']);
+    var app = angular.module('Components.bcPages', ['ngResource', 'ngRoute', 'ngTable', 'bzWidgets', 'ngCkeditor']);
 
     app.run(['bzMenu.Types', function(menuTypes) {
 

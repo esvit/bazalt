@@ -6,6 +6,7 @@ define([
 ], function(angular, app) {
     'use strict';
 
+    // @todo add tests
     app.provider('bzUser', [function() {
 
         this.access = function(permissions) {

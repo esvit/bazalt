@@ -20126,6 +20126,93 @@ define('bazalt-cms/app',[
         'route-segment', 'view-segment'
     ]);
 });
+define('bazalt-cms/factories/bzInterceptorBuffer',[
+    'bazalt-cms/app'
+], function (app) {
+    'use strict';
+
+    app.factory('bzInterceptorBuffer',  ['$injector', function($injector) {
+        /** Holds all the requests, so they can be re-requested in future. */
+        var buffer = [];
+
+        /** Service initialized later because of circular dependency problem. */
+        var $http;
+
+        function retryHttpRequest(config, deferred) {
+            function successCallback(response) {
+                deferred.resolve(response);
+            }
+            function errorCallback(response) {
+                deferred.reject(response);
+            }
+            $http = $http || $injector.get('$http');
+            $http(config).then(successCallback, errorCallback);
+        }
+
+        return {
+            /**
+             * Appends HTTP request configuration object with deferred response attached to buffer.
+             */
+            append: function(config, deferred) {
+                buffer.push({
+                    config: config,
+                    deferred: deferred
+                });
+            },
+
+            /**
+             * Retries all the buffered requests clears the buffer.
+             */
+            retryAll: function(updater) {
+                for (var i = 0; i < buffer.length; ++i) {
+                    retryHttpRequest(updater(buffer[i].config), buffer[i].deferred);
+                }
+                buffer = [];
+            }
+        };
+    }]);
+
+});
+define('bazalt-cms/interceptors/status403',[
+    'angular',
+    'bazalt-cms/app',
+    'bazalt-cms/factories/bzInterceptorBuffer'
+], function (angular, app) {
+    'use strict';
+
+    // catch unauthorizate requests
+    return ['$rootScope', '$q', 'bzInterceptorBuffer',
+        function ($rootScope, $q, httpBuffer) {
+
+            $rootScope.$on('baUserLogin', function () {
+                var updater = function (config) {
+                    return config;
+                };
+                httpBuffer.retryAll(updater);
+            });
+
+            function success(response) {
+                return response;
+            }
+
+            function error(response) {
+                if (response.status === 403 && !response.config.ignoreAuthModule) {
+                    var deferred = $q.defer();
+                    httpBuffer.append(response.config, deferred);
+                    $rootScope.$broadcast('$user:loginRequired');
+                    return deferred.promise;
+                }
+                // otherwise, default behaviour
+                return $q.reject(response);
+            }
+
+            return function (promise) {
+                return promise.then(success, error);
+            };
+
+        }];
+
+});
 define('bazalt-cms/providers/bzConfig',[
     'angular',
     'bazalt-cms/app'
@@ -20344,6 +20431,7 @@ define('bazalt-cms/providers/bzUser',[
 ], function(angular, app) {
     'use strict';
 
+    // @todo add tests
     app.provider('bzUser', [function() {
 
         this.access = function(permissions) {
@@ -20486,6 +20574,8 @@ define('bazalt-cms/helpers/diff',['bazalt-cms/helpers/filter', 'bazalt-cms/helpe
 define('bazalt-cms/run',[
     'bazalt-cms/app',
 
+    'bazalt-cms/interceptors/status403',
+
     'bazalt-cms/factories/pages/page',
     'bazalt-cms/factories/users/session',
 
@@ -20502,11 +20592,13 @@ define('bazalt-cms/run',[
     'bazalt-cms/helpers/indexOf',
     'bazalt-cms/helpers/filter',
     'bazalt-cms/helpers/diff'
-], function(app) {
+], function(app, status403interceptor) {
 
     app.config(['$httpProvider', function($httpProvider) {
         // send cookies via CORS
         $httpProvider.defaults.withCredentials = true;
+
+        $httpProvider.responseInterceptors.push(status403interceptor);
     }]);
 
     app.run(['$rootScope', 'bzLanguage', 'bzConfig', '$location', '$log', '$route', 'bzUser',

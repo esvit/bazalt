@@ -1,6 +1,8 @@
 define([
     'bazalt-cms/app',
 
+    'bazalt-cms/interceptors/status403',
+
     'bazalt-cms/factories/pages/page',
     'bazalt-cms/factories/users/session',
 
@@ -17,11 +19,13 @@ define([
     'bazalt-cms/helpers/indexOf',
     'bazalt-cms/helpers/filter',
     'bazalt-cms/helpers/diff'
-], function(app) {
+], function(app, status403interceptor) {
 
     app.config(['$httpProvider', function($httpProvider) {
         // send cookies via CORS
         $httpProvider.defaults.withCredentials = true;
+
+        $httpProvider.responseInterceptors.push(status403interceptor);
     }]);
 
     app.run(['$rootScope', 'bzLanguage', 'bzConfig', '$location', '$log', '$route', 'bzUser',
