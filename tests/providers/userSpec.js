@@ -1,11 +1,11 @@
 define(['angular', 'angular-mocks', 'bazalt-cms/providers/bzUser'], function (angular) {
 
-    describe('bazalt.language', function () {
+    describe('bzLanguage', function () {
         var provider, config;
 
         beforeEach(module('bazalt-cms', ['$injector', function($injector) {
-            provider = $injector.get('bazalt.languageProvider');
-            config = $injector.get('bazalt.configProvider');
+            provider = $injector.get('bzLanguageProvider');
+            config = $injector.get('bzConfigProvider');
             config.languages(['en', 'uk']);
         }]));
 
@@ -13,7 +13,7 @@ define(['angular', 'angular-mocks', 'bazalt-cms/providers/bzUser'], function (an
             config.languages(['en']);
         });
 
-        it('should be defined', inject(['bazalt.language', function (lang) {
+        it('should be defined', inject(['bzLanguage', function (lang) {
             expect(lang).toBeDefined();
         }]));
     });

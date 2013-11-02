@@ -1,11 +1,11 @@
-define(['angular', 'angular-mocks', 'bazalt-cms/providers/language'], function (angular) {
+define(['angular', 'angular-mocks', 'bazalt-cms/providers/bzLanguage'], function (angular) {
 
     describe('bzLanguage', function () {
         var provider, config;
 
         beforeEach(module('bazalt-cms', ['$injector', function($injector) {
             provider = $injector.get('bzLanguageProvider');
-            config = $injector.get('bazalt.configProvider');
+            config = $injector.get('bzConfigProvider');
             config.languages(['en', 'uk']);
         }]));
 

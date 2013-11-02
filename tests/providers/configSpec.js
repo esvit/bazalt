@@ -6,7 +6,7 @@ define(['angular', 'angular-mocks', 'bazalt-cms/providers/bzConfig'], function (
         window.bazalt = { 'api': '/api' };
 
         beforeEach(module('bazalt-cms', ['$injector', function($injector) {
-            provider = $injector.get('bazalt.configProvider');
+            provider = $injector.get('bzConfigProvider');
         }]));
 
         it('should be defined', inject(['bzConfig', function (config) {
