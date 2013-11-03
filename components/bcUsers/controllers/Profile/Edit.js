@@ -27,6 +27,29 @@ define('components/bcUsers/controllers/Profile/Edit', [
                             $scope.errors = res.data;
                         }
                     });
+                };
+
+                $scope.addChildren = function (user) {
+                    user.children = [];
+                    for (var i = 0; i < user.children_count; i++) {
+                        user.children.push({
+
+                        });
+                    }
+                };
+                $scope.weights = [];
+                for (var i = 40; i <= 120; i++) {
+                    $scope.weights.push({
+                        'kg': i,
+                        'pounds': Math.round(i * 2.2046)
+                    })
+                };
+                $scope.years = [];
+                for (var i = 18; i <= 75; i++) {
+                    $scope.years.push({
+                        'year': i
+                    })
                 }
+
             }]);
 });
