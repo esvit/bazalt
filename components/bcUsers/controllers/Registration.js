@@ -3,6 +3,13 @@ define('components/bcUsers/controllers/Registration', [
 ], function (app) {
     'use strict';
 
+    app.controller('setMain', ['$scope', function($scope) {
+        $scope.setMainPhoto = function(images, n) {
+            for (var i = 0; i < images.length; i++) {
+                images[i].is_main = n == i;
+            }
+        }
+    }]);
     app.controller('bcUsers.Controllers.Registration',
         ['$scope', 'bcUsers.Factories.User', '$q', '$location',
             function ($scope, UserResource, $q, $location) {

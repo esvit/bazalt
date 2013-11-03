@@ -6,9 +6,9 @@ define([
 ], function(angular, app) {
     'use strict';
 
-    // @todo add tests
     app.provider('bzUser', [function() {
 
+        // @todo add tests
         this.access = function(permissions) {
             return {
                 permissions: ['$q', 'bzUser', '$log', function($q, $user, $log) {

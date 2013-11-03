@@ -42,6 +42,13 @@ define(['angular', 'angular-mocks', 'bazalt-cms/providers/bzUser'], function (an
 
             $rootScope.$apply();
         }]));
+
+        it('should be route reload when update user', inject(['bzUser', '$rootScope', '$route', function ($user, $rootScope, $route) {
+            spyOn($route, 'reload');
+            $user.$set({ 'id': 1 });
+            $rootScope.$apply();
+            expect($route.reload).toHaveBeenCalled();
+        }]));
     });
 
 });

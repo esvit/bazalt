@@ -7,8 +7,8 @@ define('components/bcUsers/providers/$user', [
 ], function(angular, app) {
 
     app.provider('$user', [function () {
-        this.$get = ['bcUsers.Factories.User', 'bcUsers.Factories.Session', '$cookieStore', '$rootScope', '$route', '$q',
-            function(UserResource, SessionResource, $cookieStore, $rootScope, $routeSegment, $q) {
+        this.$get = ['bcUsers.Factories.User', 'bcUsers.Factories.Session', '$cookieStore', '$rootScope', '$route', '$q', '$location',
+            function(UserResource, SessionResource, $cookieStore, $rootScope, $routeSegment, $q, $location) {
                 var defer = $q.defer(),
                 $user = {
                     data: {
@@ -29,7 +29,7 @@ define('components/bcUsers/providers/$user', [
                         return SessionResource.logout({}, function(res) {
                             success = success || angular.noop;
                             setUser(angular.extend(new UserResource(), res));
-                            $routeSegment.reload();
+                            $location.url('/');
                             success(res);
                         }, error);
                     },

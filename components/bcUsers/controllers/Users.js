@@ -15,6 +15,7 @@ define('components/bcUsers/controllers/Users', [
                     total: 0, // length of data
                     getData: function($defer, params) {
                         var data = params.url();
+                        data['filter[gender]'] = 'female';
                         UserResource.get(data, function (res) {
                             $defer.resolve($scope.users = res.data);
                         });

@@ -53,11 +53,6 @@ define([
             }
         });
 
-        // on session expired
-        $rootScope.$on('$session:expired', function() {
-            //console.info('expired');
-        });
-
         // reload route for check permissions for new user
         $user.$change(function() {
             $route.reload();

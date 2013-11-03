@@ -7,10 +7,10 @@ define('components/bcUsers/controllers/Profile/Edit', [
         ['$scope', 'bcUsers.Factories.User', '$rootScope', '$location', '$user',
             function ($scope, UserResource, $rootScope, $location, $user) {
 
-                UserResource.get({ 'id': $user.data.id }, function(user) {
+                $scope.user = UserResource.get({ 'id': $user.data.id }, function(user) {
                     $scope.loading = false;
                     if (!user.images) {
-                        user.images = [];
+                        //user.images = [];
                     }
                     $scope.user = user;
                 });
@@ -20,7 +20,7 @@ define('components/bcUsers/controllers/Profile/Edit', [
                     $scope.loading = true;
                     user.$save(function(user) {
                         $scope.loading = false;
-                        $location.path('/user/profile');
+                        $location.path('/user/' + user.id + '/profile');
                     }, function(res) {
                         $scope.loading = false;
                         if (res.status == 400) {
