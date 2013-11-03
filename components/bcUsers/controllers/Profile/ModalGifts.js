@@ -32,14 +32,5 @@ define('components/bcUsers/controllers/Profile/ModalGifts', [
                         }
                     });
                 };
-
-                $scope.doPay = function(amount) {
-                    $scope.paymentLoading = true;
-                    TransactionResource.get({'amount': amount}, function(data) {
-                        angular.element(data.form).submit();
-                    }, function() {
-                        $scope.paymentLoading = false;
-                    });
-                };
             }]);
 });

@@ -42,9 +42,6 @@ define('components/bcUsers/controllers/ProfileSettings', [
                 $scope.sendGift = function () {
                     $('#giftsModal').modal();
                 };
-                $scope.payGift = function () {
-                    $('#payModal').modal();
-                };
                 $scope.sendMessage = function () {
                     $('#sendMessage').modal();
                 };
