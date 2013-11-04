@@ -1,4 +1,4 @@
-var allTestFiles = ['angular-mocks', 'bazalt-cms'];
+var allTestFiles = ['angular-mocks', 'bz'];
 var TEST_REGEXP = /^\/base\/tests(.*)Spec\.js$/;
 
 Object.keys(window.__karma__.files).forEach(function(file) {
@@ -14,9 +14,9 @@ require.config({
     baseUrl: '/base/src',
 
     packages: [{
-        name: 'bazalt-cms',
-        location: './bazalt-cms',
-        main: '../bazalt-cms'
+        name: 'bz',
+        location: './bz',
+        main: '../config'
     }],
 
     paths: {

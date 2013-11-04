@@ -1,6 +1,6 @@
-require(['angular', 'bazalt-cms', 'http://code.angularjs.org/1.2.0-rc.3/i18n/angular-locale_uk-ua.js'], function(angular) {
+require(['angular', 'bz', 'bz/pages', 'angular-locale'], function(angular) {
 
-    var app = angular.module('app', ['bazalt-cms']);
+    var app = angular.module('app', ['bz', 'bz.pages']);
 
     app.config(['$routeSegmentProvider', '$locationProvider', 'bzConfigProvider', '$logProvider', 'bzUserProvider',
         function($routeSegmentProvider, $locationProvider, config, $logProvider, bzUser) {
@@ -30,7 +30,7 @@ require(['angular', 'bazalt-cms', 'http://code.angularjs.org/1.2.0-rc.3/i18n/ang
             .segment('pageById', {
                 template: '{{page.title|language}}',
                 dependencies: ['id'],
-                controller: 'bazalt.controllers.pages.page',
+                controller: 'bz.pages.controllers.page',
                 resolve: bzUser.access(['admin.access']),
                 resolveFailed: error
             });

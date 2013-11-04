@@ -4,23 +4,41 @@ module.exports = (grunt) ->
   grunt.initConfig
 
     requirejs:
-        frontend:
+        cms:
             options:
-                baseUrl: 'src'
-                optimize: 'none'
-                preserveLicenseComments: false
-                useStrict: true
-                wrap: true
-                mainConfigFile: 'src/bazalt-cms.js'
-                name: 'bazalt-cms'
-                #include: ['bazalt-auth']
-                #exclude: ['angular', 'angular-resource', 'angular-route', 'angular-cookies']
-                out: 'bazalt-cms.src.js'
+                name: 'bz/run'
+                exclude: ['angular', 'angular-resource', 'angular-route', 'angular-cookies', 'angular-route-segment']
+                out: 'build/bz.src.js'
+        cmsFull:
+            options:
+                name: 'bz/run'
+                out: 'build/bz.js'
+        'bz.pages':
+            options:
+                name: 'bz.pages/run'
+                exclude: ['angular', 'bz']
+                out: 'build/pages.src.js'
+        options:
+            baseUrl: 'src'
+            optimize: 'none'
+            preserveLicenseComments: false
+            useStrict: true
+            wrap: true
+            mainConfigFile: 'src/config.js'
+            onBuildWrite: (moduleName, path, contents) ->
+                contents.replace(/define\('bz\/run'/g, "define('bz'")
+                        .replace(/define\('bz.(.*)\/run'/g, "define('bz/$1'")
 
     uglify:
-        frontend:
-            src: ['bower_components/requirejs/require.js', 'bazalt-cms.src.js']
-            dest: 'bazalt-cms.js'
+        cms:
+            src: ['build/bz.src.js']
+            dest: 'build/bz.lite.js'
+        cmsFull:
+            src: ['bower_components/requirejs/require.js', 'build/bz.js']
+            dest: 'build/bz.js'
+        'bz.pages':
+            src: ['build/pages.src.js']
+            dest: 'build/pages.js'
 
         options:
             compress: true
