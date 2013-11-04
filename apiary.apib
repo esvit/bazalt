@@ -115,7 +115,6 @@ A single Note object with all its details
 ### Remove a Note [DELETE]
 + Response 204
 
-
 ## Category [/pages/categories/{id}{?action}]
 A single Note object with all its details
 
@@ -130,6 +129,7 @@ A single Note object with all its details
 
     + Body
     
+            ```js
             {
                 "id":"3",
                 "site_id":"2",
@@ -148,3 +148,9 @@ A single Note object with all its details
                 "config":{},
                 "$url":"\/c-test"
             }
+            ```
+            
+### Retrieve a Note [GET]
++ Response 200 (application/json)
+    
+    [Page][]
