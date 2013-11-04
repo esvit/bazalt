@@ -96,23 +96,55 @@ A single Note object with all its details
                 "updated_at":"1383532599000",
                 "user":{"id":"1","name":"Administratorov Administrator"},
                 "breadcrumbs":[
-                {"id":"3","site_id":"2","title":{"en":"Test","orig":"en"},"url":"test","image":null,"description":{"en":null,"orig":"en"},"is_hidden":"0","is_published":true,"lft":"2","rgt":"3","depth":"1","lang_id":null,"completed":null,"count":0,"config":{},"$url":"\/c-test"}
+                    [Category][]
                 ],
                 "tags":[],
                 "images":[]
             }
-
+            
 ### Retrieve a Note [GET]
 + Response 200 (application/json)
     
-        [Page][]
+    [Page][]
 
 ### Retrieve a Note [PUT]
 + Response 200 (application/json)
 
-    + Body
-
-            [Page][]
+    [Page][]
 
 ### Remove a Note [DELETE]
 + Response 204
+
+
+## Category [/pages/categories/{id}{?action}]
+A single Note object with all its details
+
+- id
+- site_id
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+    + action (optional, string) ... Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` Only Gists updated at or after this time are returned.
+
++ Model (application/json)
+
+    + Body
+    
+            {
+                "id":"3",
+                "site_id":"2",
+                "title":{"en":"Test","orig":"en"},
+                "url":"test",
+                "image":null,
+                "description":{"en":null,"orig":"en"},
+                "is_hidden":"0",
+                "is_published":true,
+                "lft":"2",
+                "rgt":"3",
+                "depth":"1",
+                "lang_id":null,
+                "completed":null,
+                "count":0,
+                "config":{},
+                "$url":"\/c-test"
+            }
