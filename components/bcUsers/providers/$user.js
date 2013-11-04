@@ -14,6 +14,11 @@ define('components/bcUsers/providers/$user', [
                     data: {
                         is_guest: true
                     },
+                    $get: function() {
+                        SessionResource.get($user.data, function(res) {
+                            setUser(angular.extend(new UserResource(), res));
+                        })
+                    },
                     login: function (data, success, error) {
                         return SessionResource.login(data, function(res) {
                             success = success || angular.noop;

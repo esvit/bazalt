@@ -43,6 +43,7 @@ define('components/bcUsers/controllers/ProfileSettings', [
                     $('#giftsModal').modal();
                 };
                 $scope.sendMessage = function () {
+                    $rootScope.sended_message = false;
                     $('#sendMessage').modal();
                 };
             }]);
