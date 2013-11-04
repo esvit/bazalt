@@ -64,17 +64,20 @@ AngularJS Client: https://github.com/esvit/bazalt
 
         { "id": 3, "title": "Buy cheese and bread for breakfast." }
 
-## Pages [/pages/{id}]
+## Page [/pages/{id}{?action}]
 A single Note object with all its details
+
+- id
+- site_id
 
 + Parameters
     + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+    + action (optional, string) ... Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` Only Gists updated at or after this time are returned.
 
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
++ Model (application/json)
 
     + Body
-
+    
             {
                 "id":"1",
                 "site_id":"1",
@@ -98,6 +101,18 @@ A single Note object with all its details
                 "tags":[],
                 "images":[]
             }
+
+### Retrieve a Note [GET]
++ Response 200 (application/json)
+    
+        [Page][]
+
+### Retrieve a Note [PUT]
++ Response 200 (application/json)
+
+    + Body
+
+            [Page][]
 
 ### Remove a Note [DELETE]
 + Response 204
