@@ -64,7 +64,7 @@ AngularJS Client: https://github.com/esvit/bazalt
 
         { "id": 3, "title": "Buy cheese and bread for breakfast." }
 
-## Note [/notes/{id}]
+## Pages [/pages/{id}]
 A single Note object with all its details
 
 + Parameters
@@ -73,13 +73,31 @@ A single Note object with all its details
 ### Retrieve a Note [GET]
 + Response 200 (application/json)
 
-    + Header
-
-            X-My-Header: The Value
-
     + Body
 
-            { "id": 2, "title": "Pick-up posters from post-office" }
+            {
+                "id":"1",
+                "site_id":"1",
+                "user_id":"1",
+                "category_id":"1",
+                "url":"\/post-1",
+                "template":"default.html",
+                "is_published":true,
+                "is_allow_comments":false,
+                "hits":"0",
+                "comments_count":"0",
+                "rating":0,
+                "title":{"en":"My first article","orig":"en"},
+                "body":{"en":"<p>Hello<\/p>\n","orig":"en"},
+                "created_at":"1381790215000",
+                "updated_at":"1383532599000",
+                "user":{"id":"1","name":"Administratorov Administrator"},
+                "breadcrumbs":[
+                {"id":"3","site_id":"2","title":{"en":"Test","orig":"en"},"url":"test","image":null,"description":{"en":null,"orig":"en"},"is_hidden":"0","is_published":true,"lft":"2","rgt":"3","depth":"1","lang_id":null,"completed":null,"count":0,"config":{},"$url":"\/c-test"}
+                ],
+                "tags":[],
+                "images":[]
+            }
 
 ### Remove a Note [DELETE]
 + Response 204
