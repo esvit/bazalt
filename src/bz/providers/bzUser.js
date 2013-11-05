@@ -12,29 +12,27 @@ define([
 
         // @todo add tests
         this.access = function(permissions) {
-            return {
-                permissions: ['$q', 'bzUser', '$log', function($q, $user, $log) {
-                    if (!angular.isArray(permissions)) {
-                        permissions = [];
-                    }
-                    var deferred = $q.defer(),
-                        diff = permissions.diff($user.permissions || []);
+            return ['$q', 'bzUser', '$log', function($q, $user, $log) {
+                if (!angular.isArray(permissions)) {
+                    permissions = [];
+                }
+                var deferred = $q.defer(),
+                    diff = permissions.diff($user.permissions || []);
 
-                    if (!diff.length) {
-                        deferred.resolve(permissions);
-                    } else {
-                        $log.debug('User haven\'t permissions:', diff);
-                        deferred.reject({
-                            'status': '403',
-                            'message': 'Permission denied',
-                            'permissions': permissions,
-                            'diff': diff,
-                            'user': $user
-                        });
-                    }
-                    return deferred.promise;
-                }]
-            };
+                if (!diff.length) {
+                    deferred.resolve(permissions);
+                } else {
+                    $log.debug('User haven\'t permissions:', diff);
+                    deferred.reject({
+                        'status': '403',
+                        'message': 'Permission denied',
+                        'permissions': permissions,
+                        'diff': diff,
+                        'user': $user
+                    });
+                }
+                return deferred.promise;
+            }];
         };
 
         this.$get = ['bzSessionFactory', '$cookieStore', '$rootScope', 'bzConfig', '$q',

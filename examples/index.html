@@ -15,6 +15,7 @@
     </style>
     <script>
     bazalt = {
+        //api: 'http://bazalt.apiary.io/api/v1',
         api: 'http://hellv.in/api/rest.php',
         languages: ['uk', 'en']
     }
@@ -62,7 +63,7 @@
                         <input class="btn btn-primary" type="submit" value="Login" />
                     </div>
                 </form>
-                <div ng-if="!   $user.is_guest">
+                <div ng-if="!$user.is_guest">
                     ID: {{ $user.id }}
                     <a href="" data-ng-click="$user.$logout()">Log out</a>
                 </div>

@@ -6,7 +6,7 @@ define([
 
     app.provider('bzConfig', [function() {
         var options = {
-            api: '',
+            api: '/api/v1',
             templatePrefix: '',
             languages: ['en'],
             checkSessionOnStart: false
