@@ -15,12 +15,6 @@ require(['angular', 'bz', 'bz/pages', 'angular-locale'], function(angular) {
         config.checkSessionOnStart(true);
 
         //$logProvider.debugEnabled(false);
-        var error = {
-            template: 'Error {{error}}',
-            controller: function($scope, error) {
-                $scope.error = error;
-            }
-        };
 
         $routeSegmentProvider
             .when('/', 'home')
@@ -29,7 +23,7 @@ require(['angular', 'bz', 'bz/pages', 'angular-locale'], function(angular) {
                 resolve: {
                     permissions: bzUser.access()
                 },
-                resolveFailed: error
+                resolveFailed: config.errorResolver()
             })
             .when('/post-:id', 'pageById')
             .segment('pageById', {
@@ -44,7 +38,7 @@ require(['angular', 'bz', 'bz/pages', 'angular-locale'], function(angular) {
                         return defer.promise;
                     }]
                 },
-                resolveFailed: error
+                resolveFailed: config.errorResolver()
             });
     }]);
 

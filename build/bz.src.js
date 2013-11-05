@@ -112,7 +112,21 @@ define('bz/providers/bzConfig',[
             api: '/api/v1',
             templatePrefix: '',
             languages: ['en'],
-            checkSessionOnStart: false
+            checkSessionOnStart: false,
+            errorTemplates: {
+                403: 'views/error/403.html',
+                404: 'views/error/404.html'
+            }
+        };
+
+        this.errorResolver = function () {
+            return {
+                template: '<div ng-include="templateUrl"></div>',
+                controller: ['$scope', 'error', function($scope, error) {
+                    $scope.error = error;
+                    $scope.templateUrl = options.errorTemplates[error.status];
+                }]
+            };
         };
 
         this.api = function (api) {
