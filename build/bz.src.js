@@ -263,6 +263,10 @@ define('bz/factories/bzSessionFactory',[
         sessionObject.prototype.$change = function(callback) {
             return defer.promise.then(null, null, callback);
         };
+        sessionObject.prototype.has = function(permission) {
+            var permissions = this.permissions || [];
+            return permissions.indexOf(permission) >= 0;
+        };
 
         $session = new sessionObject($cookieStore.get('baAuthUser') || { is_guest: true });
         $session.$change(function() {

@@ -43,7 +43,7 @@ require(['angular', 'bz', 'bz/pages', 'angular-locale'], function(angular) {
     }]);
 
     app.run(['$rootScope', '$location', 'bzUser', function($rootScope, $location, $user) {
-
+        console.info($user.has('admin.access'))
     }]);
 
     app.controller('test', ['$scope', 'bzUser', function($scope, $user) {
