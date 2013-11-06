@@ -226,8 +226,8 @@ define('bz/factories/bzSessionFactory',[
 ], function(angular, app) {
     'use strict';
 
-    app.factory('bzSessionFactory', ['$resource', 'bzConfig', '$cookieStore', '$q',
-    function ($resource, config, $cookieStore, $q) {
+    app.factory('bzSessionFactory', ['$resource', 'bzConfig', '$cookieStore', '$q', '$log',
+    function ($resource, config, $cookieStore, $q, $log) {
         var sessionObject = $resource(config.resource('/auth/session'), {}, {
             'renew':    { method: 'PUT' },
             '$login':    { method: 'POST' },
