@@ -51,7 +51,9 @@ define([
 
         $session = new sessionObject($cookieStore.get('baAuthUser') || angular.copy(guestData));
         $session.$change(function() {
+            $log.debug('Set session cookie:', $session);
             $cookieStore.put('baAuthUser', $session);
+            $log.debug('Session in cookie:', $cookieStore.get('baAuthUser'));
         });
         return $session;
     }]);
