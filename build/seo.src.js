@@ -25,7 +25,9 @@ define('bz/seo',[
     'bz.seo/factories/route'
 ], function (app) {
 
-    //app.config([function() {}]);
+    app.config([function() {
+        window.prerenderReady = false;
+    }]);
 
     app.run(['$rootScope', '$location', '$route', 'bz.seo.factories.route', '$rootElement',
         function ($rootScope, $location, $route, RouteFactory, $rootElement) {
@@ -63,6 +65,8 @@ define('bz/seo',[
 
             var currentRoute = null;
             $rootScope.$on('$routeChangeSuccess', function (e) {
+                window.prerenderReady = true;
+
                 var route = { 'url': $location.url(), 'route': $route.current.$$route.segment };
                 if (!angular.equals(route, currentRoute)) { // disable double request
                     currentRoute = route;
