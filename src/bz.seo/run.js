@@ -5,6 +5,7 @@ define([
 ], function (app) {
 
     app.config([function() {
+        // http://prerender.io/
         window.prerenderReady = false;
     }]);
 

@@ -20571,6 +20571,7 @@ define('bz',[
                 newuser = e.user;
             if (angular.isDefined(olduser) &&
                 (olduser.id != newuser.id || !angular.equals(olduser.permissions, newuser.permissions))) {
+                $log.debug('User changed:', newuser, 'old:', olduser);
                 $route.reload();
             }
         });
