@@ -20388,7 +20388,6 @@ define('bz/factories/bzSessionFactory',[
         $session.$change(function() {
             $log.debug('Set session cookie:', $session);
             $cookieStore.put('baAuthUser', $session);
-            $log.debug('Session in cookie:', $cookieStore.get('baAuthUser'));
         });
         return $session;
     }]);
