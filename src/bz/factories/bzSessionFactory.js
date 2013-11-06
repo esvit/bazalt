@@ -47,6 +47,7 @@ define([
             var permissions = this.permissions || [];
             return permissions.indexOf(permission) >= 0;
         };
+        $log.debug('Session in cookie:', $cookieStore.get('baAuthUser'));
 
         $session = new sessionObject($cookieStore.get('baAuthUser') || angular.copy(guestData));
         $session.$change(function() {
