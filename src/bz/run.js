@@ -27,6 +27,16 @@ define([
         $rootScope.$config = $config;
         $rootScope.$user = $user;
 
+        // reload route for check permissions for new user
+        $user.$change(function(e) {
+            var olduser = e.old,
+                newuser = e.user;
+            if (angular.isDefined(olduser) &&
+                (olduser.id != newuser.id || !angular.equals(olduser.permissions, newuser.permissions))) {
+                $route.reload();
+            }
+        });
+
         // track for change language url like: /en, /ru
         $rootScope.$on('$locationChangeStart', function(e, url) {
             for (var langs = $config.languages(), count = langs.length, i = 0; i < count; i++) {
@@ -44,11 +54,6 @@ define([
                     break;
                 }
             }
-        });
-
-        // reload route for check permissions for new user
-        $user.$change(function() {
-            $route.reload();
         });
     }]);
 

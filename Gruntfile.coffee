@@ -12,12 +12,17 @@ module.exports = (grunt) ->
         cmsFull:
             options:
                 name: 'bz/run'
-                out: 'build/bz.js'
+                out: 'build/bz.full.js'
         'bz.pages':
             options:
                 name: 'bz.pages/run'
                 exclude: ['angular', 'bz']
                 out: 'build/pages.src.js'
+        'bz.seo':
+            options:
+                name: 'bz.seo/run'
+                exclude: ['angular', 'bz']
+                out: 'build/seo.src.js'
         options:
             baseUrl: 'src'
             optimize: 'none'
@@ -34,16 +39,20 @@ module.exports = (grunt) ->
             src: ['build/bz.src.js']
             dest: 'build/bz.lite.js'
         cmsFull:
-            src: ['bower_components/requirejs/require.js', 'build/bz.js']
+            src: ['bower_components/requirejs/require.js', 'build/bz.full.js']
             dest: 'build/bz.js'
         'bz.pages':
             src: ['build/pages.src.js']
             dest: 'build/pages.js'
+        'bz.seo':
+            src: ['build/seo.src.js']
+            dest: 'build/seo.js'
 
         options:
             compress: true
             mangle: true
             preserveComments: false
+            sourceMapPrefix: 1
             sourceMappingURL: (fileName) ->
                 fileName.replace(/^build\//, '')
                         .replace(/\.js$/, '.map')

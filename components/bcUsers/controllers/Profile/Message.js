@@ -13,13 +13,14 @@ define('components/bcUsers/controllers/Profile/Message', [
                 MessageResource.get({'id': $routeSegment.$routeParams.id, 'userId': $user.data.id}, function(data) {
                     $scope.loading = false;
                     $scope.message = data;
+                    console.info(data);
                 });
                 $scope.sendMessage = function(message) {
                     message.user_id = $user.data.id;
-                    message.to_id = $scope.message.from_id;
+                    message.to_id = ($user.data.id == $scope.message.from_id) ? $scope.message.to_id : $scope.message.from_id;
                     var reply = new MessageResource(message);
                     reply.$send(function() {
-                        $location.path('/user/profile/messages');
+                        $location.path('/user/' + $user.data.id + '/messages');
                     });
                 };
             }]);

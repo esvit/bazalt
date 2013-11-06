@@ -42,9 +42,6 @@ define([
             if ($config.checkSessionOnStart()) {
                 $session.$update();
             }
-            user.$change(function(res) {
-                // console.info(res)
-            });
             return user;
         }];
     }]);

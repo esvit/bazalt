@@ -18,6 +18,8 @@ define('components/bcPages/controllers/Category', [
                     sorting: {
                         name: 'asc'     // initial sorting
                     }
+                }, {
+                    counts: []
                 });
 
                 $scope.$watch('tableParams', function(params) {

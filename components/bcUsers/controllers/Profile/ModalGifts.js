@@ -13,17 +13,16 @@ define('components/bcUsers/controllers/Profile/ModalGifts', [
                 GiftResource.get(function(res) {
                     $scope.loading = false;
                     $scope.gifts = res.data;
-
-                    console.info(res.data);
                 });
 
                 $scope.sendGift = function(gift) {
                     $scope.loading = true;
+                    $scope.sended_gift = false;
                     var g = new GiftResource(gift);
                     g.user_id = $routeSegment.$routeParams.user_id;
                     g.$prepare(function(res) {
                         $scope.loading = false;
-                        console.info(res);
+                        $scope.sended_gift = true;
                     }, function(res) {
                         $scope.loading = false;
                         if (res.status == 402) {

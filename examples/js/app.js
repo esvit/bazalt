@@ -1,6 +1,6 @@
-require(['angular', 'bz', 'bz/pages', 'angular-locale'], function(angular) {
+require(['angular', 'bz', 'bz/pages', 'bz/seo', 'angular-locale'], function(angular) {
 
-    var app = angular.module('app', ['bz', 'bz.pages']);
+    var app = angular.module('app', ['bz', 'bz.pages', 'bz.seo']);
 
     app.config(['$routeSegmentProvider', '$locationProvider', 'bzConfigProvider', '$logProvider', 'bzUserProvider', '$httpProvider',
         function($routeSegmentProvider, $locationProvider, config, $logProvider, bzUser, $httpProvider) {

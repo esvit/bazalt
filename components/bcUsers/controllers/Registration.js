@@ -1,6 +1,5 @@
 define('components/bcUsers/controllers/Registration', [
-    'components/bcUsers/app',
-    'ngModel'
+    'components/bcUsers/app'
 ], function (app) {
     'use strict';
 

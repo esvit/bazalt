@@ -9,32 +9,35 @@ define([
             'renew':    { method: 'PUT' },
             '$login':    { method: 'POST' },
             '$logout':   { method: 'DELETE' }
-        }), defer = $q.defer(), $session;
+        }), defer = $q.defer(),
+            $session,
+            guestData = { is_guest: true, permissions: ['guest'] };
 
         sessionObject.prototype.$login = function(data, callback, error) {
             sessionObject.$login(data, function(result) {
                 $session.$set(result);
                 callback = callback || angular.noop;
                 callback($session);
-                defer.notify($session);
             }, error);
         };
         sessionObject.prototype.$logout = function(callback, error) {
             this.$$logout(function() {
+                $session.$set(angular.copy(guestData));
                 callback = callback || angular.noop;
                 callback($session);
-                defer.notify($session);
             }, error);
         };
         sessionObject.prototype.$set = function(data) {
+            var oldSession = angular.copy($session);
             angular.copy(data, this);
-            defer.notify($session);
+            defer.notify({ 'user': $session, 'old': oldSession });
         };
         sessionObject.prototype.$update = function(callback, error) {
+            var oldSession = angular.copy($session);
             this.$renew(function($session) {
+                defer.notify({ 'user': $session, 'old': oldSession });
                 callback = callback || angular.noop;
                 callback($session);
-                defer.notify($session);
             }, error);
         };
         sessionObject.prototype.$change = function(callback) {
@@ -45,7 +48,7 @@ define([
             return permissions.indexOf(permission) >= 0;
         };
 
-        $session = new sessionObject($cookieStore.get('baAuthUser') || { is_guest: true });
+        $session = new sessionObject($cookieStore.get('baAuthUser') || angular.copy(guestData));
         $session.$change(function() {
             $cookieStore.put('baAuthUser', $session);
         });
