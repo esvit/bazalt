@@ -17,7 +17,7 @@ define('components/bcUsers/controllers/Profile/ModalGifts', [
                     console.info(res.data);
                 });
 
-                $scope.prepareGift = function(gift) {
+                $scope.sendGift = function(gift) {
                     $scope.loading = true;
                     var g = new GiftResource(gift);
                     g.user_id = $routeSegment.$routeParams.user_id;
