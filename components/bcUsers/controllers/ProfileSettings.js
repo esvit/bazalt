@@ -7,11 +7,16 @@ define('components/bcUsers/controllers/ProfileSettings', [
 
     app.controller('bcUsers.Controllers.ProfileSettings',
                 ['$scope', 'bcUsers.Factories.User', '$rootScope', '$fileUploader', '$parse', '$user', '$routeSegment',
-                    function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user, $routeSegment) {
+                    'bcUsers.Factories.Message',
+                    function ($scope, UserResource, $rootScope, $fileUploader, $parse, $user, $routeSegment, MessageResource) {
 
                 var uploader = null,
                     userId = $routeSegment.$routeParams.user_id || $user.data.id;
                 $scope.isOwnProfile = angular.isUndefined($routeSegment.$routeParams.user_id) || $routeSegment.$routeParams.user_id == $user.data.id;
+
+                if ($scope.isOwnProfile) {
+                    $scope.messages_count = MessageResource.get({'action': 'count', 'userId': 1})
+                }
 
                 $scope.$watch('user.id', function (userId) {
                     if (angular.isDefined(userId) && uploader == null) {
