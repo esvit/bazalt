@@ -68,7 +68,7 @@ define('bz/seo',[
             $rootScope.$on('$routeChangeSuccess', function (e) {
                 window.prerenderReady = true;
 
-                var route = { 'url': $location.url(), 'route': $route.current.$$route.segment };
+                var route = { 'url': $location.path(), 'route': $route.current.$$route.segment };
                 if (!angular.equals(route, currentRoute)) { // disable double request
                     currentRoute = route;
                     RouteFactory.get(route, function (res) {

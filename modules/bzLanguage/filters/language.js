@@ -12,7 +12,7 @@ define('modules/bzLanguage/filters/language', [
             if (!value[language] && value.orig) {
                 return value[value.orig];
             }
-            return value[language] || value;
+            return value[language] || '';
         }
     }]);
 
