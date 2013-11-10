@@ -1,7 +1,8 @@
 define([
     'bz.pages/app',
 
-    'bz.pages/controllers/page'
+    'bz.pages/controllers/page',
+    'bz.pages/controllers/category'
 ], function(app) {
 
     //app.config([function() {}]);
