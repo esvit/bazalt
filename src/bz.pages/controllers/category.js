@@ -28,7 +28,6 @@ define([
 
                     var param = params.url();
                     param.category_id = $scope.category.id;
-                    param.truncate = 500;
                     PageFactory.get(param, function(data) {
                         $log.debug('Load pages: ', data);
 

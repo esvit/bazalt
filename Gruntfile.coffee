@@ -16,7 +16,7 @@ module.exports = (grunt) ->
         'bz.pages':
             options:
                 name: 'bz.pages/run'
-                exclude: ['angular', 'bz']
+                exclude: ['angular', 'bz', 'ngTable', 'ng-editable-tree']
                 out: 'build/pages.src.js'
         'bz.seo':
             options:
