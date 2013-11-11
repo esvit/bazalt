@@ -417,7 +417,7 @@ define('bz/directives/bzLoadingContainer',[
                 var loadingLayer = angular.element(document.createElement('div')).addClass('loading');
                 element.addClass('loading-container').append(loadingLayer);
                 scope.$watch(attrs.bzLoadingContainer, function(value) {
-                    loadingLayer.toggleClass('ng-hide', !!value);
+                    loadingLayer.toggleClass('ng-hide', !value);
                 });
             }
         };
