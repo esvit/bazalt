@@ -1,10 +1,10 @@
 (function () {
 define('bz.pages/app',[
-    'angular', 'bz', 'ngTable', 'ng-editable-tree'
+    'angular', 'bz', 'ngTable', 'bz-nested-model'
 ], function(angular) {
     'use strict';
 
-    return angular.module('bz.pages', ['bz', 'ngTable', 'ngEditableTree']);
+    return angular.module('bz.pages', ['bz', 'ngTable', 'bzNestedModel']);
 });
 define('bz.pages/factories/page',[
     'bz.pages/app'
@@ -27,7 +27,7 @@ define('bz.pages/directives/page',[
 ], function(app) {
     'use strict';
 
-    app.directive('bzPagesPage', ['bz.pages.factories.page', '$parse', function(PageFactory, $parse) {
+    app.directive('bzPagesPage', ['bz.pages.factories.page', '$parse', '$log', function(PageFactory, $parse, $log) {
         return {
             restrict: 'AE',
             scope: true,
@@ -64,7 +64,7 @@ define('bz.pages/factories/category',[
 ], function(app) {
     'use strict';
 
-    app.factory('bz.pages.factories.category', ['ngNestedResource', 'bzConfig', function (ngNestedResource, config) {
+    app.factory('bz.pages.factories.category', ['bzNestedResource', 'bzConfig', function (ngNestedResource, config) {
         var service = ngNestedResource(config.resource('/pages/categories/:id'), { 'id': '@id' }, {});
 
         return service;
@@ -101,6 +101,7 @@ define('bz.pages/controllers/category',[
 
                     var param = params.url();
                     param.category_id = $scope.category.id;
+                    param = angular.extend(param, pageParams);
                     PageFactory.get(param, function(data) {
                         $log.debug('Load pages: ', data);
 

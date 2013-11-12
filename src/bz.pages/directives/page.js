@@ -5,7 +5,7 @@ define([
 ], function(app) {
     'use strict';
 
-    app.directive('bzPagesPage', ['bz.pages.factories.page', '$parse', function(PageFactory, $parse) {
+    app.directive('bzPagesPage', ['bz.pages.factories.page', '$parse', '$log', function(PageFactory, $parse, $log) {
         return {
             restrict: 'AE',
             scope: true,

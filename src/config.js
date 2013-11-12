@@ -9,10 +9,7 @@ requirejs.config({
         main: 'run'
     }],
     paths: {
-        // jquery
         'jquery': '../bower_components/jquery/jquery',
-        'jquery-ui': '../bower_components/jquery-ui/ui',
-
         // angular
         'angular': '../bower_components/angular/angular',
         'angular-resource': '../bower_components/angular-resource/angular-resource',
@@ -25,10 +22,11 @@ requirejs.config({
         'angular-file-upload': '../bower_components/angular-file-upload/angular-file-upload',
         'angular-smoothscroll': '../bower_components/angular-smoothscroll/dist/scripts/481c90be.scripts',
 
+        'bz-nested-model': '../bower_components/bz-nested-model/bz-nested-model',
+
         // angular modules
         'angular-ui-select2': '../bower_components/angular-ui-select2/src/select2',
         'ng-ckeditor': '../bower_components/ng-ckeditor/ng-ckeditor.src',
-        'ng-editable-tree': '../bower_components/ng-editable-tree/ng-editable-tree',
         'ngTable': '../bower_components/ng-table/ng-table',
         'ngFinder': '../bower_components/ng-finder/ng-finder.src',
 
@@ -73,26 +71,15 @@ requirejs.config({
         'angular-file-upload': { deps: ['angular'] },
         'angular-ui-select2': { deps: ['angular', 'select2'] },
 
+        'bz-nested-model': { deps: ['angular'] },
+
         'ng-ckeditor': { deps: ['angular', 'ckeditor'] },
-        'ng-editable-tree': { deps: ['angular', 'jquery-ui/jquery.ui.draggable', 'jquery-ui/jquery.ui.droppable', 'jquery-ui/jquery.ui.sortable'] },
-        'ngTable': { deps: ['jquery', 'angular'] },
-        'bzCommentArea': { deps: ['jquery', 'angular'] },
+        'ngTable': { deps: ['angular'] },
         'ngFinder': { deps: ['elfinder', 'angular'] },
-        'jquery-galleria': { deps: ['jquery'] },
-        'elfinder': { deps: ['jquery-ui/jquery.ui.draggable', 'jquery-ui/jquery.ui.droppable', 'jquery-ui/jquery.ui.selectable'] },
 
         // Bootstrap
         'bootstrap/modal': { deps: ['bootstrap/transition'] },
-        'bootstrap-datepicker-locale/bootstrap-datepicker.ru': { deps: ['bootstrap-datepicker'] },
-
-        // jquery ui for sortable
-        'jquery-ui/jquery.ui.core': { deps: ['jquery'] },
-        'jquery-ui/jquery.ui.widget': { deps: ['jquery-ui/jquery.ui.core'] },
-        'jquery-ui/jquery.ui.mouse': { deps: ['jquery-ui/jquery.ui.widget'] },
-        'jquery-ui/jquery.ui.draggable': { deps: ['jquery-ui/jquery.ui.mouse'] },
-        'jquery-ui/jquery.ui.droppable': { deps: ['jquery-ui/jquery.ui.mouse'] },
-        'jquery-ui/jquery.ui.selectable': { deps: ['jquery-ui/jquery.ui.mouse'] },
-        'jquery-ui/jquery.ui.sortable': { deps: ['jquery-ui/jquery.ui.mouse'] }
+        'bootstrap-datepicker-locale/bootstrap-datepicker.ru': { deps: ['bootstrap-datepicker'] }
     },
     priority: [
         'angular'

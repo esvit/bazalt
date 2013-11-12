@@ -16,12 +16,12 @@ module.exports = (grunt) ->
         'bz.pages':
             options:
                 name: 'bz.pages/run'
-                exclude: ['angular', 'bz', 'ngTable', 'ng-editable-tree']
+                exclude: ['angular', 'bz', 'ngTable', 'bz-nested-model']
                 out: 'build/pages.src.js'
         'bz.menu':
             options:
                 name: 'bz.menu/run'
-                exclude: ['angular', 'bz', 'ng-editable-tree']
+                exclude: ['angular', 'bz', 'bz-nested-model']
                 out: 'build/menu.src.js'
         'bz.seo':
             options:

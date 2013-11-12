@@ -1,7 +1,7 @@
 define([
-    'angular', 'bz', 'ng-editable-tree'
+    'angular', 'bz', 'bz-nested-model'
 ], function(angular) {
     'use strict';
 
-    return angular.module('bz.menu', ['bz', 'ngEditableTree']);
+    return angular.module('bz.menu', ['bz', 'bzNestedModel']);
 });
