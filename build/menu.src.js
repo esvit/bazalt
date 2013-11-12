@@ -1,10 +1,10 @@
 (function () {
 define('bz.menu/app',[
-    'angular', 'bz', 'ng-editable-tree'
+    'angular', 'bz', 'bz/widgets', 'ng-editable-tree'
 ], function(angular) {
     'use strict';
 
-    return angular.module('bz.menu', ['bz', 'ngEditableTree']);
+    return angular.module('bz.menu', ['bz', 'bz.widgets', 'ngEditableTree']);
 });
 define('bz.menu/factories/element',[
     'bz.menu/app'

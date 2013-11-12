@@ -3,6 +3,10 @@ requirejs.config({
         name: 'bz',
         location: 'bz',
         main: 'run'
+    }, {
+        name: 'bz/widgets',
+        location: 'bz.widgets',
+        main: 'run'
     }],
     paths: {
         // jquery
