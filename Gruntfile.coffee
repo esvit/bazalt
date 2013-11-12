@@ -21,13 +21,8 @@ module.exports = (grunt) ->
         'bz.menu':
             options:
                 name: 'bz.menu/run'
-                exclude: ['angular', 'bz', 'bz/widgets', 'ng-editable-tree']
+                exclude: ['angular', 'bz', 'ng-editable-tree']
                 out: 'build/menu.src.js'
-        'bz.widgets':
-            options:
-                name: 'bz.widgets/run'
-                exclude: ['angular', 'bz']
-                out: 'build/widgets.src.js'
         'bz.seo':
             options:
                 name: 'bz.seo/run'
@@ -57,9 +52,6 @@ module.exports = (grunt) ->
         'bz.menu':
             src: ['build/menu.src.js']
             dest: 'build/menu.js'
-        'bz.widgets':
-            src: ['build/widgets.src.js']
-            dest: 'build/widgets.js'
         'bz.seo':
             src: ['build/seo.src.js']
             dest: 'build/seo.js'

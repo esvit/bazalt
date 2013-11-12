@@ -1,49 +1,51 @@
 {
-    "name": "bazalt/cms",
-    "version": "2.0.0",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "tests"
-    ],
-    "resolutions": {
-        "angular": ">= 1.2.0-rc.2",
-        "es5-shim": "~2.1.0",
-        "bootstrap": ">= 3.0.0",
-        "jquery": "~1.10.1"
-    },
-    "devDependencies": {
-        "jquery": "~1.10.1",
-        "ng-table": "https://github.com/esvit/ng-table.git#master",
-        "angular-ui-select2": "~0.0.2",
-        "angular": ">= 1.2.0-rc.2",
-        "bazalt-auth": "https://github.com/esvit/bazalt-auth.git",
-        "requirejs": "~2.1.8",
-        "bootstrap-datepicker": "~1.1.3",
-        "bootstrap-switch": "latest",
-        "font-awesome": "~3.2.1",
-        "jquery-ui": "~1.10.3",
-        "ng-editable-tree": "*",
-        "angular-animate": "~1.2.0-rc.2",
-        "angular-route": "~1.2.0-rc.2",
-        "angular-cookies": "~1.2.0-rc.2",
-        "angular-route-segment": "https://github.com/esvit/angular-route-segment.git#~1.2.1",
-        "bootstrap": ">= 3.0.0",
-        "ng-ckeditor": "*",
-        "angular-file-upload": "https://github.com/esvit/angular-file-upload.git#master",
-        "speakingurl": "~0.2.21",
-        "jquery-galleria": "~1.2.9",
-        "jquery.sticky": "~1.0.0",
-        "fancybox": "~2.1.5",
-        "angular-smoothscroll": "*",
-        "ng-finder": "*",
-        "jasmine": "~1.3.1",
-        "angular-social": "*",
-        "angular-mocks": "~1.2.0-rc.2"
-    },
-    "dependencies": {
-        "bootstrap-datepicker": "~1.2.0",
-        "jquery-galleria": "~1.2.9"
-    }
+  "name": "bazalt/cms",
+  "version": "2.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ],
+  "resolutions": {
+    "angular": ">= 1.2.0-rc.2",
+    "es5-shim": "~2.1.0",
+    "bootstrap": ">= 3.0.0",
+    "jquery": "~1.10.1"
+  },
+  "devDependencies": {
+    "jquery": "~1.10.1",
+    "ng-table": "https://github.com/esvit/ng-table.git#master",
+    "angular-ui-select2": "~0.0.2",
+    "angular": ">= 1.2.0-rc.2",
+    "bazalt-auth": "https://github.com/esvit/bazalt-auth.git",
+    "requirejs": "~2.1.8",
+    "bootstrap-datepicker": "~1.1.3",
+    "bootstrap-switch": "latest",
+    "font-awesome": "~3.2.1",
+    "jquery-ui": "~1.10.3",
+    "ng-editable-tree": "*",
+    "angular-animate": "~1.2.0-rc.2",
+    "angular-route": "~1.2.0-rc.2",
+    "angular-cookies": "~1.2.0-rc.2",
+    "angular-route-segment": "https://github.com/esvit/angular-route-segment.git#~1.2.1",
+    "bootstrap": ">= 3.0.0",
+    "ng-ckeditor": "*",
+    "angular-file-upload": "https://github.com/esvit/angular-file-upload.git#master",
+    "speakingurl": "~0.2.21",
+    "jquery-galleria": "~1.2.9",
+    "jquery.sticky": "~1.0.0",
+    "fancybox": "~2.1.5",
+    "angular-smoothscroll": "*",
+    "ng-finder": "*",
+    "jasmine": "~1.3.1",
+    "angular-social": "*",
+    "angular-mocks": "~1.2.0-rc.2"
+  },
+  "dependencies": {
+    "bootstrap-datepicker": "~1.2.0",
+    "jquery-galleria": "~1.2.9",
+    "ng-table": "~0.3.0",
+    "ng-editable-tree": "*"
+  }
 }
