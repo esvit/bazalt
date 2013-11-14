@@ -2,155 +2,43 @@ FORMAT: 1A
 HOST: http://bazalt-cms.com/api/v1
 
 # Bazalt CMS
-Описание API медотов для Bazalt CMS (http://bazalt-cms.com/)
+Desription of API methods for Bazalt CMS (http://bazalt-cms.com/)
 
 # Repository
 AngularJS Client: https://github.com/esvit/bazalt
 
 ## User Session [/auth/session]
-Если пользователь залогинен
+Manage user sessions
+
++ Model (application/json)
+
+    + Body
+
+            {
+                "id":"1",
+                "login":"esvit",
+                "firstname":"Vitalii",
+                "secondname":"Savchuk",
+                "patronymic":"Sergeevich",
+                "avatar":"",
+                "email":"esvit666@gmail.com",
+                "gender":"male",
+                "birth_date":"23.06.1988",
+                "is_active":true,
+                "is_deleted":false,
+                "last_activity":"2013-11-04 05:00:53",
+                "created_at":"2013-04-23 11:13:01",
+                "user_id":"1",
+                "fullname":"Vitalii Savchuk",
+                "permissions":["admin.access"]
+            }
+
 ### Get current user session [GET]
 + Response 200 (application/json)
 
-        {
-            "id":"1",
-            "login":"admin",
-            "firstname":"Administrator",
-            "secondname":"Administratorov",
-            "patronymic":"Administratorovich",
-            "avatar":"",
-            "email":"esvit666@gmail.com",
-            "gender":"male",
-            "birth_date":"17.02.1988",
-            "is_active":true,
-            "is_deleted":false,
-            "last_activity":"2013-11-04 05:00:53",
-            "created_at":"2013-04-23 11:13:01",
-            "site_id":"6",
-            "user_id":"1",
-            "fullname":"Administratorov Administrator",
-            "permissions":["admin.access"]
-        }
+        [User Session][]
 
 ### Update user session [PUT]
 + Response 200 (application/json)
 
-        {
-            "id":"1",
-            "login":"admin",
-            "firstname":"Administrator",
-            "secondname":"Administratorov",
-            "patronymic":"Administratorovich",
-            "avatar":"",
-            "email":"esvit666@gmail.com",
-            "gender":"male",
-            "birth_date":"17.02.1988",
-            "is_active":true,
-            "is_deleted":false,
-            "last_activity":"2013-11-04 05:00:53",
-            "created_at":"2013-04-23 11:13:01",
-            "site_id":"6",
-            "user_id":"1",
-            "fullname":"Administratorov Administrator",
-            "permissions":["admin.access"]
-        }
-
-### Create a Note [POST]
-+ Request (application/json)
-
-        { "title": "Buy cheese and bread for breakfast." }
-
-+ Response 201 (application/json)
-
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
-
-## Page [/pages/{id}{?action}]
-A single Note object with all its details
-
-- id
-- site_id
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
-    + action (optional, string) ... Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` Only Gists updated at or after this time are returned.
-
-+ Model (application/json)
-
-    + Body
-    
-            {
-                "id":"1",
-                "site_id":"1",
-                "user_id":"1",
-                "category_id":"1",
-                "url":"\/post-1",
-                "template":"default.html",
-                "is_published":true,
-                "is_allow_comments":false,
-                "hits":"0",
-                "comments_count":"0",
-                "rating":0,
-                "title":{"en":"My first article","orig":"en"},
-                "body":{"en":"<p>Hello<\/p>\n","orig":"en"},
-                "created_at":"1381790215000",
-                "updated_at":"1383532599000",
-                "user":{"id":"1","name":"Administratorov Administrator"},
-                "breadcrumbs":[
-                    [Category][]
-                ],
-                "tags":[],
-                "images":[]
-            }
-            
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
-    
-    [Page][]
-
-### Retrieve a Note [PUT]
-+ Response 200 (application/json)
-
-    [Page][]
-
-### Remove a Note [DELETE]
-+ Response 204
-
-## Category [/pages/categories/{id}{?action}]
-A single Note object with all its details
-
-- id
-- site_id
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
-    + action (optional, string) ... Timestamp in ISO 8601 format: `YYYY-MM-DDTHH:MM:SSZ` Only Gists updated at or after this time are returned.
-
-+ Model (application/json)
-
-    + Body
-    
-            ```js
-            {
-                "id":"3",
-                "site_id":"2",
-                "title":{"en":"Test","orig":"en"},
-                "url":"test",
-                "image":null,
-                "description":{"en":null,"orig":"en"},
-                "is_hidden":"0",
-                "is_published":true,
-                "lft":"2",
-                "rgt":"3",
-                "depth":"1",
-                "lang_id":null,
-                "completed":null,
-                "count":0,
-                "config":{},
-                "$url":"\/c-test"
-            }
-            ```
-            
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
-    
-    [Page][]
+        [User Session][]
