@@ -49,6 +49,15 @@ define(['angular', 'angular-mocks', 'bz/providers/bzUser'], function (angular) {
             $rootScope.$apply();
             expect($route.reload).toHaveBeenCalled();
         }]));
+
+        it('should check user access', inject(['bzUser', '$rootScope', '$injector', function ($user, $rootScope, $injector) {
+            var func = $injector.invoke(provider.access(['admin.access']));
+            func.then(function() {
+                console.info(func);
+            });
+            expect(func.then).toBeDefined();
+            $rootScope.$apply();
+        }]));
     });
 
 });

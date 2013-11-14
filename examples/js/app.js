@@ -1,18 +1,21 @@
-require(['angular', 'bz', 'bz/pages', 'bz/seo', 'angular-locale'], function(angular) {
+require(['angular', 'bz', 'angular-locale'], function(angular) {
 
-    var app = angular.module('app', ['bz', 'bz.pages', 'bz.seo']);
+    var app = angular.module('app', ['bz']);
 
     app.config(['$routeSegmentProvider', '$locationProvider', 'bzConfigProvider', '$logProvider', 'bzUserProvider', '$httpProvider',
-        function($routeSegmentProvider, $locationProvider, config, $logProvider, bzUser, $httpProvider) {
+        function($routeSegmentProvider, $locationProvider, bzConfig, $logProvider, bzUser, $httpProvider) {
         $locationProvider
             .html5Mode(false)
             .hashPrefix('!');
 
         // for apiari
-        //$httpProvider.defaults.withCredentials = false;
+        $httpProvider.defaults.withCredentials = false;
+
+
+        $routeSegmentProvider.options.autoLoadTemplates = true;
 
         // если включено, то при старте приложения будет грузить данные про текущею сессию
-        config.checkSessionOnStart(true);
+        bzConfig.checkSessionOnStart(true);
 
         //$logProvider.debugEnabled(false);
 
@@ -23,22 +26,22 @@ require(['angular', 'bz', 'bz/pages', 'bz/seo', 'angular-locale'], function(angu
                 resolve: {
                     permissions: bzUser.access()
                 },
-                resolveFailed: config.errorResolver()
+                resolveFailed: bzConfig.errorResolver()
             })
-            .when('/post-:id', 'pageById')
-            .segment('pageById', {
-                template: '{{page.title|language}}',
+            .when('/testpage', 'test')
+            .segment('test', {
+                templateUrl: 'views/testpage.html',
                 dependencies: ['id'],
-                controller: 'bz.pages.controllers.page',
+                controller: 'test',
                 resolve: {
                     permissions: bzUser.access(['admin.access']),
-                    page: ['bz.pages.factories.page', '$q', '$routeParams', function(PageFactory, $q, $routeParams) {
+                    page: ['$q', function($q) {
                         var defer = $q.defer();
-                        PageFactory.get({ id: $routeParams.id }, defer.resolve, defer.reject);
+                        defer.resolve('Hello, world!');
                         return defer.promise;
                     }]
                 },
-                resolveFailed: config.errorResolver()
+                resolveFailed: bzConfig.errorResolver()
             });
     }]);
 
@@ -46,7 +49,11 @@ require(['angular', 'bz', 'bz/pages', 'bz/seo', 'angular-locale'], function(angu
         //console.info($user.has('admin.access'))
     }]);
 
-    app.controller('test', ['$scope', 'bzUser', function($scope, $user) {
+    app.controller('test', ['$scope', 'bzUser', 'page', function($scope, $user, page) {
+        $scope.page = page;
+    }]);
+
+    app.controller('login', ['$scope', 'bzUser', function($scope, $user) {
         $scope.login = function(user) {
             $user.$login(user);
         }
