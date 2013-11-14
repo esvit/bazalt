@@ -20,8 +20,8 @@ define([
         $httpProvider.responseInterceptors.push(status403interceptor);
     }]);
 
-    app.run(['$rootScope', 'bzLanguage', 'bzConfig', '$location', '$log', '$route', 'bzUser',
-        function($rootScope, $language, $config, $location, $log, $route, $user) {
+    app.run(['$rootScope', 'bzLanguage', 'bzConfig', '$location', '$log', '$route', 'bzUser', '$routeSegment',
+        function($rootScope, $language, $config, $location, $log, $route, $user, $routeSegment) {
         $log.debug('Thanks for using Bazalt CMS (http://bazalt-cms.com) by Vitalii Savchuk (esvit666@gmail.com)');
 
         $rootScope.$language = $language;
@@ -32,10 +32,11 @@ define([
         $user.$change(function(e) {
             var olduser = e.old,
                 newuser = e.user;
+
             if (angular.isDefined(olduser) &&
                 (olduser.id != newuser.id || !angular.equals(olduser.permissions, newuser.permissions))) {
                 $log.debug('User changed:', newuser, 'old:', olduser);
-                $route.reload();
+                $routeSegment.reload();
             }
         });
 

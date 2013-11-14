@@ -21,8 +21,9 @@ define([
             }, error);
         };
         sessionObject.prototype.$logout = function(callback, error) {
-            this.$$logout(function() {
-                $session.$set(angular.copy(guestData));
+            sessionObject.$logout({}, function(data) {
+                data = angular.extend(angular.copy(guestData), data);
+                $session.$set(data);
                 callback = callback || angular.noop;
                 callback($session);
             }, error);

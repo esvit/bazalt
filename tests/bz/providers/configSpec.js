@@ -48,6 +48,22 @@ define(['angular', 'angular-mocks', 'bz/providers/bzConfig'], function (angular)
 
             expect(config.languages()).toEqual(['en', 'uk']);
         }]));
+
+        it('test errorResolver', inject(['bzConfig', '$injector', '$rootScope', function (bzConfig, $injector, $rootScope) {
+            var err = provider.errorResolver();
+
+            expect(err.template).toBeDefined();
+            expect(err.controller).toBeDefined();
+
+            var scope = $rootScope.$new();
+            $injector.invoke(err.controller, null, {
+                '$scope': scope,
+                'error': { 'status': 403 }
+            });
+
+            expect(scope.error).toEqual({ 'status': 403 });
+            expect(scope.templateUrl).toEqual('views/error/403.html');
+        }]));
     });
 
 });
