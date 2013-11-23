@@ -31,6 +31,16 @@ Technologies (Integrated features)
 * PHP
     - [API Server](https://github.com/esvit/bazalt-api)
 
+How to create site on Bazalt CMS
+--------------------------------
+```
+npm install -g yo generator-bazalt
+yo bazalt
+grunt less
+grunt server
+```
+
+
 Doc
 ---
 
