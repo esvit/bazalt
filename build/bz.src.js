@@ -22682,6 +22682,16 @@ define('bz/directives/bzLoadingContainer',[
     });
 
 });
+define('bz/filters/translate',['bz/app'], function(app) {
+
+    app.filter('translate', [function() {
+        return function(string, scope) {
+            console.info(scope);
+            return string;
+        };
+    }]);
+
+});
 define('bz/filters/language',[
     'bz/app',
 
@@ -22715,6 +22725,7 @@ define('bz',[
     'bz/directives/a',
     'bz/directives/bzLoadingContainer',
 
+    'bz/filters/translate',
     'bz/filters/language'
 ], function(app, status403interceptor) {
 

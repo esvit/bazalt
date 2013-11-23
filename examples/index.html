@@ -49,7 +49,7 @@
             </div>
 
             <div class="col col-lg-3 ng-cloak">
-
+                {{'Test'|translate}}
                 <form ng-if="$user.is_guest" ng-controller="login" ng-submit="login(user)" ng-init="user = { 'email': 'admin', 'password': '1' }">
                     <div class="form-group">
                         <label for="email">Login / Email:</label>
