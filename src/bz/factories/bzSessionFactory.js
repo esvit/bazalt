@@ -7,7 +7,7 @@ define([
     function ($resource, config, $cookieStore, $q, $log) {
         var sessionObject = $resource(config.resource('/auth/session'), {}, {
             'renew':    { method: 'PUT' },
-            'changeRole':    { method: 'PUT', 'action': 'changeRole' },
+            'changeRole':    { method: 'PUT', params: {'action': 'changeRole'} },
             '$login':    { method: 'POST' },
             '$logout':   { method: 'DELETE' }
         }), defer = $q.defer(),
