@@ -54,7 +54,10 @@ define([
         };
         sessionObject.prototype.has = function(permission) {
             var permissions = this.permissions || [];
-            return permissions.indexOf(permission) >= 0;
+            if(!angular.isArray(permission)) {
+                permission = [permission];
+            }
+            return !permission.diff(permissions).length;
         };
         $log.debug('Session in cookie:', $cookieStore.get('baAuthUser'));
 
