@@ -230,6 +230,7 @@ define('bz/factories/bzSessionFactory',[
     function ($resource, config, $cookieStore, $q, $log) {
         var sessionObject = $resource(config.resource('/auth/session'), {}, {
             'renew':    { method: 'PUT' },
+            'changeRole':    { method: 'PUT', 'action': 'changeRole' },
             '$login':    { method: 'POST' },
             '$logout':   { method: 'DELETE' }
         }), defer = $q.defer(),
@@ -266,6 +267,13 @@ define('bz/factories/bzSessionFactory',[
         };
         sessionObject.prototype.$change = function(callback) {
             return defer.promise.then(null, null, callback);
+        };
+        sessionObject.prototype.$changeRole = function(roleId, callback, error) {
+            sessionObject.changeRole({'role_id': roleId}, function(result) {
+                $session.$set(result);
+                callback = callback || angular.noop;
+                callback($session);
+            }, error);
         };
         sessionObject.prototype.has = function(permission) {
             var permissions = this.permissions || [];
@@ -427,9 +435,9 @@ define('bz/directives/bzLoadingContainer',[
 });
 define('bz/filters/translate',['bz/app'], function(app) {
 
-    app.filter('translate', [function() {
-        return function(string, scope) {
-            console.info(scope);
+    app.filter('translate', ['$rootScope', function($rootScope) {
+        return function(string) {
+            var translateBundle = $rootScope.$localeBundle || {};
             return string;
         };
     }]);
