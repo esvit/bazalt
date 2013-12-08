@@ -51,6 +51,16 @@ require(['angular', 'bz', 'angular-locale'], function(angular) {
 
     app.controller('test', ['$scope', 'bzUser', 'page', function($scope, $user, page) {
         $scope.page = page;
+        
+      $scope.image = {
+        //'url': 'http://placehold.it/100x50',
+        'thumbnails': {
+            //'default': 'http://placehold.it/100x100',
+            /*'small': 'http://placehold.it/200x200',
+            'medium': 'http://placehold.it/400x400',
+            'large': 'http://placehold.it/800x800'*/
+        }
+      };
     }]);
 
     app.controller('login', ['$scope', 'bzUser', function($scope, $user) {
