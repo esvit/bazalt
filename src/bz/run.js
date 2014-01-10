@@ -10,6 +10,7 @@ define([
 
     'bz/directives/a',
     'bz/directives/bzLoadingContainer',
+    'bz/directives/bzThumb',
 
     'bz/filters/translate',
     'bz/filters/language'
