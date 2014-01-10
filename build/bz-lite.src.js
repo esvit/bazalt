@@ -503,11 +503,7 @@ define('bz/directives/bzThumb',[
                    'only screen and (min-resolution: 2dppx)'
     });
 
-<<<<<<< HEAD
     app.directive('bzThumb', ['presetMediaQueries', '$timeout', '$parse', function(presetMediaQueries, $timeout, $parse) {
-=======
-    app.directive('bzThumb', ['presetMediaQueries', '$timeout', function(presetMediaQueries, $timeout) {
->>>>>>> 102a23fbf67f8a6b6c486b0584ba21640f9ef253
       return {
         restrict: 'A',
         priority: 100,
@@ -517,11 +513,8 @@ define('bz/directives/bzThumb',[
             'presets': '@'
         },
         link: function(scope, elm, attrs) {
-<<<<<<< HEAD
             var presets;
 
-=======
->>>>>>> 102a23fbf67f8a6b6c486b0584ba21640f9ef253
           // Double-check that the matchMedia function matchMedia exists
           if (typeof(matchMedia) !== 'function') {
             throw "Function 'matchMedia' does not exist";
@@ -582,13 +575,10 @@ define('bz/directives/bzThumb',[
                   });
                 });
 
-<<<<<<< HEAD
                 
                if (lastTrueQuerySet && presets.hasOwnProperty(lastTrueQuerySet)) {
                     console.info(presets[lastTrueQuerySet]);
                }
-=======
->>>>>>> 102a23fbf67f8a6b6c486b0584ba21640f9ef253
                 elm.attr('src', lastTrueQuerySet || scope.image);
 
                 waiting = false;
@@ -619,12 +609,9 @@ define('bz/directives/bzThumb',[
             // updateFromQuery(querySets);
             // });
           });
-<<<<<<< HEAD
           scope.$watch('presets', function(value) {
             presets = $parse(value)(scope);
           });
-=======
->>>>>>> 102a23fbf67f8a6b6c486b0584ba21640f9ef253
         }
       };
     }]);
