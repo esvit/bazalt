@@ -101,6 +101,48 @@ define('bz/interceptors/status403',[
         }];
 
 });
+define('bz/interceptors/jwtInterceptor',[
+    'angular',
+    'bz/app'
+], function (angular, app) {
+    'use strict';
+
+    app.factory('jwtInterceptor', ['$rootScope', '$q', '$window', '$cookieStore', function ($rootScope, $q, $window, $cookieStore) {
+        var setItem = ($window.sessionStorage) ? function (key, value) {
+            $window.sessionStorage[key] = value;
+        } : function (key, value) {
+            $cookieStore.put(key, value);
+        }, getItem = ($window.sessionStorage) ? function (key) {
+            return $window.sessionStorage[key] || null;
+        } : function(key) {
+            return $cookieStore.get(key);
+        };
+        return {
+            request: function (config) {
+                var token = getItem('token');
+                config.headers = config.headers || {};
+                if (token != 'undefined' && angular.isDefined(token)) {
+                    config.headers.Authorization = 'Bearer ' + token;
+                }
+                return config;
+            },
+            response: function (response) {
+                if (response.status === 401) {
+                    // handle the case where the user is not authenticated
+                }
+                return response || $q.when(response);
+            },
+            setToken: function(token) {
+                setItem('token', token);
+            }
+        };
+    }]);
+
+    app.config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.interceptors.push('jwtInterceptor');
+    }]);
+
+});
 define('bz/providers/bzConfig',[
     'angular',
     'bz/app'
@@ -226,8 +268,8 @@ define('bz/factories/bzSessionFactory',[
 ], function(angular, app) {
     'use strict';
 
-    app.factory('bzSessionFactory', ['$resource', 'bzConfig', '$cookieStore', '$q', '$log',
-    function ($resource, config, $cookieStore, $q, $log) {
+    app.factory('bzSessionFactory', ['$resource', 'bzConfig', '$cookieStore', '$q', '$log', 'jwtInterceptor',
+    function ($resource, config, $cookieStore, $q, $log, jwtInterceptor) {
         var sessionObject = $resource(config.resource('/auth/session'), {}, {
             'renew':    { method: 'PUT' },
             'changeRole':    { method: 'PUT', params: {'action': 'changeRole'} },
@@ -248,6 +290,7 @@ define('bz/factories/bzSessionFactory',[
             sessionObject.$logout({}, function(data) {
                 data = angular.extend(angular.copy(guestData), data);
                 $session.$set(data);
+                jwtInterceptor.setToken(undefined);
                 callback = callback || angular.noop;
                 callback($session);
             }, error);
@@ -286,6 +329,10 @@ define('bz/factories/bzSessionFactory',[
 
         $session = new sessionObject($cookieStore.get('baAuthUser') || angular.copy(guestData));
         $session.$change(function() {
+            if ($session.jwt_token) {
+                $log.info('Set JWT token: ' + $session.jwt_token);
+                jwtInterceptor.setToken($session.jwt_token);
+            }
             $log.debug('Set session cookie:', $session);
             $cookieStore.put('baAuthUser', $session);
         });
@@ -471,6 +518,7 @@ define('bz',[
     'bz/app',
 
     'bz/interceptors/status403',
+    'bz/interceptors/jwtInterceptor',
 
     'bz/providers/bzLanguage',
     'bz/providers/bzConfig',

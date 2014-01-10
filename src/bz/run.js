@@ -2,6 +2,7 @@ define([
     'bz/app',
 
     'bz/interceptors/status403',
+    'bz/interceptors/jwtInterceptor',
 
     'bz/providers/bzLanguage',
     'bz/providers/bzConfig',

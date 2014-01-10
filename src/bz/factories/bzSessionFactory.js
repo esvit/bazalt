@@ -3,8 +3,8 @@ define([
 ], function(angular, app) {
     'use strict';
 
-    app.factory('bzSessionFactory', ['$resource', 'bzConfig', '$cookieStore', '$q', '$log',
-    function ($resource, config, $cookieStore, $q, $log) {
+    app.factory('bzSessionFactory', ['$resource', 'bzConfig', '$cookieStore', '$q', '$log', 'jwtInterceptor',
+    function ($resource, config, $cookieStore, $q, $log, jwtInterceptor) {
         var sessionObject = $resource(config.resource('/auth/session'), {}, {
             'renew':    { method: 'PUT' },
             'changeRole':    { method: 'PUT', params: {'action': 'changeRole'} },
@@ -25,6 +25,7 @@ define([
             sessionObject.$logout({}, function(data) {
                 data = angular.extend(angular.copy(guestData), data);
                 $session.$set(data);
+                jwtInterceptor.setToken(undefined);
                 callback = callback || angular.noop;
                 callback($session);
             }, error);
@@ -63,6 +64,10 @@ define([
 
         $session = new sessionObject($cookieStore.get('baAuthUser') || angular.copy(guestData));
         $session.$change(function() {
+            if ($session.jwt_token) {
+                $log.info('Set JWT token: ' + $session.jwt_token);
+                jwtInterceptor.setToken($session.jwt_token);
+            }
             $log.debug('Set session cookie:', $session);
             $cookieStore.put('baAuthUser', $session);
         });
