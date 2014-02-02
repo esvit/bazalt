@@ -400,7 +400,7 @@ define('bz/providers/bzUser',[
 
         // @todo add tests
         this.access = function(permissions) {
-            return ['$q', 'bzUser', '$log', function($q, $user, $log) {
+            return ['$q', 'bzUser', '$log', '$rootScope', function($q, $user, $log, $rootScope) {
                 if (!angular.isArray(permissions)) {
                     permissions = [];
                 }
