@@ -23,6 +23,7 @@ define([
                     deferred.resolve(permissions);
                 } else {
                     $log.debug('User haven\'t permissions:', diff);
+                    $rootScope.$emit('$user:pemissionDenied', diff);
                     deferred.reject({
                         'status': '403',
                         'message': 'Permission denied',
