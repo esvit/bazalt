@@ -23,7 +23,7 @@ define([
         };
         sessionObject.prototype.$logout = function(callback, error) {
             sessionObject.$logout({}, function(data) {
-                data = angular.extend(angular.copy(guestData), data);
+                data = angular.copy(guestData);
                 $session.$set(data);
                 jwtInterceptor.setToken(undefined);
                 callback = callback || angular.noop;
