@@ -22881,7 +22881,7 @@ define('bz/filters/translate',['bz/app'], function(app) {
     app.filter('translate', ['$rootScope', function($rootScope) {
         return function(string) {
             var translateBundle = $rootScope.$localeBundle || {};
-            return string;
+            return translateBundle[string] || string;
         };
     }]);
 
