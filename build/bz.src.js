@@ -22365,12 +22365,12 @@ define('bz/interceptors/jwtInterceptor',[
     'use strict';
 
     app.factory('jwtInterceptor', ['$rootScope', '$q', '$window', '$cookieStore', function ($rootScope, $q, $window, $cookieStore) {
-        var setItem = ($window.sessionStorage) ? function (key, value) {
-            $window.sessionStorage[key] = value;
+        var setItem = ($window.localStorage) ? function (key, value) {
+            $window.localStorage[key] = value;
         } : function (key, value) {
             $cookieStore.put(key, value);
-        }, getItem = ($window.sessionStorage) ? function (key) {
-            return $window.sessionStorage[key] || null;
+        }, getItem = ($window.localStorage) ? function (key) {
+            return $window.localStorage[key] || null;
         } : function(key) {
             return $cookieStore.get(key);
         };
