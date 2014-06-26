@@ -22900,9 +22900,9 @@ define('bz/filters/language',[
             }
             language = language || bzLanguage.id();
             if (!value[language] && value.orig) {
-                return value[value.orig] + ' (' + value.orig + ')';
+                return value[value.orig];// + ' (' + value.orig + ')';
             }
-            return value[language] || value;
+            return value[language] || null;
         }
     }]);
 
