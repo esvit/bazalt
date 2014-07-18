@@ -24,7 +24,7 @@ define([
                     }
                 }
 
-                if (allowed) {
+                if (permissionsSet.length == 0 || allowed) {
                     deferred.resolve(permissionsSet);
                 } else {
                     $log.debug('User haven\'t permissions:', diff);
