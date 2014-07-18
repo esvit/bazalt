@@ -22656,27 +22656,33 @@ define('bz/providers/bzUser',[
     app.provider('bzUser', [function() {
 
         // @todo add tests
-        this.access = function(permissions) {
-            return ['$q', 'bzUser', '$log', '$rootScope', function($q, $user, $log, $rootScope) {
-                if (!angular.isArray(permissions)) {
-                    permissions = [];
+        this.access = function () {
+            var permissionsSet = arguments;
+            return ['$q', 'bzUser', '$log', '$rootScope', function ($q, $user, $log, $rootScope) {
+                var deferred = $q.defer();
+                var allowed = false;
+                for (var i = 0, diff = []; i < permissionsSet.length; i++) {
+                    diff = permissionsSet[i].diff($user.permissions || []);
+                    allowed = (!diff.length);
+                    if (allowed) {
+                        break;
+                    }
                 }
-                var deferred = $q.defer(),
-                    diff = permissions.diff($user.permissions || []);
 
-                if (!diff.length) {
-                    deferred.resolve(permissions);
+                if (allowed) {
+                    deferred.resolve(permissionsSet);
                 } else {
                     $log.debug('User haven\'t permissions:', diff);
                     $rootScope.$emit('$user:pemissionDenied', diff);
                     deferred.reject({
                         'status': '403',
                         'message': 'Permission denied',
-                        'permissions': permissions,
+                        'permissions': permissionsSet,
                         'diff': diff,
                         'user': $user
                     });
                 }
+
                 return deferred.promise;
             }];
         };
